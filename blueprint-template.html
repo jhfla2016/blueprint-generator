@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visibility Blueprint & Revenue Growth Roadmap - {{BUSINESS_NAME}}</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.5;
+            color: #0f172a;
+            background: white;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .page {
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.1in 0.65in 0.4in 0.65in;
+            background: white;
+            position: relative;
+        }
+        
+        @media print {
+            body { margin: 0; background: white; }
+            .page { 
+                margin: 0; 
+                box-shadow: none; 
+                page-break-inside: avoid;
+            }
+        }
+        
+        /* SCREEN VIEW - Clean flowing layout */
+        @media screen {
+            .page {
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                margin-bottom: 2rem;
+                border-bottom: 3px solid #e2e8f0;
+                padding-bottom: 1.5rem;
+            }
+        }
+        
+        /* ==================== LOGO ==================== */
+        .logo-container {
+            text-align: center;
+            margin-bottom: 0.75rem;
+            padding-top: 0;
+        }
+        
+        .logo {
+            max-width: 140px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        /* ==================== CRISP CLEAR BLACK TEXT ==================== */
+        .main-title {
+            font-size: 1.75rem;
+            font-weight: 900;
+            text-align: center;
+            color: #1e293b;
+            margin: 0.4rem 0 0.2rem;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+        
+        .business-name-title {
+            font-size: 2.4rem;
+            font-weight: 900;
+            text-align: center;
+            color: #D4AF37;
+            margin: 0.65rem 0 0.85rem;
+            letter-spacing: -0.03em;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            margin: 0.5rem 0 0.75rem;
+            font-weight: 900;
+            color: #1e293b;
+            border-bottom: 4px solid #D4AF37;
+            padding-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .section-blurb {
+            font-size: 0.95rem;
+            color: #64748b;
+            margin: 0.75rem 0 1.5rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 0.65rem;
+            font-weight: 900;
+            color: #1e293b;
+        }
+        
+        /* ==================== GOLD BOXES - PAGE 1 ONLY ==================== */
+        .client-info-box {
+            background: linear-gradient(135deg, #F9F6EE 0%, #F4E5C2 50%, #F9F6EE 100%);
+            border: 3px solid #D4AF37;
+            border-radius: 14px;
+            padding: 1.35rem;
+            margin: 1rem auto;
+            max-width: 500px;
+            box-shadow: 0 4px 12px rgba(212,175,55,0.15);
+        }
+        
+        .client-info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.7rem;
+            padding: 0.55rem 0.75rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        
+        .client-info-item:last-child { margin-bottom: 0; }
+        
+        .client-info-label {
+            font-weight: 900;
+            color: #D4AF37;
+            min-width: 90px;
+            font-size: 0.88rem;
+        }
+        
+        .client-info-value {
+            color: #0f172a;
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+        
+        /* ==================== 3D OCTANE BUTTON SCORE CIRCLE ==================== */
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #EF4444 0%, #DC2626 50%, #B91C1C 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.25rem auto;
+            box-shadow: 
+                0 10px 25px rgba(220, 38, 38, 0.4),
+                0 5px 12px rgba(185, 28, 28, 0.3),
+                inset 0 -8px 16px rgba(185, 28, 28, 0.5),
+                inset 0 8px 16px rgba(254, 202, 202, 0.3);
+            border: 4px solid rgba(185, 28, 28, 0.6);
+            position: relative;
+        }
+        
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 20%;
+            right: 20%;
+            height: 30%;
+            background: radial-gradient(ellipse at center, rgba(254,202,202,0.4) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .score-inner {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .score-number {
+            font-size: 5rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 
+                0 2px 0 rgba(185,28,28,0.8),
+                0 4px 8px rgba(0,0,0,0.4);
+            line-height: 1;
+        }
+        
+        .score-label {
+            font-size: 1.6rem;
+            color: rgba(255,255,255,0.95);
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        /* ==================== BOXES ==================== */
+        .alert-box {
+            background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
+            border: 2px solid #EF4444;
+            border-radius: 14px;
+            padding: 1.6rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.12);
+        }
+        
+        .alert-title {
+            font-size: 1.55rem;
+            font-weight: 900;
+            color: #DC2626;
+            margin-bottom: 0.7rem;
+        }
+        
+        .alert-text {
+            font-size: 1.2rem;
+            color: #991B1B;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #F9F6EE 0%, #F4E5C2 50%, #F9F6EE 100%);
+            border: 3px solid #D4AF37;
+            border-left: 6px solid #D4AF37;
+            border-radius: 14px;
+            padding: 1.6rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(212,175,55,0.15);
+        }
+        
+        .info-box h3 {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #D4AF37;
+            margin-bottom: 1.1rem;
+        }
+        
+        .info-box ul {
+            margin-left: 0;
+            list-style: none;
+        }
+        
+        .info-box li {
+            color: #0f172a;
+            font-weight: 600;
+            margin-bottom: 0.7rem;
+            padding-left: 1.6rem;
+            position: relative;
+            line-height: 1.65;
+            font-size: 0.92rem;
+        }
+        
+        .info-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10B981;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+        
+        /* ==================== PLATFORM CARDS ==================== */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.1rem;
+            margin: 1.65rem 0;
+        }
+        
+        .platform-card {
+            border: 2px solid #E2E8F0;
+            border-radius: 14px;
+            padding: 1.35rem;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+        
+        .platform-card.red {
+            border-left: 7px solid #EF4444;
+            background: linear-gradient(135deg, #FEF2F2 0%, white 100%);
+        }
+        
+        .platform-card.yellow {
+            border-left: 7px solid #F59E0B;
+            background: linear-gradient(135deg, #FFFBEB 0%, white 100%);
+        }
+        
+        .platform-card.green {
+            border-left: 7px solid #10B981;
+            background: linear-gradient(135deg, #F0FDF4 0%, white 100%);
+        }
+        
+        .platform-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.55rem;
+        }
+        
+        .platform-name {
+            font-weight: 900;
+            font-size: 1.08rem;
+            color: #0f172a;
+        }
+        
+        .platform-score {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .score-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #FCD34D 0%, #F59E0B 100%);
+            box-shadow: 
+                0 2px 4px rgba(245,158,11,0.3),
+                inset 0 1px 2px rgba(252,211,77,0.6);
+        }
+        
+        .score-dot.red {
+            background: linear-gradient(145deg, #EF4444 0%, #DC2626 100%);
+            box-shadow: 
+                0 2px 4px rgba(239,68,68,0.3),
+                inset 0 1px 2px rgba(254,202,202,0.6);
+        }
+        
+        .score-dot.yellow {
+            background: linear-gradient(145deg, #FCD34D 0%, #F59E0B 100%);
+            box-shadow: 
+                0 2px 4px rgba(245,158,11,0.3),
+                inset 0 1px 2px rgba(252,211,77,0.6);
+        }
+        
+        .score-dot.green {
+            background: linear-gradient(145deg, #34D399 0%, #10B981 100%);
+            box-shadow: 
+                0 2px 4px rgba(16,185,129,0.3),
+                inset 0 1px 2px rgba(167,243,208,0.6);
+        }
+        
+        .platform-category {
+            font-size: 0.72rem;
+            color: #64748b;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.55rem;
+        }
+        
+        .platform-finding {
+            font-size: 0.88rem;
+            color: #475569;
+            line-height: 1.55;
+            font-weight: 500;
+        }
+        
+        /* ==================== COMPETITOR CARDS ==================== */
+        .competitor-card {
+            border: 3px solid #10B981;
+            border-radius: 14px;
+            padding: 1.6rem;
+            margin-bottom: 1.45rem;
+            background: linear-gradient(135deg, #ECFDF5 0%, white 100%);
+            box-shadow: 0 4px 12px rgba(16,185,129,0.12);
+        }
+        
+        .competitor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.1rem;
+        }
+        
+        .competitor-name {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #1e293b;
+        }
+        
+        .competitor-score-badge {
+            background: linear-gradient(145deg, #10B981 0%, #059669 100%);
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 900;
+            padding: 0.55rem 1.2rem;
+            border-radius: 11px;
+            box-shadow: 0 4px 12px rgba(16,185,129,0.25);
+        }
+        
+        .competitor-url {
+            color: #0891b2;
+            font-size: 0.88rem;
+            margin-bottom: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .competitor-section {
+            margin-top: 1.35rem;
+            padding-top: 1.1rem;
+            border-top: 2px solid rgba(16,185,129,0.2);
+        }
+        
+        .competitor-section:first-of-type {
+            border-top: none;
+            padding-top: 0;
+            margin-top: 0;
+        }
+        
+        .competitor-section-title {
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 0.55rem;
+            font-size: 1.05rem;
+        }
+        
+        .competitor-section p {
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+        
+        /* ==================== KEYWORD TABLE ==================== */
+        .keyword-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 1.5rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .keyword-table th {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 0.9rem;
+            text-align: left;
+            font-weight: 900;
+            font-size: 0.88rem;
+        }
+        
+        .keyword-table td {
+            padding: 0.85rem;
+            border-bottom: 1px solid #e2e8f0;
+            background: white;
+            font-size: 0.88rem;
+        }
+        
+        .keyword-table tr:hover td {
+            background: #f8fafc;
+        }
+        
+        .keyword-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* ==================== QUICK WIN CARDS ==================== */
+        .quick-win {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-left: 6px solid #0891b2;
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+        
+        .quick-win-header {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 0.65rem;
+        }
+        
+        .quick-win-meta {
+            color: #64748b;
+            font-size: 0.88rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .quick-win ol {
+            margin-left: 1.5rem;
+            margin-top: 0.85rem;
+        }
+        
+        .quick-win li {
+            margin-bottom: 0.65rem;
+            line-height: 1.6;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .tools-box {
+            margin-top: 1.25rem;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 10px;
+            border-left: 3px solid #0891b2;
+        }
+        
+        /* ==================== ROI BOXES ==================== */
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .roi-card {
+            background: white;
+            padding: 1.75rem;
+            border-radius: 14px;
+            border: 3px solid #10b981;
+            box-shadow: 0 4px 12px rgba(16,185,129,0.15);
+        }
+        
+        .roi-card h4 {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 0.85rem;
+        }
+        
+        .roi-profit {
+            font-size: 1.85rem;
+            color: #10b981;
+            font-weight: 900;
+            display: block;
+            margin: 0.75rem 0;
+        }
+        
+        /* ==================== PRICING BOX ==================== */
+        .price-box {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 2rem 0;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+            position: relative;
+            border: 3px solid #D4AF37;
+        }
+        
+        .new-year-badge {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+            color: white;
+            padding: 0.85rem 1.75rem;
+            border-radius: 50px;
+            font-weight: 900;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            font-size: 1.15rem;
+            box-shadow: 0 6px 16px rgba(212,175,55,0.4);
+        }
+        
+        .price-strike {
+            font-size: 1.65rem;
+            text-decoration: line-through;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+        
+        .price-current {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #10b981;
+            margin: 1.25rem 0;
+            line-height: 1;
+        }
+        
+        .savings-badge {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 900;
+            display: inline-block;
+            margin-top: 1.25rem;
+            font-size: 1.25rem;
+            box-shadow: 0 8px 20px rgba(239,68,68,0.4);
+        }
+        
+        /* ==================== CTA BUTTON ==================== */
+        .cta-button {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 1.75rem 3.5rem;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            margin: 2.5rem auto;
+            max-width: 550px;
+            box-shadow: 0 12px 32px rgba(16,185,129,0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(16,185,129,0.5);
+        }
+        
+        /* ==================== GUARANTEE BOX ==================== */
+        .guarantee-box {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 3px solid #10b981;
+            border-radius: 18px;
+            padding: 2.25rem;
+            margin: 2.5rem 0;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(16,185,129,0.2);
+        }
+        
+        .guarantee-box h3 {
+            font-size: 1.85rem;
+            color: #065f46;
+            margin-bottom: 1.1rem;
+        }
+        
+        .guarantee-box p {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #047857;
+            font-weight: 600;
+        }
+        
+        /* ==================== SYSTEM FEATURE BOX ==================== */
+        .system-feature {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 1.75rem;
+            margin-bottom: 1.35rem;
+        }
+        
+        .system-feature h4 {
+            font-weight: 900;
+            color: #0f172a;
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .system-feature p {
+            font-size: 0.92rem;
+            color: #64748b;
+            line-height: 1.65;
+        }
+        
+        /* ==================== MONTHLY VALUE BOX ==================== */
+        .monthly-value-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 3px solid #0891b2;
+            border-radius: 14px;
+            padding: 1.75rem;
+            margin: 1.75rem 0;
+        }
+        
+        .value-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .value-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .value-item h4 {
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 0.65rem;
+        }
+        
+        .value-item p {
+            font-size: 0.92rem;
+            color: #475569;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+        
+        .value-item .value-tag {
+            font-size: 0.88rem;
+            color: #0891b2;
+            font-weight: 700;
+        }
+        
+        .total-value {
+            background: #0f172a;
+            color: white;
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        
+        .total-value-amount {
+            font-size: 1.65rem;
+            font-weight: 900;
+            color: #10b981;
+            margin: 0.5rem 0;
+        }
+        
+        /* ==================== NO FOOTER ==================== */
+        .footer {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER PAGE -->
+<div class="page">
+    <div class="logo-container">
+        <img src="png_take_over_marketing.png" alt="Logo" class="logo">
+    </div>
+    
+    <h1 class="main-title">Your Free Visibility Blueprint &<br>Revenue Growth Roadmap is Here!</h1>
+    
+    <div class="business-name-title">{{BUSINESS_NAME}}</div>
+    
+    <div class="client-info-box">
+        <div class="client-info-item">
+            <div class="client-info-label">Owner:</div>
+            <div class="client-info-value">{{OWNER_NAME}}</div>
+        </div>
+        <div class="client-info-item">
+            <div class="client-info-label">Website:</div>
+            <div class="client-info-value">{{WEBSITE}}</div>
+        </div>
+        <div class="client-info-item">
+            <div class="client-info-label">Email:</div>
+            <div class="client-info-value">{{EMAIL}}</div>
+        </div>
+    </div>
+    
+    <div class="score-circle">
+        <div class="score-inner">
+            <div class="score-number">{{SCORE}}</div>
+            <div class="score-label">/100</div>
+        </div>
+    </div>
+    
+    <div class="alert-box">
+        <div class="alert-title">⚠️ CRITICAL AI VISIBILITY CRISIS DETECTED</div>
+        <div class="alert-text">You're invisible to {{INVISIBLE_PERCENT}}% of 2025's AI-powered search traffic</div>
+        <p style="margin-top: 1.1rem; font-size: 1.05rem; color: #7F1D1B; font-weight: 700;">
+            ChatGPT, Gemini, Perplexity & Voice AI are dominating 2025. You're missing out BIG.
+        </p>
+    </div>
+    
+    <div class="info-box">
+        <h3>📊 What's Inside Your Free Visibility Blueprint:</h3>
+        <ul>
+            <li><strong>Complete 10-Platform AI Visibility Audit</strong> — See exactly where you rank on ChatGPT, Perplexity, Gemini, Meta AI, Google, YouTube, Siri, Alexa & more</li>
+            <li><strong>Competitor Intelligence Report</strong> — Who's winning, what they're doing right, and your exact battle plan to compete and dominate in 2025</li>
+            <li><strong>20 High-Value Keyword Opportunities</strong> — The exact AI & voice search terms your customers are using that you're completely missing</li>
+            <li><strong>8 DIY Implementation Blueprints</strong> — Step-by-step guides to fix it yourself (spoiler: it's a LOT of work)</li>
+            <li><strong>Done-For-You Solution</strong> — Our proven 24/7 Traffic Domination Ecosystem™ that guarantees results in 90 days</li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- PAGES 2-3: COMPETITOR ANALYSIS -->
+<div class="page">
+    <h2>🔍 While You're Invisible, Here's Who's Dominating AI Search</h2>
+    
+    <p class="section-blurb">
+        These competitors are capturing YOUR customers on ChatGPT, Perplexity, Gemini, and voice assistants. 
+        Here's what they're doing right — and your exact playbook to compete and win in 2025.
+    </p>
+    
+    <div class="competitor-card">
+        <div class="competitor-header">
+            <div>
+                <div class="competitor-name">🥇 {{COMPETITOR_1_NAME}}</div>
+                <div class="competitor-url">{{COMPETITOR_1_URL}}</div>
+            </div>
+            <div class="competitor-score-badge">{{COMPETITOR_1_SCORE}}/100</div>
+        </div>
+        
+        <div class="competitor-section">
+            <div class="competitor-section-title">✅ What They're Doing Right:</div>
+            <p style="color: #475569;">{{COMPETITOR_1_STRENGTH}}</p>
+        </div>
+        
+        <div class="competitor-section">
+            <div class="competitor-section-title">🎯 How You Can Compete and Win:</div>
+            <p style="color: #0f172a; font-weight: 600;">{{COMPETITOR_1_STRATEGY}}</p>
+        </div>
+    </div>
+    
+    <div class="competitor-card">
+        <div class="competitor-header">
+            <div>
+                <div class="competitor-name">🥈 {{COMPETITOR_2_NAME}}</div>
+                <div class="competitor-url">{{COMPETITOR_2_URL}}</div>
+            </div>
+            <div class="competitor-score-badge">{{COMPETITOR_2_SCORE}}/100</div>
+        </div>
+        
+        <div class="competitor-section">
+            <div class="competitor-section-title">✅ What They're Doing Right:</div>
+            <p style="color: #475569;">{{COMPETITOR_2_STRENGTH}}</p>
+        </div>
+        
+        <div class="competitor-section">
+            <div class="competitor-section-title">🎯 How You Can Compete and Win:</div>
+            <p style="color: #0f172a; font-weight: 600;">{{COMPETITOR_2_STRATEGY}}</p>
+        </div>
+    </div>
+    
+    <div class="competitor-card">
+        <div class="competitor-header">
+            <div>
+                <div class="competitor-name">🥉 {{COMPETITOR_3_NAME}}</div>
+                <div class="competitor-url">{{COMPETITOR_3_URL}}</div>
+            </div>
+            <div class="competitor-score-badge">{{COMPETITOR_3_SCORE}}/100</div>
+        </div>
+        
+        <div class="competitor-section">
+            <div class="competitor-section-title">✅ What They're Doing Right:</div>
+            <p style="color: #475569;">{{COMPETITOR_3_STRENGTH}}</p>
+        </div>
+        
+        <div class="competitor-section">
+            <div class="competitor-section-title">🎯 How You Can Compete and Win:</div>
+            <p style="color: #0f172a; font-weight: 600;">{{COMPETITOR_3_STRATEGY}}</p>
+        </div>
+    </div>
+    
+    <div class="alert-box">
+        <h3 style="color: #DC2626; font-size: 1.35rem; margin-bottom: 0.7rem;">💰 The AI Revenue Gap</h3>
+        <p style="font-size: 1.15rem; color: #991B1B; font-weight: 700; line-height: 1.55;">
+            These 3 competitors are capturing an estimated<br>
+            <strong style="font-size: 1.85rem; display: block; margin: 0.7rem 0;">{{REVENUE_GAP}}</strong>
+            in annual revenue from AI search alone that should be <strong>YOURS</strong>.
+        </p>
+    </div>
+</div>
+
+
+<!-- PAGES 4-5: 10-PLATFORM VISIBILITY -->
+<div class="page">
+    <h2>🤖 Your 2025 AI & Voice Visibility Report</h2>
+    
+    <p class="section-blurb">
+        <strong>The future is AI-powered search.</strong> Here's how you rank across the 10 platforms that matter most in 2025 and beyond. 
+        Traffic light scoring: 🔴 Critical (0-40) | 🟡 Needs Work (41-70) | 🟢 Strong (71-100)
+    </p>
+    
+    <div class="platform-grid">
+        <div class="platform-card {{CHATGPT_COLOR}}">
+            <div class="platform-header">
+                <div class="platform-name">🤖 ChatGPT</div>
+                <div class="platform-score">
+                    <span class="score-dot {{CHATGPT_COLOR}}"></span>
+                    <span>{{CHATGPT_SCORE}}/100</span>
+                </div>
+            </div>
+            <div class="platform-category">AI Search</div>
+            <div class="platform-finding">{{CHATGPT_FINDING}}</div>
+        </div>
+        
+        <div class="platform-card {{PERPLEXITY_COLOR}}">
+            <div class="platform-header">
+                <div class="platform-name">🔮 Perplexity</div>
+                <div class="platform-score">
+                    <span class="score-dot {{PERPLEXITY_COLOR}}"></span>
+                    <span>{{PERPLEXITY_SCORE}}/100</span>
+                </div>
+            </div>
+            <div class="platform-category">AI Search</div>
+            <div class="platform-finding">{{PERPLEXITY_FINDING}}</div>
+        </div>
+        
+        <div class="platform-card {{GEMINI_COLOR}}">
+            <div class="platform-header">
+                <div class="platform-name">💎 Google Gemini</div>
+                <div class="platform-score">
+                    <span class="score-dot {{GEMINI_COLOR}}"></span>
+                    <span>{{GEMINI_SCORE}}/100</span>
+                </div>
+            </div>
+            <div class="platform-category">AI Search</div>
+            <div class="platform-finding">{{GEMINI_FINDING}}</div>
+        </div>
+        
+        <div class="platform-card {{META_COLOR}}">
+            <div class="platform-header">
+                <div class="platform-name">🌐 Meta AI</div>
+                <div class="platform-score">
+                    <span class="score-dot {{META_COLOR}}"></span>
+                    <span>{{META_SCORE}}/100</span>
+                </div>
+            </div>
+            <div class="platform-category">AI Search</div>
+            <div class="platform-finding">{{META_FINDING}}</div>
+        </div>
+        
+        <div class="platform-card {{SIRI_COLOR}}">
+            <div class="platform-header">
+                <div class="platform-name">📱 Siri</div>
+                <div class="platform-score">
+                    <span class="score-dot {{SIRI_COLOR}}"></span>
+                    <span>{{SIRI_SCORE}}/100</span>
+                </div>
+            </div>
+            <div class="platform-category">AI Voice Search</div>
+            <div class="platform-finding">{{SIRI_FINDING}}</div>
+        </div>
+        
+        <div class="platform-card {{ALEXA_COLOR}}">
+            <div class="platform-header">
+                <div class="platform-name">🔊 Alexa</div>
+                <div class="platform-score">
+                    <span class="score-dot {{ALEXA_COLOR}}"></span>
+                    <span>{{ALEXA_SCORE}}/100</span>
+                </div>
+            </div>
+            <div class="platform-category">AI Voice Search</div>
+            <div class="platform-finding">{{ALEXA_FINDING}}</div>
+        </div>
+        
+        <div class="platform-card {{GOOGLE_ASSIST_COLOR}}">
+            <div class="platform-header">
+                <div class="platform-name">🎙️ Google Assistant</div>
+                <div class="platform-score">
+                    <span class="score-dot {{GOOGLE_ASSIST_COLOR}}"></span>
+                    <span>{{GOOGLE_ASSIST_SCORE}}/100</span>
+                </div>
+            </div>
+            <div class="platform-category">AI Voice Search</div>
+            <div class="platform-finding">{{GOOGLE_ASSIST_FINDING}}</div>
+        </div>
+        
+        <div class="platform-card {{COPILOT_COLOR}}">
+            <div class="platform-header">
+                <div class="platform-name">🪟 Bing Copilot</div>
+                <div class="platform-score">
+                    <span class="score-dot {{COPILOT_COLOR}}"></span>
+                    <span>{{COPILOT_SCORE}}/100</span>
+                </div>
+            </div>
+            <div class="platform-category">AI Search</div>
+            <div class="platform-finding">{{COPILOT_FINDING}}</div>
+        </div>
+        
+        <div class="platform-card {{YOUTUBE_COLOR}}">
+            <div class="platform-header">
+                <div class="platform-name">📹 YouTube</div>
+                <div class="platform-score">
+                    <span class="score-dot {{YOUTUBE_COLOR}}"></span>
+                    <span>{{YOUTUBE_SCORE}}/100</span>
+                </div>
+            </div>
+            <div class="platform-category">Video Search</div>
+            <div class="platform-finding">{{YOUTUBE_FINDING}}</div>
+        </div>
+        
+        <div class="platform-card {{GOOGLE_COLOR}}">
+            <div class="platform-header">
+                <div class="platform-name">🔍 Google Search</div>
+                <div class="platform-score">
+                    <span class="score-dot {{GOOGLE_COLOR}}"></span>
+                    <span>{{GOOGLE_SCORE}}/100</span>
+                </div>
+            </div>
+            <div class="platform-category">Traditional SEO</div>
+            <div class="platform-finding">{{GOOGLE_FINDING}}</div>
+        </div>
+    </div>
+    
+    <div class="alert-box" style="text-align: left;">
+        <h3 style="color: #DC2626; font-size: 1.35rem; margin-bottom: 0.7rem;">⚠️ The 2025 Reality:</h3>
+        <ul style="margin-left: 1.35rem; line-height: 1.8; font-size: 0.92rem; color: #7F1D1B;">
+            <li><strong>60%+ of searches</strong> now happen on AI platforms (ChatGPT, Perplexity, Gemini, Meta AI)</li>
+            <li><strong>40% of local searches</strong> are voice-activated (Siri, Alexa, Google Assistant)</li>
+            <li><strong>Your competitors are dominating</strong> these platforms while you're invisible</li>
+            <li><strong>Every day you wait</strong> = hundreds of potential customers finding your competition instead</li>
+        </ul>
+    </div>
+</div>
+
+
+<!-- PAGE 6: KEYWORD OPPORTUNITIES -->
+<div class="page">
+    <h2>🎯 20 High-Value Keywords You're Missing</h2>
+    
+    <p class="section-blurb">
+        These are the exact search terms your customers use on AI platforms, voice assistants, and Google. 
+        Your competitors are ranking for these — you're not. Here's your opportunity.
+    </p>
+    
+    <table class="keyword-table">
+        <thead>
+            <tr>
+                <th style="width: 55%;">Keyword</th>
+                <th style="width: 20%;">Monthly Volume</th>
+                <th style="width: 25%;">Opportunity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{KEYWORD_ROWS}}
+        </tbody>
+    </table>
+    
+    <div class="alert-box">
+        <h3 style="color: #DC2626; font-size: 1.4rem; margin-bottom: 0.85rem;">📊 The Keyword Opportunity</h3>
+        <p style="font-size: 1.1rem; color: #991B1B; font-weight: 700;">
+            Combined monthly search volume: <strong style="font-size: 1.6rem; display: block; margin: 0.65rem 0;">{{TOTAL_VOLUME}}</strong>
+            You're missing <strong>100%</strong> of these searches. Your competitors aren't.
+        </p>
+    </div>
+</div>
+
+
+<!-- PAGES 7-9: 8 DIY QUICK WINS -->
+<div class="page">
+    <h2>🛠️ 8 DIY Quick Wins (If You Have the Time)</h2>
+    
+    <p class="section-blurb">
+        Want to fix this yourself? Here are 8 step-by-step implementation guides. 
+        <strong>Warning:</strong> This is 60-100+ hours of technical work. Most businesses hire us instead.
+    </p>
+    
+    {{QUICK_WIN_1}}
+    {{QUICK_WIN_2}}
+</div>
+
+
+<div class="page">
+    <h2>🛠️ DIY Quick Wins (Continued)</h2>
+    
+    {{QUICK_WIN_3}}
+    {{QUICK_WIN_4}}
+    {{QUICK_WIN_5}}
+</div>
+
+
+<div class="page">
+    <h2>🛠️ DIY Quick Wins (Continued)</h2>
+    
+    {{QUICK_WIN_6}}
+    {{QUICK_WIN_7}}
+    {{QUICK_WIN_8}}
+    
+    <div class="alert-box">
+        <h3 style="color: #DC2626; font-size: 1.4rem; margin-bottom: 0.85rem;">⏰ Reality Check</h3>
+        <p style="font-size: 1.1rem; color: #991B1B; font-weight: 700; line-height: 1.6;">
+            Implementing all 8 Quick Wins: <strong style="font-size: 1.5rem;">80-120 hours</strong><br>
+            That's <strong>2-3 weeks of full-time work</strong> — if you know what you're doing.<br><br>
+            <span style="font-size: 1.3rem;">OR... we can do it ALL in 30 days. Guaranteed.</span>
+        </p>
+    </div>
+</div>
+
+
+<!-- PAGE 10: ROI CALCULATOR -->
+<div class="page">
+    <h2>💰 Your Return on Investment</h2>
+    
+    <p class="section-blurb">
+        Let's be realistic. If our system generates just <strong>1 extra client per month</strong>, 
+        here's what that means for your business at $500 average client value. And what if you got 10?
+    </p>
+    
+    <div class="roi-grid">
+        <div class="roi-card">
+            <h4>🎯 Conservative Scenario</h4>
+            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.75rem;">
+                Just <strong>1 extra client/month</strong> @ $500
+            </p>
+            <span class="roi-profit">$6,000/year</span>
+            <p style="font-size: 0.88rem; color: #047857; font-weight: 700;">
+                ROI: 141% in Year 1<br>
+                Your setup pays for itself in 5 months
+            </p>
+        </div>
+        
+        <div class="roi-card">
+            <h4>📈 Game-Changing Scenario</h4>
+            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.75rem;">
+                <strong>10 extra clients/month</strong> @ $500
+            </p>
+            <span class="roi-profit">$60,000/year</span>
+            <p style="font-size: 0.88rem; color: #047857; font-weight: 700;">
+                ROI: 2,302% in Year 1<br>
+                Your investment pays back in under 2 weeks
+            </p>
+        </div>
+    </div>
+    
+    <div class="alert-box" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-color: #10b981;">
+        <h3 style="color: #065f46; font-size: 1.5rem; margin-bottom: 1rem;">💡 Here's the Reality</h3>
+        <p style="font-size: 1.1rem; color: #047857; font-weight: 700; line-height: 1.7;">
+            Most of our clients see <strong>3-5 new clients per month</strong> within 90 days.<br>
+            At just $500/client, that's <strong>$18,000-$30,000</strong> in annual revenue.
+        </p>
+    </div>
+</div>
+
+
+<!-- PAGE 11: 24/7 TRAFFIC DOMINATION ECOSYSTEM -->
+<div class="page">
+    <h2>🚀 The 24/7 Traffic Domination Ecosystem™</h2>
+    
+    <p class="section-blurb">
+        Imagine waking up to qualified leads coming in from Google, ChatGPT, YouTube, and voice search—all working together 
+        in perfect harmony, 24 hours a day, 7 days a week. That's the power of a true visibility ecosystem. While your 
+        competitors chase scattered tactics, you'll own an interconnected asset that compounds in value every single day. 
+        <strong>Guaranteed results in 90 days.</strong>
+    </p>
+    
+    <h3 style="color: #D4AF37; margin-top: 1.25rem;">What's Included in Your Ecosystem:</h3>
+    
+    <div class="system-feature">
+        <h4>✅ 1 High-Converting Landing Page (The Nucleus)</h4>
+        <p>The strategic hub of your ecosystem. Every piece of content—blogs, videos, emails—flows traffic back to this 
+        conversion-optimized page designed to turn visitors into paying clients. Built with proven psychology and tested layouts.</p>
+    </div>
+    
+    <div class="system-feature">
+        <h4>✅ 1 Anchor Blog (The Authority Foundation)</h4>
+        <p>Your flagship content piece—comprehensive, authoritative, and optimized to rank for your most valuable keyword. 
+        This becomes your digital real estate that establishes expertise and captures high-intent searches.</p>
+    </div>
+    
+    <div class="system-feature">
+        <h4>✅ 4 Supporting Blogs (The Traffic Net)</h4>
+        <p>Strategic posts targeting related searches and long-tail variations. Each captures a different audience segment and 
+        funnels traffic through your ecosystem, expanding your reach while strengthening the authority of your anchor content.</p>
+    </div>
+    
+    <div class="system-feature">
+        <h4>✅ 5 Main YouTube Videos (Visual Authority)</h4>
+        <p>One professionally optimized video for each blog topic. These multiply your visibility on YouTube (the #2 search engine), 
+        appear in Google results, get recommended by AI, and serve as trust-building assets throughout your funnel.</p>
+    </div>
+    
+    <div class="system-feature">
+        <h4>✅ 10 FAQ & TIPS Shorts (Rapid Acceleration)</h4>
+        <p>Quick, high-value videos answering your prospects' burning questions. These spread virally, trigger YouTube's 
+        algorithm, appear in voice search results, and can be repurposed across every platform for maximum leverage.</p>
+    </div>
+    
+    <div class="system-feature">
+        <h4>✅ 1 Channel Intro Video (The Welcome Mat)</h4>
+        <p>Your channel's front door—professionally crafted to immediately establish credibility, showcase your expertise, 
+        and guide new visitors into your ecosystem.</p>
+    </div>
+    
+    <div class="system-feature">
+        <h4>✅ 10-Day Trust Email Drip Campaign</h4>
+        <p>Trust-building FAQ & Tips videos that nurture leads automatically and trigger rapid YouTube acceleration. Each email 
+        delivers value, builds authority, and moves prospects closer to becoming clients—all on autopilot.</p>
+    </div>
+    
+    <div class="system-feature">
+        <h4>✅ Authority Loop Interlinking + Schema Markup</h4>
+        <p>The secret weapon that ties everything together. Strategic internal links between blogs, videos, and landing pages 
+        create an authority feedback loop. Rich schema markup makes your content easy for AI and search engines to understand, 
+        feature, and recommend.</p>
+    </div>
+    
+    <div class="system-feature">
+        <h4>✅ Full-Platform Optimization</h4>
+        <p>Every asset is optimized for SEO (Traditional Google), AEO (Answer Engine), AIO (AI Overview), GEO (Generative Engine), 
+        VEO (Voice Engine), plus E-E-A-T signals. Your content is engineered to rank everywhere people search.</p>
+    </div>
+    
+    <div class="system-feature">
+        <h4>✅ Cluster Playlist Boost</h4>
+        <p>All videos organized into themed playlists that increase watch time, boost authority, and get recommended more often 
+        by YouTube's algorithm. This amplifies your visibility and compounds your results.</p>
+    </div>
+    
+    <div class="monthly-value-box">
+        <h3 style="color: #0891b2; font-size: 1.3rem; margin-bottom: 1rem;">📅 Monthly Ongoing (After Setup)</h3>
+        
+        <div class="value-item">
+            <h4>• Monthly Authority Backlinks</h4>
+            <p>Fresh, high-quality links that compound your rankings and widen your competitive gap.</p>
+            <p class="value-tag">Value: $300–$500/mo</p>
+        </div>
+        
+        <div class="value-item">
+            <h4>• Continuous Optimization & Content Upgrades</h4>
+            <p>Your ecosystem is refined monthly to maximize traffic, conversions, and long-term authority.</p>
+            <p class="value-tag">Value: $500/mo</p>
+        </div>
+        
+        <div class="value-item">
+            <h4>• Performance Monitoring With Actionable Insights</h4>
+            <p>Clear reporting that drives smarter decisions and faster growth.</p>
+            <p class="value-tag">Value: $300/mo</p>
+        </div>
+        
+        <div class="value-item">
+            <h4>• The Strategic Growth Asset (Your Choice of ONE Each Month)</h4>
+            <p>Select a premium, high-impact asset engineered to expand your visibility, authority, or conversions instantly.</p>
+            <p class="value-tag">Value: $197–$497/mo</p>
+        </div>
+        
+        <div class="total-value">
+            <div style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 0.5rem;">⭐ Total Monthly Value</div>
+            <div class="total-value-amount">$1,300–$1,800 — Included</div>
+            <p style="font-size: 0.95rem; color: #e0f2fe; margin-top: 0.75rem;">
+                Every month, you gain a new permanent business asset that compounds your growth and keeps you ahead 
+                while competitors fall behind.
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<!-- PAGE 12: PRICING & CTA -->
+<div class="page">
+    <h2>🎁 Limited 2026 New Year's Offer</h2>
+    
+    <p class="section-blurb">
+        Start 2026 by dominating AI search, voice assistants, and YouTube. This exclusive offer ends in 7 days—after that, 
+        you'll pay full price while your competitors capture the traffic that should be yours.
+    </p>
+    
+    <div class="price-box">
+        <div class="new-year-badge">🎉 EXCLUSIVE 2026 NEW YEAR'S OFFER</div>
+        
+        <div style="font-size: 1.3rem; color: #cbd5e1; margin: 1rem 0 0.5rem;">Regular Setup Investment:</div>
+        <div class="price-strike">$2,997</div>
+        
+        <div style="font-size: 1.6rem; color: white; font-weight: 900; margin: 1.5rem 0 0.75rem;">
+            YOUR 2026 PRICE:
+        </div>
+        <div class="price-current">$2,497</div>
+        
+        <div style="font-size: 1.2rem; color: #e0f2fe; margin: 1.5rem 0;">
+            + $497/month ongoing optimization<br>
+            <span style="font-size: 0.95rem; color: #94a3b8;">(Worth $1,300-$1,800/mo — see previous page)</span>
+        </div>
+        
+        <div class="savings-badge">⏰ SAVE $500 — OFFER ENDS IN 7 DAYS</div>
+        
+        <p style="font-size: 1rem; color: #cbd5e1; margin-top: 2rem; line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto;">
+            One-time setup builds your entire 24/7 Traffic Domination Ecosystem™.<br>
+            Monthly ongoing keeps you dominating as algorithms evolve and competitors scramble to keep up.
+        </p>
+    </div>
+    
+    <div class="guarantee-box">
+        <h3>🔒 Our Iron-Clad 90-Day Guarantee</h3>
+        <p>
+            If we don't improve your visibility by <strong>50%+ across AI Search, Voice Search, and Traditional SEO</strong> 
+            within 90 days, we'll work for <strong>FREE</strong> until we do.<br><br>
+            No questions asked. No fine print. No excuses.
+        </p>
+    </div>
+    
+    <a href="#" class="cta-button">
+        📞 Book Your Next Steps Call
+    </a>
+    
+    <div style="text-align: center; margin: 2rem 0; color: #64748b; font-size: 0.95rem; line-height: 1.8;">
+        <strong style="color: #0f172a; font-size: 1.1rem;">You've seen the gaps. Now let's map out how to fix them.</strong><br>
+        In 15 minutes, we'll walk through your Blueprint together, answer your questions, and show you exactly what the next 
+        90 days look like if you want our help. No pressure—just next steps.
+    </div>
+    
+    <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border: 3px solid #ef4444; border-radius: 16px; padding: 2rem; margin: 2.5rem 0; text-align: center;">
+        <div style="font-size: 1.4rem; font-weight: 900; color: #dc2626; margin-bottom: 1rem;">
+            ⚠️ This Offer Expires in 7 Days
+        </div>
+        <div style="font-size: 1.15rem; color: #991b1b; font-weight: 700; line-height: 1.7;">
+            After 7 days, setup returns to <strong>$2,997</strong> and you'll lose your <strong>$500 savings</strong>.<br>
+            Every day you wait is another day your competitors capture the traffic (and revenue) that should be yours.
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 3px solid #D4AF37;">
+        <div style="font-size: 1.25rem; color: #0f172a; margin-bottom: 1.25rem; font-weight: 900;">
+            Questions? We're Here to Help
+        </div>
+        <div style="font-size: 1.05rem; color: #64748b; line-height: 2.2; font-weight: 600;">
+            📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6d05080101022d190c0608021b081f000c1f06081904030a430e0200">[email&#160;protected]</a><br>
+            
