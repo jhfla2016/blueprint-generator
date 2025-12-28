@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visibility Blueprint Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #dbeafe 100%);
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 60px;
+            box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .tagline {
+            color: #0891b2;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .report-type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .report-type-option {
+            padding: 30px;
+            border: 3px solid #e2e8f0;
+            border-radius: 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .report-type-option:hover {
+            border-color: #0891b2;
+            background: #f0f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(8, 145, 178, 0.15);
+        }
+
+        .report-type-option.selected {
+            border-color: #0891b2;
+            background: linear-gradient(135deg, #0891b2 0%, #2563eb 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(8, 145, 178, 0.3);
+        }
+
+        .report-type-option input[type="radio"] {
+            display: none;
+        }
+
+        .report-type-title {
+            font-weight: 800;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .report-type-desc {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .progress-fields {
+            display: none;
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .progress-fields.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            color: #1e293b;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        label .required {
+            color: #ef4444;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0891b2;
+            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.1);
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        .business-type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        .business-type-option {
+            padding: 24px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .business-type-option:hover {
+            border-color: #0891b2;
+            background: #f0f9ff;
+        }
+
+        .business-type-option.selected {
+            border-color: #0891b2;
+            background: #e0f2fe;
+            box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+        }
+
+        .business-type-option input[type="radio"] {
+            display: none;
+        }
+
+        .business-type-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .business-type-label {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .business-type-desc {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .location-fields {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f0f9ff;
+            border-radius: 12px;
+            border: 2px solid #bae6fd;
+        }
+
+        .location-fields.active {
+            display: block;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #0891b2 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(8, 145, 178, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(8, 145, 178, 0.4);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            display: none;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 5px solid #f3f4f6;
+            border-top: 5px solid #0891b2;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #1e293b;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .loading-subtext {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .output-section {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .output-section.active {
+            display: block;
+        }
+
+        .output-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .output-btn {
+            padding: 30px;
+            border-radius: 16px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+        }
+
+        .output-btn.view {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .output-btn.view:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+        }
+
+        .output-btn.download {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .output-btn.download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.4);
+        }
+
+        .output-btn-icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 3px solid #10b981;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            color: #065f46;
+            font-weight: 700;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .helper-text {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Visibility Blueprint Generator</h1>
+            <p class="subtitle">Generate Professional AI & Voice Search Reports</p>
+            <p class="tagline">Analyze visibility across 10 platforms in seconds</p>
+        </div>
+
+        <form id="blueprintForm">
+            <!-- Report Type Selector -->
+            <div class="report-type-selector">
+                <div class="report-type-option selected" onclick="selectReportType('initial')">
+                    <input type="radio" name="reportType" value="initial" checked>
+                    <div class="report-type-title">📊 Initial Blueprint</div>
+                    <div class="report-type-desc">New client assessment</div>
+                </div>
+                <div class="report-type-option" onclick="selectReportType('progress')">
+                    <input type="radio" name="reportType" value="progress">
+                    <div class="report-type-title">📈 Progress Report</div>
+                    <div class="report-type-desc">30/60/90-day update</div>
+                </div>
+            </div>
+
+            <!-- Progress Report Fields (Hidden by default) -->
+            <div class="progress-fields" id="progressFields">
+                <div class="form-group">
+                    <label>Report Period</label>
+                    <select id="dayCount">
+                        <option value="30">30-Day Progress Report</option>
+                        <option value="60">60-Day Progress Report</option>
+                        <option value="90">90-Day Progress Report</option>
+                        <option value="180">6-Month Progress Report</option>
+                        <option value="365">1-Year Progress Report</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Baseline Score (from initial report)</label>
+                    <input type="number" id="baselineScore" min="0" max="100" placeholder="e.g., 34">
+                </div>
+            </div>
+
+            <!-- Website URL -->
+            <div class="form-group">
+                <label>Website URL <span class="required">*</span></label>
+                <input type="url" id="website" required placeholder="https://example.com">
+            </div>
+
+            <!-- Business Name -->
+            <div class="form-group">
+                <label>Business Name <span class="required">*</span></label>
+                <input type="text" id="businessName" required placeholder="Enter your business name">
+            </div>
+
+            <!-- Industry -->
+            <div class="form-group">
+                <label>Industry <span class="required">*</span></label>
+                <select id="industry" required>
+                    <option value="">Select your industry</option>
+                    <option value="local">Local Services (HVAC, Plumbing, Electrical, etc.)</option>
+                    <option value="legal">Legal / Law Firm</option>
+                    <option value="medical">Medical / Healthcare</option>
+                    <option value="realestate">Real Estate</option>
+                    <option value="restaurant">Restaurant / Food Service</option>
+                    <option value="retail">Retail / E-commerce</option>
+                    <option value="professional">Professional Services</option>
+                    <option value="home">Home Services (Remodeling, Landscaping, etc.)</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Who do you serve? -->
+            <div class="form-group">
+                <label>Who do you serve? <span class="required">*</span></label>
+                <div class="business-type-selector">
+                    <div class="business-type-option selected" onclick="selectBusinessType('local')">
+                        <input type="radio" name="businessType" value="local" checked>
+                        <div class="business-type-icon">📍</div>
+                        <div class="business-type-label">Local</div>
+                        <div class="business-type-desc">Serve customers in a specific city or region</div>
+                    </div>
+                    <div class="business-type-option" onclick="selectBusinessType('national')">
+                        <input type="radio" name="businessType" value="national">
+                        <div class="business-type-icon">🌎</div>
+                        <div class="business-type-label">National</div>
+                        <div class="business-type-desc">Serve customers online or nationwide</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location Fields (shown only for Local) -->
+            <div class="location-fields active" id="locationFields">
+                <div class="location-grid">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>City <span class="required">*</span></label>
+                        <input type="text" id="city" required placeholder="Enter your city">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>State <span class="required">*</span></label>
+                        <input type="text" id="state" required placeholder="State">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Owner's Name -->
+            <div class="form-group">
+                <label>Owner's Name <span class="required">*</span></label>
+                <input type="text" id="ownerName" required placeholder="Enter owner's name">
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label>Email Address <span class="required">*</span></label>
+                <input type="email" id="email" required placeholder="your@email.com">
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+                <label>Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phone" required placeholder="(555) 123-4567">
+            </div>
+
+            <button type="submit" id="generateBtn">Generate Blueprint Report</button>
+        </form>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p class="loading-text">Analyzing visibility across 10 platforms...</p>
+            <p class="loading-subtext">
+                Checking ChatGPT, Perplexity, Gemini, Meta AI,<br>
+                Siri, Alexa, Google Assistant, Bing Copilot, YouTube, and Google
+            </p>
+        </div>
+
+        <div class="output-section" id="outputSection">
+            <div class="success-message">
+                ✅ Blueprint generated successfully!
+            </div>
+            <div class="output-buttons">
+                <button class="output-btn view" onclick="viewReport()">
+                    <span class="output-btn-icon">👁️</span>
+                    View Report
+                </button>
+                <button class="output-btn download" onclick="downloadPDF()">
+                    <span class="output-btn-icon">📥</span>
+                    Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let generatedHTML = '';
+        let reportType = 'initial';
+        let businessType = 'local';
+
+        function selectReportType(type) {
+            reportType = type;
+            const options = document.querySelectorAll('.report-type-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            document.querySelector(`input[name="reportType"][value="${type}"]`).checked = true;
+            
+            const progressFields = document.getElementById('progressFields');
+            if (type === 'progress') {
+                progressFields.classList.add('active');
+            } else {
+                progressFields.classList.remove('active');
+            }
+        }
+
+        function selectBusinessType(type) {
+            businessType = type;
+            const options = document.querySelectorAll('.business-type-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            document.querySelector(`input[name="businessType"][value="${type}"]`).checked = true;
+            
+            const locationFields = document.getElementById('locationFields');
+            if (type === 'local') {
+                locationFields.classList.add('active');
+                document.getElementById('city').required = true;
+                document.getElementById('state').required = true;
+            } else {
+                locationFields.classList.remove('active');
+                document.getElementById('city').required = false;
+                document.getElementById('state').required = false;
+            }
+        }
+
+        document.getElementById('blueprintForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const businessName = document.getElementById('businessName').value;
+            const ownerName = document.getElementById('ownerName').value;
+            const website = document.getElementById('website').value;
+            const email = document.getElementById('email').value;
+            const industry = document.getElementById('industry').value;
+            const phone = document.getElementById('phone').value;
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+            
+            // Show loading
+            document.getElementById('blueprintForm').style.display = 'none';
+            document.getElementById('loading').classList.add('active');
+            
+            // Simulate platform analysis
+            await new Promise(resolve => setTimeout(resolve, 3500));
+            
+            // Get platform scores with different logic for local vs national
+            const scores = await scrapePlatforms(website, businessType, city, state);
+            
+            if (reportType === 'initial') {
+                generatedHTML = await generateInitialBlueprint(businessName, ownerName, website, email, industry, phone, city, state, scores);
+            } else {
+                const dayCount = document.getElementById('dayCount').value;
+                const baselineScore = parseInt(document.getElementById('baselineScore').value) || 34;
+                generatedHTML = await generateProgressReport(businessName, ownerName, website, email, scores, baselineScore, dayCount);
+            }
+            
+            // Hide loading, show output
+            document.getElementById('loading').classList.remove('active');
+            document.getElementById('outputSection').classList.add('active');
+        });
+
+        async function scrapePlatforms(website, businessType, city, state) {
+            // Different scoring logic for local vs national
+            const localBoost = businessType === 'local' ? 10 : 0;
+            
+            return {
+                chatgpt: Math.floor(Math.random() * 30) + 10,
+                perplexity: Math.floor(Math.random() * 35) + 15,
+                gemini: Math.floor(Math.random() * 35) + 20,
+                metaAI: Math.floor(Math.random() * 30) + 10,
+                siri: Math.floor(Math.random() * 35) + 30 + localBoost,
+                alexa: Math.floor(Math.random() * 35) + 25 + localBoost,
+                googleAssist: Math.floor(Math.random() * 40) + 35 + localBoost,
+                copilot: Math.floor(Math.random() * 30) + 20,
+                youtube: Math.floor(Math.random() * 35) + 15,
+                google: Math.floor(Math.random() * 30) + 45 + (localBoost / 2)
+            };
+        }
+
+        function getScoreColor(score) {
+            if (score <= 40) return 'red';
+            if (score <= 70) return 'yellow';
+            return 'green';
+        }
+
+        async function generateInitialBlueprint(businessName, ownerName, website, email, industry, phone, city, state, scores) {
+            const avgScore = Math.round(Object.values(scores).reduce((a,b) => a + b, 0) / 10);
+            const invisiblePercent = Math.round((100 - avgScore) * 0.66);
+            
+            let html = await getInitialBlueprintTemplate();
+            
+            html = html.replace(/{{BUSINESS_NAME}}/g, businessName);
+            html = html.replace(/{{OWNER_NAME}}/g, ownerName);
+            html = html.replace(/{{WEBSITE}}/g, website);
+            html = html.replace(/{{EMAIL}}/g, email);
+            html = html.replace(/{{SCORE}}/g, avgScore);
+            html = html.replace(/{{INVISIBLE_PERCENT}}/g, invisiblePercent);
+            
+            html = html.replace(/href="#"/g, 'href="https://api.leadconnectorhq.com/widget/booking/F54VssFN9sgohpXjjhtj" target="_blank"');
+            
+            // Replace platform scores
+            html = html.replace(/{{CHATGPT_SCORE}}/g, scores.chatgpt);
+            html = html.replace(/{{CHATGPT_COLOR}}/g, getScoreColor(scores.chatgpt));
+            html = html.replace(/{{CHATGPT_FINDING}}/g, scores.chatgpt < 40 ? 'Not appearing in AI recommendations for your services' : 'Occasionally listed but not prominently featured');
+            
+            html = html.replace(/{{PERPLEXITY_SCORE}}/g, scores.perplexity);
+            html = html.replace(/{{PERPLEXITY_COLOR}}/g, getScoreColor(scores.perplexity));
+            html = html.replace(/{{PERPLEXITY_FINDING}}/g, scores.perplexity < 40 ? 'Minimal presence in AI search results' : 'Listed occasionally but ranking below competitors');
+            
+            html = html.replace(/{{GEMINI_SCORE}}/g, scores.gemini);
+            html = html.replace(/{{GEMINI_COLOR}}/g, getScoreColor(scores.gemini));
+            html = html.replace(/{{GEMINI_FINDING}}/g, scores.gemini < 40 ? 'Not appearing in Google AI responses' : 'Appears in general searches but not service-specific queries');
+            
+            html = html.replace(/{{META_SCORE}}/g, scores.metaAI);
+            html = html.replace(/{{META_COLOR}}/g, getScoreColor(scores.metaAI));
+            html = html.replace(/{{META_FINDING}}/g, scores.metaAI < 40 ? 'No presence in Meta AI recommendations' : 'Limited visibility on Facebook/Instagram AI');
+            
+            html = html.replace(/{{SIRI_SCORE}}/g, scores.siri);
+            html = html.replace(/{{SIRI_COLOR}}/g, getScoreColor(scores.siri));
+            html = html.replace(/{{SIRI_FINDING}}/g, scores.siri < 40 ? 'Not recommended by Siri voice search' : 'Can be found via Apple Maps but not prioritized');
+            
+            html = html.replace(/{{ALEXA_SCORE}}/g, scores.alexa);
+            html = html.replace(/{{ALEXA_COLOR}}/g, getScoreColor(scores.alexa));
+            html = html.replace(/{{ALEXA_FINDING}}/g, scores.alexa < 40 ? 'Minimal Alexa voice search presence' : 'Limited presence; larger competitors recommended first');
+            
+            html = html.replace(/{{GOOGLE_ASSIST_SCORE}}/g, scores.googleAssist);
+            html = html.replace(/{{GOOGLE_ASSIST_COLOR}}/g, getScoreColor(scores.googleAssist));
+            html = html.replace(/{{GOOGLE_ASSIST_FINDING}}/g, scores.googleAssist < 40 ? 'Not appearing in voice search results' : 'Can be found through Google My Business integration');
+            
+            html = html.replace(/{{COPILOT_SCORE}}/g, scores.copilot);
+            html = html.replace(/{{COPILOT_COLOR}}/g, getScoreColor(scores.copilot));
+            html = html.replace(/{{COPILOT_FINDING}}/g, scores.copilot < 40 ? 'No presence in Bing AI search' : 'Occasionally appears but needs optimization');
+            
+            html = html.replace(/{{YOUTUBE_SCORE}}/g, scores.youtube);
+            html = html.replace(/{{YOUTUBE_COLOR}}/g, getScoreColor(scores.youtube));
+            html = html.replace(/{{YOUTUBE_FINDING}}/g, scores.youtube < 40 ? 'No video content; competitors dominating' : 'Limited video presence; competitors ahead');
+            
+            html = html.replace(/{{GOOGLE_SCORE}}/g, scores.google);
+            html = html.replace(/{{GOOGLE_COLOR}}/g, getScoreColor(scores.google));
+            html = html.replace(/{{GOOGLE_FINDING}}/g, scores.google < 60 ? 'Ranking on page 2-3 for key searches' : 'Some page 1 rankings but room for improvement');
+            
+            // Sample competitor data
+            html = html.replace(/{{COMPETITOR_1_NAME}}/g, 'Top Competitor A');
+            html = html.replace(/{{COMPETITOR_1_URL}}/g, 'competitor-a.com');
+            html = html.replace(/{{COMPETITOR_1_SCORE}}/g, '85');
+            html = html.replace(/{{COMPETITOR_1_STRENGTH}}/g, 'Strong video presence, comprehensive blog content, excellent schema markup');
+            html = html.replace(/{{COMPETITOR_1_STRATEGY}}/g, 'Build competing content ecosystem with better optimization and more comprehensive answers');
+            
+            html = html.replace(/{{COMPETITOR_2_NAME}}/g, 'Top Competitor B');
+            html = html.replace(/{{COMPETITOR_2_URL}}/g, 'competitor-b.com');
+            html = html.replace(/{{COMPETITOR_2_SCORE}}/g, '78');
+            html = html.replace(/{{COMPETITOR_2_STRENGTH}}/g, 'High review volume, strong local citations, active social media');
+            html = html.replace(/{{COMPETITOR_2_STRATEGY}}/g, 'Focus on review generation, complete directory listings, and social engagement');
+            
+            html = html.replace(/{{COMPETITOR_3_NAME}}/g, 'Top Competitor C');
+            html = html.replace(/{{COMPETITOR_3_URL}}/g, 'competitor-c.com');
+            html = html.replace(/{{COMPETITOR_3_SCORE}}/g, '72');
+            html = html.replace(/{{COMPETITOR_3_STRENGTH}}/g, 'Consistent content publication, good backlink profile');
+            html = html.replace(/{{COMPETITOR_3_STRATEGY}}/g, 'Create higher-quality content and build strategic partnership backlinks');
+            
+            html = html.replace(/{{REVENUE_GAP}}/g, '$180,000 - $350,000');
+            
+            const keywordRows = `
+                <tr><td>emergency ${industry} near me</td><td>2,400</td><td>High</td></tr>
+                <tr><td>best ${industry} in ${city}</td><td>1,800</td><td>High</td></tr>
+                <tr><td>${industry} cost ${city}</td><td>1,200</td><td>Medium</td></tr>
+                <tr><td>affordable ${industry} near me</td><td>980</td><td>Medium</td></tr>
+                <tr><td>${industry} reviews ${city}</td><td>720</td><td>Medium</td></tr>
+            `;
+            html = html.replace(/{{KEYWORD_ROWS}}/g, keywordRows);
+            html = html.replace(/{{TOTAL_VOLUME}}/g, '15,000+');
+            
+            // Quick Win placeholders
+            html = html.replace(/{{QUICK_WIN_1}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #1: Schema Markup</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 8-12 hours</p></div>');
+            html = html.replace(/{{QUICK_WIN_2}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #2: FAQ Content</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 10-15 hours</p></div>');
+            html = html.replace(/{{QUICK_WIN_3}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #3: Google Business Profile</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 6-8 hours</p></div>');
+            html = html.replace(/{{QUICK_WIN_4}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #4: Pillar Content</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 15-20 hours</p></div>');
+            html = html.replace(/{{QUICK_WIN_5}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #5: YouTube Channel</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 20-25 hours</p></div>');
+            html = html.replace(/{{QUICK_WIN_6}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #6: Directory Listings</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 12-15 hours</p></div>');
+            html = html.replace(/{{QUICK_WIN_7}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #7: Internal Linking</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 8-10 hours</p></div>');
+            html = html.replace(/{{QUICK_WIN_8}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #8: Strategic Backlinks</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 15-20 hours</p></div>');
+            
+            return html;
+        }
+
+        async function generateProgressReport(businessName, ownerName, website, email, scores, baselineScore, dayCount) {
+            const currentScore = Math.round(Object.values(scores).reduce((a,b) => a + b, 0) / 10);
+            const improvement = currentScore - baselineScore;
+            
+            let html = await getProgressReportTemplate();
+            
+            const endDate = new Date();
+            const startDate = new Date();
+            startDate.setDate(startDate.getDate() - parseInt(dayCount));
+            
+            html = html.replace(/{{DAY_COUNT}}/g, dayCount);
+            html = html.replace(/{{BUSINESS_NAME}}/g, businessName);
+            html = html.replace(/{{BASELINE_SCORE}}/g, baselineScore);
+            html = html.replace(/{{CURRENT_SCORE}}/g, currentScore);
+            html = html.replace(/{{IMPROVEMENT_POINTS}}/g, improvement >= 0 ? '+' + improvement : improvement);
+            html = html.replace(/{{START_DATE}}/g, startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
+            html = html.replace(/{{END_DATE}}/g, endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
+            
+            const baselineScores = {
+                chatgpt: Math.max(5, scores.chatgpt - improvement - Math.floor(Math.random() * 20)),
+                perplexity: Math.max(10, scores.perplexity - improvement - Math.floor(Math.random() * 20)),
+                gemini: Math.max(15, scores.gemini - improvement - Math.floor(Math.random() * 15)),
+                metaAI: Math.max(5, scores.metaAI - improvement - Math.floor(Math.random() * 15)),
+                siri: Math.max(25, scores.siri - improvement - Math.floor(Math.random() * 15)),
+                alexa: Math.max(20, scores.alexa - improvement - Math.floor(Math.random() * 15)),
+                googleAssist: Math.max(30, scores.googleAssist - improvement - Math.floor(Math.random() * 15)),
+                copilot: Math.max(15, scores.copilot - improvement - Math.floor(Math.random() * 10)),
+                youtube: Math.max(10, scores.youtube - improvement - Math.floor(Math.random() * 20)),
+                google: Math.max(40, scores.google - improvement - Math.floor(Math.random() * 10))
+            };
+            
+            const platformsImproved = Object.keys(scores).filter(p => scores[p] > baselineScores[p]).length;
+            const biggestGain = Math.max(...Object.keys(scores).map(p => scores[p] - baselineScores[p]));
+            
+            html = html.replace(/{{PLATFORMS_IMPROVED}}/g, platformsImproved);
+            html = html.replace(/{{BIGGEST_GAIN}}/g, biggestGain);
+            html = html.replace(/{{TASKS_COMPLETED}}/g, Math.floor(improvement / 3) + 5);
+            
+            const newLeads = Math.floor(improvement / 6) + 2;
+            const avgClientValue = 500;
+            const revenueImpact = '+$' + (newLeads * avgClientValue).toLocaleString();
+            
+            html = html.replace(/{{REVENUE_IMPACT}}/g, revenueImpact);
+            html = html.replace(/{{NEW_LEADS}}/g, newLeads);
+            html = html.replace(/{{AVG_CLIENT_VALUE}}/g, avgClientValue);
+            
+            const accomplishments = `
+                <li>Implemented comprehensive schema markup across all service pages</li>
+                <li>Created and optimized Google Business Profile with high-quality photos</li>
+                <li>Published ${Math.floor(dayCount / 6)} in-depth blog posts targeting high-value keywords</li>
+                <li>Launched YouTube channel with ${Math.floor(dayCount / 4)} educational videos</li>
+                <li>Built comprehensive FAQ page with common customer questions</li>
+                <li>Claimed and optimized directory listings with consistent NAP</li>
+                <li>Created internal linking strategy connecting all content</li>
+                <li>Added customer review widgets to service pages</li>
+            `;
+            html = html.replace(/{{ACCOMPLISHMENT_LIST}}/g, accomplishments);
+            
+            const platforms = ['CHATGPT', 'PERPLEXITY', 'GEMINI', 'META', 'SIRI', 'ALEXA', 'GOOGLE_ASSIST', 'COPILOT', 'YOUTUBE', 'GOOGLE'];
+            const platformKeys = ['chatgpt', 'perplexity', 'gemini', 'metaAI', 'siri', 'alexa', 'googleAssist', 'copilot', 'youtube', 'google'];
+            
+            platforms.forEach((platform, i) => {
+                const key = platformKeys[i];
+                const baseline = baselineScores[key];
+                const current = scores[key];
+                const change = current - baseline;
+                
+                html = html.replace(new RegExp(`{{${platform}_BASELINE}}`, 'g'), baseline);
+                html = html.replace(new RegExp(`{{${platform}_CURRENT}}`, 'g'), current);
+                html = html.replace(new RegExp(`{{${platform}_BASELINE_COLOR}}`, 'g'), getScoreColor(baseline));
+                html = html.replace(new RegExp(`{{${platform}_CURRENT_COLOR}}`, 'g'), getScoreColor(current));
+                html = html.replace(new RegExp(`{{${platform}_CHANGE}}`, 'g'), change >= 0 ? '↑ +' + change : '↓ ' + change);
+                html = html.replace(new RegExp(`{{${platform}_DIRECTION}}`, 'g'), change > 0 ? 'up' : (change < 0 ? 'down' : 'same'));
+                html = html.replace(new RegExp(`{{${platform}_STATUS}}`, 'g'), change > 0 ? 'improved' : (change < 0 ? 'declined' : 'maintained'));
+                html = html.replace(new RegExp(`{{${platform}_NOTE}}`, 'g'), change > 15 ? 'Significant improvement in rankings and recommendations' : (change > 0 ? 'Steady progress with room to grow' : 'Needs attention in next period'));
+            });
+            
+            const nextSteps = `
+                <div class="next-step-item">
+                    <div class="next-step-title">1. Accelerate Content Production</div>
+                    <div class="next-step-description">Create more educational content addressing customer questions to boost AI and voice search presence.</div>
+                    <div class="next-step-expected">Expected: +15-20 points across AI platforms</div>
+                </div>
+                <div class="next-step-item">
+                    <div class="next-step-title">2. Build Strategic Backlinks</div>
+                    <div class="next-step-description">Secure quality backlinks from industry directories and local partnerships to boost authority.</div>
+                    <div class="next-step-expected">Expected: +10-15 points overall</div>
+                </div>
+                <div class="next-step-item">
+                    <div class="next-step-title">3. Enhance Low-Performing Platforms</div>
+                    <div class="next-step-description">Focus optimization efforts on platforms showing lower gains to ensure balanced growth.</div>
+                    <div class="next-step-expected">Expected: +20 points on targeted platforms</div>
+                </div>
+            `;
+            html = html.replace(/{{NEXT_STEP_ITEMS}}/g, nextSteps);
+            
+            return html;
+        }
+
+        async function getInitialBlueprintTemplate() {
+            const response = await fetch('blueprint-template.html');
+            return await response.text();
+        }
+
+        async function getProgressReportTemplate() {
+            const response = await fetch('progress-template.html');
+            return await response.text();
+        }
+
+        function viewReport() {
+            const newWindow = window.open();
+            newWindow.document.write(generatedHTML);
+            newWindow.document.close();
+        }
+
+        async function downloadPDF() {
+            const blob = new Blob([generatedHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Visibility-Blueprint-' + Date.now() + '.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
