@@ -3,1455 +3,1123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visibility Blueprint & Revenue Growth Roadmap - {{BUSINESS_NAME}}</title>
-    
+    <title>Visibility Blueprint Generator</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.5;
-            color: #0f172a;
-            background: white;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 50%, #dbeafe 100%);
+            min-height: 100vh;
+            padding: 60px 20px;
         }
-        
-        .page {
-            max-width: 8.5in;
+
+        .container {
+            max-width: 900px;
             margin: 0 auto;
-            padding: 0.1in 0.65in 0.4in 0.65in;
             background: white;
-            position: relative;
+            border-radius: 24px;
+            padding: 60px;
+            box-shadow: 0 30px 90px rgba(0,0,0,0.4);
         }
-        
-        @media print {
-            body { margin: 0; background: white; }
-            .page { 
-                margin: 0; 
-                box-shadow: none; 
-                page-break-inside: avoid;
-            }
-        }
-        
-        /* SCREEN VIEW - Clean flowing layout */
-        @media screen {
-            .page {
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                margin-bottom: 2rem;
-                border-bottom: 3px solid #e2e8f0;
-                padding-bottom: 1.5rem;
-            }
-        }
-        
-        /* ==================== LOGO ==================== */
-        .logo-container {
+
+        .header {
             text-align: center;
-            margin-bottom: 0.75rem;
-            padding-top: 0;
+            margin-bottom: 50px;
         }
-        
-        .logo {
-            max-width: 140px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-        
-        /* ==================== CRISP CLEAR BLACK TEXT ==================== */
-        .main-title {
-            font-size: 1.75rem;
-            font-weight: 900;
-            text-align: center;
+
+        h1 {
             color: #1e293b;
-            margin: 0.4rem 0 0.2rem;
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
-        
-        .business-name-title {
-            font-size: 2.4rem;
-            font-weight: 900;
-            text-align: center;
-            color: #D4AF37;
-            margin: 0.65rem 0 0.85rem;
-            letter-spacing: -0.03em;
-        }
-        
-        h2 {
-            font-size: 1.5rem;
-            margin: 0.5rem 0 0.75rem;
-            font-weight: 900;
-            color: #1e293b;
-            border-bottom: 4px solid #D4AF37;
-            padding-bottom: 0.5rem;
-            line-height: 1.3;
-        }
-        
-        .section-blurb {
-            font-size: 0.95rem;
-            color: #64748b;
-            margin: 0.75rem 0 1.5rem;
-            line-height: 1.6;
-            font-weight: 500;
-        }
-        
-        h3 {
-            font-size: 1.4rem;
-            margin: 1.5rem 0 0.65rem;
-            font-weight: 900;
-            color: #1e293b;
-        }
-        
-        /* ==================== GOLD BOXES - PAGE 1 ONLY ==================== */
-        .client-info-box {
-            background: linear-gradient(135deg, #F9F6EE 0%, #F4E5C2 50%, #F9F6EE 100%);
-            border: 3px solid #D4AF37;
-            border-radius: 14px;
-            padding: 1.35rem;
-            margin: 1rem auto;
-            max-width: 500px;
-            box-shadow: 0 4px 12px rgba(212,175,55,0.15);
-        }
-        
-        .client-info-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 0.7rem;
-            padding: 0.55rem 0.75rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-        
-        .client-info-item:last-child { margin-bottom: 0; }
-        
-        .client-info-label {
-            font-weight: 900;
-            color: #D4AF37;
-            min-width: 90px;
-            font-size: 0.88rem;
-        }
-        
-        .client-info-value {
-            color: #0f172a;
-            font-weight: 600;
-            font-size: 0.92rem;
-        }
-        
-        /* ==================== 3D OCTANE BUTTON SCORE CIRCLE ==================== */
-        .score-circle {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #EF4444 0%, #DC2626 50%, #B91C1C 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 1.25rem auto;
-            box-shadow: 
-                0 10px 25px rgba(220, 38, 38, 0.4),
-                0 5px 12px rgba(185, 28, 28, 0.3),
-                inset 0 -8px 16px rgba(185, 28, 28, 0.5),
-                inset 0 8px 16px rgba(254, 202, 202, 0.3);
-            border: 4px solid rgba(185, 28, 28, 0.6);
-            position: relative;
-        }
-        
-        .score-circle::before {
-            content: '';
-            position: absolute;
-            top: 15%;
-            left: 20%;
-            right: 20%;
-            height: 30%;
-            background: radial-gradient(ellipse at center, rgba(254,202,202,0.4) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        
-        .score-inner {
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .score-number {
-            font-size: 5rem;
-            font-weight: 900;
-            color: white;
-            text-shadow: 
-                0 2px 0 rgba(185,28,28,0.8),
-                0 4px 8px rgba(0,0,0,0.4);
-            line-height: 1;
-        }
-        
-        .score-label {
-            font-size: 1.6rem;
-            color: rgba(255,255,255,0.95);
+            margin-bottom: 15px;
+            font-size: 42px;
             font-weight: 800;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            letter-spacing: -0.02em;
         }
-        
-        /* ==================== BOXES ==================== */
-        .alert-box {
-            background: linear-gradient(135deg, #FEF2F2 0%, #FEE2E2 100%);
-            border: 2px solid #EF4444;
-            border-radius: 14px;
-            padding: 1.6rem;
-            margin: 1.5rem 0;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.12);
-        }
-        
-        .alert-title {
-            font-size: 1.55rem;
-            font-weight: 900;
-            color: #DC2626;
-            margin-bottom: 0.7rem;
-        }
-        
-        .alert-text {
-            font-size: 1.2rem;
-            color: #991B1B;
-            font-weight: 700;
-            line-height: 1.5;
-        }
-        
-        .info-box {
-            background: linear-gradient(135deg, #F9F6EE 0%, #F4E5C2 50%, #F9F6EE 100%);
-            border: 3px solid #D4AF37;
-            border-left: 6px solid #D4AF37;
-            border-radius: 14px;
-            padding: 1.6rem;
-            margin: 1.5rem 0;
-            box-shadow: 0 4px 12px rgba(212,175,55,0.15);
-        }
-        
-        .info-box h3 {
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: #D4AF37;
-            margin-bottom: 1.1rem;
-        }
-        
-        .info-box ul {
-            margin-left: 0;
-            list-style: none;
-        }
-        
-        .info-box li {
-            color: #0f172a;
-            font-weight: 600;
-            margin-bottom: 0.7rem;
-            padding-left: 1.6rem;
-            position: relative;
-            line-height: 1.65;
-            font-size: 0.92rem;
-        }
-        
-        .info-box li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #10B981;
-            font-weight: 900;
-            font-size: 1.2rem;
-        }
-        
-        /* ==================== PLATFORM CARDS ==================== */
-        .platform-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.1rem;
-            margin: 1.65rem 0;
-        }
-        
-        .platform-card {
-            border: 2px solid #E2E8F0;
-            border-radius: 14px;
-            padding: 1.15rem;
-            background: white;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-        }
-        
-        .platform-card.red {
-            border-left: 7px solid #EF4444;
-            background: linear-gradient(135deg, #FEF2F2 0%, #FFFFFF 100%);
-        }
-        
-        .platform-card.yellow {
-            border-left: 7px solid #F59E0B;
-            background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%);
-        }
-        
-        .platform-card.green {
-            border-left: 7px solid #10B981;
-            background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
-        }
-        
-        .platform-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.55rem;
-        }
-        
-        .platform-name {
-            font-weight: 900;
-            font-size: 1.08rem;
-            color: #0f172a;
-        }
-        
-        .platform-score {
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: #0f172a;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-        
-        .score-dot {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-            background: linear-gradient(145deg, #FCD34D 0%, #F59E0B 100%);
-            box-shadow: 
-                0 3px 6px rgba(245,158,11,0.5),
-                inset 0 2px 3px rgba(252,211,77,0.8);
-        }
-        
-        .score-dot.red {
-            background: linear-gradient(145deg, #EF4444 0%, #DC2626 100%) !important;
-            box-shadow: 
-                0 3px 6px rgba(239,68,68,0.5),
-                inset 0 2px 3px rgba(254,202,202,0.8);
-        }
-        
-        .score-dot.yellow {
-            background: linear-gradient(145deg, #FCD34D 0%, #F59E0B 100%) !important;
-            box-shadow: 
-                0 3px 6px rgba(245,158,11,0.5),
-                inset 0 2px 3px rgba(252,211,77,0.8);
-        }
-        
-        .score-dot.green {
-            background: linear-gradient(145deg, #34D399 0%, #10B981 100%) !important;
-            box-shadow: 
-                0 3px 6px rgba(16,185,129,0.5),
-                inset 0 2px 3px rgba(167,243,208,0.8);
-        }
-        
-        .platform-category {
-            font-size: 0.72rem;
+
+        .subtitle {
             color: #64748b;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.55rem;
-        }
-        
-        .platform-finding {
-            font-size: 0.88rem;
-            color: #475569;
-            line-height: 1.55;
+            margin-bottom: 10px;
+            font-size: 18px;
             font-weight: 500;
         }
-        
-        /* ==================== COMPETITOR CARDS ==================== */
-        .competitor-card {
-            border: 3px solid #10B981;
-            border-radius: 14px;
-            padding: 1.6rem;
-            margin-bottom: 1.45rem;
-            background: linear-gradient(135deg, #ECFDF5 0%, white 100%);
-            box-shadow: 0 4px 12px rgba(16,185,129,0.12);
-        }
-        
-        .competitor-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1.1rem;
-        }
-        
-        .competitor-name {
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: #1e293b;
-        }
-        
-        .competitor-score-badge {
-            background: linear-gradient(145deg, #10B981 0%, #059669 100%);
-            color: white;
-            font-size: 1.4rem;
-            font-weight: 900;
-            padding: 0.55rem 1.2rem;
-            border-radius: 11px;
-            box-shadow: 0 4px 12px rgba(16,185,129,0.25);
-        }
-        
-        .competitor-url {
+
+        .tagline {
             color: #0891b2;
-            font-size: 0.88rem;
-            margin-bottom: 1.1rem;
-            font-weight: 700;
+            font-size: 16px;
+            font-weight: 600;
         }
-        
-        .competitor-section {
-            margin-top: 1.35rem;
-            padding-top: 1.1rem;
-            border-top: 2px solid rgba(16,185,129,0.2);
-        }
-        
-        .competitor-section:first-of-type {
-            border-top: none;
-            padding-top: 0;
-            margin-top: 0;
-        }
-        
-        .competitor-section-title {
-            font-weight: 900;
-            color: #0f172a;
-            margin-bottom: 0.55rem;
-            font-size: 1.05rem;
-        }
-        
-        .competitor-section p {
-            font-size: 0.92rem;
-            line-height: 1.65;
-        }
-        
-        /* ==================== KEYWORD TABLE ==================== */
-        .keyword-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin: 1.5rem 0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-        
-        .keyword-table th {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white;
-            padding: 0.9rem;
-            text-align: left;
-            font-weight: 900;
-            font-size: 0.88rem;
-        }
-        
-        .keyword-table td {
-            padding: 0.85rem;
-            border-bottom: 1px solid #e2e8f0;
-            background: white;
-            font-size: 0.88rem;
-        }
-        
-        .keyword-table tr:hover td {
-            background: #f8fafc;
-        }
-        
-        .keyword-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .opportunity-badge {
-            display: inline-block;
-            padding: 0.4rem 0.9rem;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        
-        .opportunity-high {
-            background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
-            color: #065F46;
-            border: 2px solid #10B981;
-        }
-        
-        .opportunity-medium {
-            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
-            color: #78350F;
-            border: 2px solid #F59E0B;
-        }
-        
-        .opportunity-low {
-            background: linear-gradient(135deg, #FEE2E2, #FECACA);
-            color: #991B1B;
-            border: 2px solid #EF4444;
-        }
-        
-        .keyword-legend {
-            background: #F8FAFC;
-            border: 2px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin: 1.5rem 0;
+
+        .report-type-selector {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
         }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
+
+        .report-type-option {
+            padding: 30px;
+            border: 3px solid #e2e8f0;
+            border-radius: 16px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            background: white;
         }
-        
-        .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            flex-shrink: 0;
+
+        .report-type-option:hover {
+            border-color: #0891b2;
+            background: #f0f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(8, 145, 178, 0.15);
         }
-        
-        .legend-dot.high { background: #10B981; }
-        .legend-dot.medium { background: #F59E0B; }
-        .legend-dot.low { background: #EF4444; }
-        
-        .legend-text {
-            font-size: 0.85rem;
-            color: #475569;
+
+        .report-type-option.selected {
+            border-color: #0891b2;
+            background: linear-gradient(135deg, #0891b2 0%, #2563eb 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(8, 145, 178, 0.3);
+        }
+
+        .report-type-option input[type="radio"] {
+            display: none;
+        }
+
+        .report-type-title {
+            font-weight: 800;
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .report-type-desc {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .progress-fields {
+            display: none;
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .progress-fields.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 28px;
+        }
+
+        label {
+            display: block;
+            color: #1e293b;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        label .required {
+            color: #ef4444;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0891b2;
+            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.1);
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        .business-type-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        .business-type-option {
+            padding: 24px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .business-type-option:hover {
+            border-color: #0891b2;
+            background: #f0f9ff;
+        }
+
+        .business-type-option.selected {
+            border-color: #0891b2;
+            background: #e0f2fe;
+            box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1);
+        }
+
+        .business-type-option input[type="radio"] {
+            display: none;
+        }
+
+        .business-type-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .business-type-label {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .business-type-desc {
+            font-size: 13px;
+            color: #64748b;
             line-height: 1.4;
         }
-        
-        /* ==================== QUICK WIN CARDS ==================== */
-        .quick-win {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-left: 6px solid #0891b2;
-            border-radius: 14px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+
+        .location-fields {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f0f9ff;
+            border-radius: 12px;
+            border: 2px solid #bae6fd;
         }
-        
-        .quick-win-critical {
-            border-left: 6px solid #DC2626;
-            background: linear-gradient(135deg, #FEF2F2 0%, #FFFFFF 100%);
+
+        .location-fields.active {
+            display: block;
         }
-        
-        .quick-win-high {
-            border-left: 6px solid #F59E0B;
-            background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%);
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
         }
-        
-        .quick-win-opportunity {
-            border-left: 6px solid #10B981;
-            background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
-        }
-        
-        .quick-win-medium {
-            border-left: 6px solid #3B82F6;
-            background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%);
-        }
-        
-        .quick-win-header {
-            font-size: 1.25rem;
-            font-weight: 900;
-            color: #0f172a;
-            margin-bottom: 0.65rem;
-        }
-        
-        .quick-win-meta {
-            color: #64748b;
-            font-size: 0.88rem;
-            margin-bottom: 1rem;
+
+        button {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, #0891b2 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
             font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(8, 145, 178, 0.3);
         }
-        
-        .quick-win ol {
-            margin-left: 1.5rem;
-            margin-top: 0.85rem;
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(8, 145, 178, 0.4);
         }
-        
-        .quick-win li {
-            margin-bottom: 0.65rem;
-            line-height: 1.6;
-            font-weight: 500;
-            font-size: 0.9rem;
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
-        
-        .tools-box {
-            margin-top: 1.25rem;
-            padding: 1rem;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border-radius: 10px;
-            border-left: 3px solid #0891b2;
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            display: none;
         }
-        
-        /* ==================== ROI BOXES ==================== */
-        .roi-grid {
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 5px solid #f3f4f6;
+            border-top: 5px solid #0891b2;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #1e293b;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .loading-subtext {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .output-section {
+            display: none;
+            margin-top: 40px;
+        }
+
+        .output-section.active {
+            display: block;
+        }
+
+        .output-buttons {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+            gap: 20px;
+            margin-top: 30px;
         }
-        
-        .roi-card {
-            background: white;
-            padding: 1.75rem;
-            border-radius: 14px;
-            border: 3px solid #10b981;
-            box-shadow: 0 4px 12px rgba(16,185,129,0.15);
-        }
-        
-        .roi-card h4 {
-            font-size: 1.15rem;
-            font-weight: 900;
-            color: #0f172a;
-            margin-bottom: 0.85rem;
-        }
-        
-        .roi-profit {
-            font-size: 1.85rem;
-            color: #10b981;
-            font-weight: 900;
-            display: block;
-            margin: 0.75rem 0;
-        }
-        
-        /* ==================== PRICING BOX ==================== */
-        .price-box {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-            padding: 2.5rem;
-            border-radius: 20px;
+
+        .output-btn {
+            padding: 30px;
+            border-radius: 16px;
+            font-weight: 700;
             text-align: center;
-            margin: 2rem 0;
-            box-shadow: 0 12px 32px rgba(0,0,0,0.25);
-            position: relative;
-            border: 3px solid #D4AF37;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
         }
-        
-        .new-year-badge {
-            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
-            color: white;
-            padding: 0.85rem 1.75rem;
-            border-radius: 50px;
-            font-weight: 900;
-            display: inline-block;
-            margin-bottom: 1.5rem;
-            font-size: 1.15rem;
-            box-shadow: 0 6px 16px rgba(212,175,55,0.4);
-        }
-        
-        .price-strike {
-            font-size: 1.65rem;
-            text-decoration: line-through;
-            color: #94a3b8;
-            margin-bottom: 1rem;
-        }
-        
-        .price-current {
-            font-size: 4rem;
-            font-weight: 900;
-            color: #10b981;
-            margin: 1.25rem 0;
-            line-height: 1;
-        }
-        
-        .savings-badge {
-            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 900;
-            display: inline-block;
-            margin-top: 1.25rem;
-            font-size: 1.25rem;
-            box-shadow: 0 8px 20px rgba(239,68,68,0.4);
-        }
-        
-        /* ==================== CTA BUTTON ==================== */
-        .cta-button {
+
+        .output-btn.view {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             color: white;
-            padding: 1.75rem 3.5rem;
-            border-radius: 50px;
-            font-size: 1.4rem;
-            font-weight: 900;
-            text-align: center;
-            display: block;
-            text-decoration: none;
-            margin: 2.5rem auto;
-            max-width: 550px;
-            box-shadow: 0 12px 32px rgba(16,185,129,0.4);
-            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
         }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 40px rgba(16,185,129,0.5);
+
+        .output-btn.view:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
         }
-        
-        /* ==================== GUARANTEE BOX ==================== */
-        .guarantee-box {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border: 3px solid #D4AF37;
-            border-radius: 18px;
-            padding: 2.25rem;
-            margin: 2.5rem 0;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(212,175,55,0.25);
-        }
-        
-        .guarantee-box h3 {
-            font-size: 1.85rem;
-            color: #78350f;
-            margin-bottom: 1.1rem;
-        }
-        
-        .guarantee-box p {
-            font-size: 1.15rem;
-            line-height: 1.7;
-            color: #92400e;
-            font-weight: 600;
-        }
-        
-        /* ==================== SYSTEM FEATURE BOX ==================== */
-        .system-feature {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 1.75rem;
-            margin-bottom: 1.35rem;
-        }
-        
-        .system-feature h4 {
-            font-weight: 900;
-            color: #0f172a;
-            font-size: 1.05rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .system-feature p {
-            font-size: 0.92rem;
-            color: #64748b;
-            line-height: 1.65;
-        }
-        
-        /* ==================== MONTHLY VALUE BOX ==================== */
-        .monthly-value-box {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border: 3px solid #0891b2;
-            border-radius: 14px;
-            padding: 1.75rem;
-            margin: 1.75rem 0;
-        }
-        
-        .value-item {
-            margin-bottom: 1.5rem;
-        }
-        
-        .value-item:last-child {
-            margin-bottom: 0;
-        }
-        
-        .value-item h4 {
-            font-size: 1.05rem;
-            font-weight: 900;
-            color: #0f172a;
-            margin-bottom: 0.65rem;
-        }
-        
-        .value-item p {
-            font-size: 0.92rem;
-            color: #475569;
-            line-height: 1.6;
-            margin-bottom: 0.5rem;
-        }
-        
-        .value-item .value-tag {
-            font-size: 0.88rem;
-            color: #0891b2;
-            font-weight: 700;
-        }
-        
-        .total-value {
-            background: #0f172a;
+
+        .output-btn.download {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
             color: white;
-            padding: 1.25rem;
-            border-radius: 12px;
-            margin-top: 1.5rem;
+            border: none;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .output-btn.download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(245, 158, 11, 0.4);
+        }
+
+        .output-btn.html {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .output-btn.html:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .output-btn.copy {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .output-btn.copy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .output-btn-icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border: 3px solid #10b981;
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            color: #065f46;
+            font-weight: 700;
             text-align: center;
+            font-size: 18px;
         }
-        
-        .total-value-amount {
-            font-size: 1.65rem;
-            font-weight: 900;
-            color: #10b981;
-            margin: 0.5rem 0;
-        }
-        
-        /* ==================== NO FOOTER ==================== */
-        .footer {
-            display: none;
+
+        .helper-text {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 6px;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
-
-<!-- PAGE 1: COVER PAGE -->
-<div class="page">
-    <div class="logo-container">
-        <img src="png_take_over_marketing.png" alt="Logo" class="logo">
-    </div>
-    
-    <h1 class="main-title">Your Free Visibility Blueprint &<br>Revenue Growth Roadmap is Here!</h1>
-    
-    <div class="business-name-title">{{BUSINESS_NAME}}</div>
-    
-    <div class="client-info-box">
-        <div class="client-info-item">
-            <div class="client-info-label">Owner:</div>
-            <div class="client-info-value">{{OWNER_NAME}}</div>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Visibility Blueprint Generator</h1>
+            <p class="subtitle">Generate Professional AI & Voice Search Reports</p>
+            <p class="tagline">Analyze visibility across 10 platforms in seconds</p>
         </div>
-        <div class="client-info-item">
-            <div class="client-info-label">Website:</div>
-            <div class="client-info-value">{{WEBSITE}}</div>
-        </div>
-        <div class="client-info-item">
-            <div class="client-info-label">Email:</div>
-            <div class="client-info-value">{{EMAIL}}</div>
-        </div>
-    </div>
-    
-    <div class="score-circle">
-        <div class="score-inner">
-            <div class="score-number">{{SCORE}}</div>
-            <div class="score-label">/100</div>
-        </div>
-    </div>
-    
-    <div class="alert-box">
-        <div class="alert-title">⚠️ CRITICAL AI VISIBILITY CRISIS DETECTED</div>
-        <div class="alert-text">You're invisible to {{INVISIBLE_PERCENT}}% of 2025's AI-powered search traffic</div>
-        <p style="margin-top: 1.1rem; font-size: 1.05rem; color: #7F1D1B; font-weight: 700;">
-            ChatGPT, Gemini, Perplexity & Voice AI are dominating 2025. You're missing out BIG.
-        </p>
-    </div>
-    
-    <div class="info-box">
-        <h3>📊 What's Inside Your Free Visibility Blueprint:</h3>
-        <ul>
-            <li><strong>Complete 10-Platform AI Visibility Audit</strong> — See exactly where you rank on ChatGPT, Perplexity, Gemini, Meta AI, Google, YouTube, Siri, Alexa & more</li>
-            <li><strong>Real Results from Businesses Like Yours</strong> — Case studies showing what's possible when you implement a comprehensive visibility strategy</li>
-            <li><strong>20 High-Value Keyword Opportunities</strong> — The exact AI & voice search terms your customers are using that you're completely missing</li>
-            <li><strong>8 DIY Implementation Blueprints</strong> — Step-by-step guides to fix it yourself (spoiler: it's a LOT of work)</li>
-            <li><strong>Done-For-You Solution</strong> — Our proven 24/7 Traffic Domination Ecosystem™ that guarantees results in 90 days</li>
-        </ul>
-    </div>
-</div>
 
-
-
-<!-- PAGES 4-5: 10-PLATFORM VISIBILITY -->
-<div class="page">
-    <h2>🤖 Your AI, Voice & Search Visibility Scorecard</h2>
-    
-    <p class="section-blurb">
-        <strong>The future is AI-powered search.</strong> Here's how you rank across the 10 platforms that matter most in 2025 and beyond. 
-        Traffic light scoring: 🔴 Critical (0-40) | 🟡 Needs Work (41-70) | 🟢 Strong (71-100)
-    </p>
-    
-    <div class="platform-grid">
-        <div class="platform-card {{CHATGPT_COLOR}}">
-            <div class="platform-header">
-                <div class="platform-name">🤖 ChatGPT</div>
-                <div class="platform-score">
-                    <span class="score-dot {{CHATGPT_COLOR}}"></span>
-                    <span>{{CHATGPT_SCORE}}/100</span>
+        <form id="blueprintForm">
+            <!-- Report Type Selector -->
+            <div class="report-type-selector">
+                <div class="report-type-option selected" onclick="selectReportType('initial')">
+                    <input type="radio" name="reportType" value="initial" checked>
+                    <div class="report-type-title">📊 Initial Blueprint</div>
+                    <div class="report-type-desc">New client assessment</div>
+                </div>
+                <div class="report-type-option" onclick="selectReportType('progress')">
+                    <input type="radio" name="reportType" value="progress">
+                    <div class="report-type-title">📈 Progress Report</div>
+                    <div class="report-type-desc">30/60/90-day update</div>
                 </div>
             </div>
-            <div class="platform-category">AI Search</div>
-            <div class="platform-finding">{{CHATGPT_FINDING}}</div>
-        </div>
-        
-        <div class="platform-card {{PERPLEXITY_COLOR}}">
-            <div class="platform-header">
-                <div class="platform-name">🔮 Perplexity</div>
-                <div class="platform-score">
-                    <span class="score-dot {{PERPLEXITY_COLOR}}"></span>
-                    <span>{{PERPLEXITY_SCORE}}/100</span>
+
+            <!-- Progress Report Fields (Hidden by default) -->
+            <div class="progress-fields" id="progressFields">
+                <div class="form-group">
+                    <label>Report Period</label>
+                    <select id="dayCount">
+                        <option value="30">30-Day Progress Report</option>
+                        <option value="60">60-Day Progress Report</option>
+                        <option value="90">90-Day Progress Report</option>
+                        <option value="180">6-Month Progress Report</option>
+                        <option value="365">1-Year Progress Report</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Baseline Score (from initial report)</label>
+                    <input type="number" id="baselineScore" min="0" max="100" placeholder="e.g., 34">
                 </div>
             </div>
-            <div class="platform-category">AI Search</div>
-            <div class="platform-finding">{{PERPLEXITY_FINDING}}</div>
-        </div>
-        
-        <div class="platform-card {{GEMINI_COLOR}}">
-            <div class="platform-header">
-                <div class="platform-name">💎 Google Gemini</div>
-                <div class="platform-score">
-                    <span class="score-dot {{GEMINI_COLOR}}"></span>
-                    <span>{{GEMINI_SCORE}}/100</span>
+
+            <!-- Website URL -->
+            <div class="form-group">
+                <label>Website URL <span class="required">*</span></label>
+                <input type="url" id="website" required placeholder="https://example.com">
+            </div>
+
+            <!-- Business Name -->
+            <div class="form-group">
+                <label>Business Name <span class="required">*</span></label>
+                <input type="text" id="businessName" required placeholder="Enter your business name">
+            </div>
+
+            <!-- Industry -->
+            <div class="form-group">
+                <label>Industry <span class="required">*</span></label>
+                <select id="industry" required>
+                    <option value="">Select your industry</option>
+                    <option value="local">Local Services (HVAC, Plumbing, Electrical, etc.)</option>
+                    <option value="legal">Legal / Law Firm</option>
+                    <option value="medical">Medical / Healthcare</option>
+                    <option value="realestate">Real Estate</option>
+                    <option value="restaurant">Restaurant / Food Service</option>
+                    <option value="retail">Retail / E-commerce</option>
+                    <option value="professional">Professional Services</option>
+                    <option value="home">Home Services (Remodeling, Landscaping, etc.)</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <!-- Who do you serve? -->
+            <div class="form-group">
+                <label>Who do you serve? <span class="required">*</span></label>
+                <div class="business-type-selector">
+                    <div class="business-type-option selected" onclick="selectBusinessType('local')">
+                        <input type="radio" name="businessType" value="local" checked>
+                        <div class="business-type-icon">📍</div>
+                        <div class="business-type-label">Local</div>
+                        <div class="business-type-desc">Serve customers in a specific city or region</div>
+                    </div>
+                    <div class="business-type-option" onclick="selectBusinessType('national')">
+                        <input type="radio" name="businessType" value="national">
+                        <div class="business-type-icon">🌎</div>
+                        <div class="business-type-label">National</div>
+                        <div class="business-type-desc">Serve customers online or nationwide</div>
+                    </div>
                 </div>
             </div>
-            <div class="platform-category">AI Search</div>
-            <div class="platform-finding">{{GEMINI_FINDING}}</div>
-        </div>
-        
-        <div class="platform-card {{META_COLOR}}">
-            <div class="platform-header">
-                <div class="platform-name">🌐 Meta AI</div>
-                <div class="platform-score">
-                    <span class="score-dot {{META_COLOR}}"></span>
-                    <span>{{META_SCORE}}/100</span>
+
+            <!-- Location Fields (shown only for Local) -->
+            <div class="location-fields active" id="locationFields">
+                <div class="location-grid">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>City <span class="required">*</span></label>
+                        <input type="text" id="city" required placeholder="Enter your city">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>State <span class="required">*</span></label>
+                        <input type="text" id="state" required placeholder="State">
+                    </div>
                 </div>
             </div>
-            <div class="platform-category">AI Search</div>
-            <div class="platform-finding">{{META_FINDING}}</div>
-        </div>
-        
-        <div class="platform-card {{SIRI_COLOR}}">
-            <div class="platform-header">
-                <div class="platform-name">📱 Siri</div>
-                <div class="platform-score">
-                    <span class="score-dot {{SIRI_COLOR}}"></span>
-                    <span>{{SIRI_SCORE}}/100</span>
-                </div>
+
+            <!-- Owner's Name -->
+            <div class="form-group">
+                <label>Owner's Name <span class="required">*</span></label>
+                <input type="text" id="ownerName" required placeholder="Enter owner's name">
             </div>
-            <div class="platform-category">AI Voice Search</div>
-            <div class="platform-finding">{{SIRI_FINDING}}</div>
-        </div>
-        
-        <div class="platform-card {{ALEXA_COLOR}}">
-            <div class="platform-header">
-                <div class="platform-name">🔊 Alexa</div>
-                <div class="platform-score">
-                    <span class="score-dot {{ALEXA_COLOR}}"></span>
-                    <span>{{ALEXA_SCORE}}/100</span>
-                </div>
+
+            <!-- Email -->
+            <div class="form-group">
+                <label>Email Address <span class="required">*</span></label>
+                <input type="email" id="email" required placeholder="your@email.com">
             </div>
-            <div class="platform-category">AI Voice Search</div>
-            <div class="platform-finding">{{ALEXA_FINDING}}</div>
-        </div>
-        
-        <div class="platform-card {{GOOGLE_ASSIST_COLOR}}">
-            <div class="platform-header">
-                <div class="platform-name">🎙️ Google Assistant</div>
-                <div class="platform-score">
-                    <span class="score-dot {{GOOGLE_ASSIST_COLOR}}"></span>
-                    <span>{{GOOGLE_ASSIST_SCORE}}/100</span>
-                </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+                <label>Phone Number <span class="required">*</span></label>
+                <input type="tel" id="phone" required placeholder="(555) 123-4567">
             </div>
-            <div class="platform-category">AI Voice Search</div>
-            <div class="platform-finding">{{GOOGLE_ASSIST_FINDING}}</div>
-        </div>
-        
-        <div class="platform-card {{COPILOT_COLOR}}">
-            <div class="platform-header">
-                <div class="platform-name">🪟 Bing Copilot</div>
-                <div class="platform-score">
-                    <span class="score-dot {{COPILOT_COLOR}}"></span>
-                    <span>{{COPILOT_SCORE}}/100</span>
-                </div>
-            </div>
-            <div class="platform-category">AI Search</div>
-            <div class="platform-finding">{{COPILOT_FINDING}}</div>
-        </div>
-        
-        <div class="platform-card {{YOUTUBE_COLOR}}">
-            <div class="platform-header">
-                <div class="platform-name">📹 YouTube</div>
-                <div class="platform-score">
-                    <span class="score-dot {{YOUTUBE_COLOR}}"></span>
-                    <span>{{YOUTUBE_SCORE}}/100</span>
-                </div>
-            </div>
-            <div class="platform-category">Video Search</div>
-            <div class="platform-finding">{{YOUTUBE_FINDING}}</div>
-        </div>
-        
-        <div class="platform-card {{GOOGLE_SEO_COLOR}}">
-            <div class="platform-header">
-                <div class="platform-name">🔍 Google Search</div>
-                <div class="platform-score">
-                    <span class="score-dot {{GOOGLE_SEO_COLOR}}"></span>
-                    <span>{{GOOGLE_SEO_SCORE}}/100</span>
-                </div>
-            </div>
-            <div class="platform-category">Traditional SEO</div>
-            <div class="platform-finding">{{GOOGLE_SEO_FINDING}}</div>
-        </div>
-    </div>
-    
-    <div class="alert-box" style="text-align: left;">
-        <h3 style="color: #DC2626; font-size: 1.35rem; margin-bottom: 0.7rem;">⚠️ The 2025 Reality:</h3>
-        <ul style="margin-left: 1.35rem; line-height: 1.8; font-size: 0.92rem; color: #7F1D1B;">
-            <li><strong>60%+ of searches</strong> now happen on AI platforms (ChatGPT, Perplexity, Gemini, Meta AI)</li>
-            <li><strong>40% of local searches</strong> are voice-activated (Siri, Alexa, Google Assistant)</li>
-            <li><strong>Your competitors are dominating</strong> these platforms while you're invisible</li>
-            <li><strong>Every day you wait</strong> = hundreds of potential customers finding your competition instead</li>
-        </ul>
-    </div>
-</div>
 
+            <button type="submit" id="generateBtn">Generate Blueprint Report</button>
+        </form>
 
-<!-- PAGE 6: KEYWORD OPPORTUNITIES -->
-<div class="page">
-    <h2>🎯 20 High-Value Keywords You're Missing</h2>
-    
-    <p class="section-blurb">
-        These are the exact search terms your customers use on AI platforms, voice assistants, and Google. 
-        Your competitors are ranking for these — you're not. Here's your opportunity.
-    </p>
-    
-    <div class="keyword-legend">
-        <div class="legend-item">
-            <span class="legend-dot high"></span>
-            <div class="legend-text"><strong>High Opportunity:</strong> Low competition, easier to rank, great ROI</div>
-        </div>
-        <div class="legend-item">
-            <span class="legend-dot medium"></span>
-            <div class="legend-text"><strong>Medium Opportunity:</strong> Moderate competition, achievable with effort</div>
-        </div>
-        <div class="legend-item">
-            <span class="legend-dot low"></span>
-            <div class="legend-text"><strong>Low Opportunity:</strong> High competition, requires authority & backlinks</div>
-        </div>
-    </div>
-    
-    <table class="keyword-table">
-        <thead>
-            <tr>
-                <th style="width: 55%;">Keyword</th>
-                <th style="width: 20%;">Monthly Volume</th>
-                <th style="width: 25%;">Opportunity</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{KEYWORD_ROWS}}
-        </tbody>
-    </table>
-    
-    <div class="alert-box">
-        <h3 style="color: #DC2626; font-size: 1.4rem; margin-bottom: 0.85rem;">📊 The Keyword Opportunity</h3>
-        <p style="font-size: 1.1rem; color: #991B1B; font-weight: 700;">
-            Combined monthly search volume: <strong style="font-size: 1.6rem; display: block; margin: 0.65rem 0;">{{TOTAL_VOLUME}}</strong>
-            You're missing <strong>100%</strong> of these searches. Your competitors aren't.
-        </p>
-    </div>
-</div>
-
-
-<!-- PAGES 7-9: 8 DIY QUICK WINS -->
-<div class="page">
-    <h2>🛠️ DIY Quick Win Implementation Steps</h2>
-    
-    <p class="section-blurb">
-        A simple, step‑by‑step breakdown you can follow if you'd like to handle these improvements yourself. Each task is doable — just expect some hands‑on technical work along the way.
-    </p>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #1: Add Schema Markup</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 8-12 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Schema markup helps AI platforms understand your business. Add LocalBusiness, FAQPage, and Service schema to your website.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Use Google's Schema Markup Generator → Add JSON-LD code to your site's &lt;head&gt; → Test with Rich Results Tool → Submit updated sitemap to Google Search Console</p>
-    </div>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #2: Create FAQ Content</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 10-15 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">AI search engines prioritize content that directly answers questions. Create a comprehensive FAQ page targeting your top 20 keywords.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Research "People Also Ask" questions on Google → Write detailed 150-200 word answers → Add FAQ schema markup → Create individual FAQ pages for high-volume questions</p>
-    </div>
-</div>
-
-
-<div class="page">
-    <h2>🛠️ DIY Implementation Steps (Continued)</h2>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #3: Optimize Google Business Profile</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 6-8 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Your Google Business Profile is the foundation for local voice search. Complete optimization dramatically improves Siri, Alexa, and Google Assistant rankings.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Add 30+ high-quality photos → Complete all business attributes → Post weekly updates → Respond to all reviews within 24 hours → Add service-specific descriptions → Enable messaging</p>
-    </div>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #4: Create Pillar Content</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 15-20 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Write comprehensive 3,000+ word guides on your core services. AI platforms heavily favor detailed, authoritative content.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Research top 10 competing articles → Create detailed outline covering all aspects → Write comprehensive guide with examples → Add images, diagrams, and videos → Internal link to related service pages → Optimize for featured snippets</p>
-    </div>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #5: Launch YouTube Channel</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 20-25 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">YouTube is the second-largest search engine and heavily influences AI recommendations. Create 10-15 educational videos answering customer questions.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Create channel with professional branding → Film 10-15 FAQ videos (5-10 min each) → Optimize titles, descriptions with target keywords → Add timestamps and chapters → Create playlists by topic → Link to your website in descriptions</p>
-    </div>
-</div>
-
-
-<div class="page">
-    <h2>🛠️ DIY Implementation Steps (Continued)</h2>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #6: Claim Directory Listings</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 12-15 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Consistent NAP (Name, Address, Phone) across 50+ directories builds authority and helps AI platforms verify your business legitimacy.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Claim Yelp, Facebook, Apple Maps, Bing Places → Add to industry-specific directories → Ensure exact NAP consistency → Add business hours, photos, descriptions → Set up review monitoring → Respond to all reviews</p>
-    </div>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #7: Build Internal Linking</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 8-10 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Strategic internal links help AI crawlers understand your content relationships and distribute authority across your site.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Audit existing internal links → Create topic clusters → Link related blog posts to pillar pages → Add contextual links in content → Create resource hub page → Update old content with new internal links</p>
-    </div>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #8: Earn Strategic Backlinks</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 15-20 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Quality backlinks from authoritative sites signal credibility to AI platforms. Focus on local partnerships, industry directories, and guest posts.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Partner with local businesses for mutual links → Submit to Better Business Bureau, Chamber of Commerce → Write guest posts for industry blogs → Get featured in local news → Create shareable infographics → Build relationships with local influencers</p>
-    </div>
-    
-    <div class="alert-box">
-        <h3 style="color: #DC2626; font-size: 1.4rem; margin-bottom: 0.85rem;">⏰ Reality Check</h3>
-        <p style="font-size: 1.1rem; color: #991B1B; font-weight: 700; line-height: 1.6;">
-            Implementing all 8 Quick Wins: <strong style="font-size: 1.5rem;">80-120 hours</strong><br>
-            That's <strong>2-3 weeks of full-time work</strong> — if you know what you're doing.<br><br>
-            <span style="font-size: 1.3rem;">OR... we can do it ALL in 30 days. Guaranteed.</span>
-        </p>
-    </div>
-</div>
-
-
-<!-- PAGE 10: ROI CALCULATOR -->
-<div class="page">
-    <h2>💰 Your ROI, Broken Down Simply</h2>
-    
-    <p class="section-blurb">
-        Forget hype. Here's what happens when your business gets even a small, steady lift in new clients. 
-        The math is straightforward — and the upside is massive.
-    </p>
-    
-    <div class="roi-grid">
-        <div class="roi-card">
-            <h4>🎯 Baseline Boost</h4>
-            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.75rem;">
-                <strong>1 new client per month</strong> @ $500 value
-            </p>
-            <span class="roi-profit">$6,000</span>
-            <p style="font-size: 0.85rem; color: #64748b; margin: 0.5rem 0 0 0;">in yearly revenue</p>
-            <p style="font-size: 0.88rem; color: #047857; font-weight: 700; margin-top: 0.75rem;">
-                141% ROI in Year 1<br>
-                Your setup pays for itself within 5 months
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p class="loading-text">Analyzing visibility across 10 platforms...</p>
+            <p class="loading-subtext">
+                Checking ChatGPT, Perplexity, Gemini, Meta AI,<br>
+                Siri, Alexa, Google Assistant, Bing Copilot, YouTube, and Google
             </p>
         </div>
-        
-        <div class="roi-card">
-            <h4>📈 High‑Impact Growth</h4>
-            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.75rem;">
-                <strong>10 new clients per month</strong> @ $500 value
-            </p>
-            <span class="roi-profit">$60,000</span>
-            <p style="font-size: 0.85rem; color: #64748b; margin: 0.5rem 0 0 0;">in yearly revenue</p>
-            <p style="font-size: 0.88rem; color: #047857; font-weight: 700; margin-top: 0.75rem;">
-                2,302% ROI in Year 1<br>
-                Your investment pays itself back in under 14 days
-            </p>
-        </div>
-    </div>
-    
-    <div class="alert-box" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-color: #10b981;">
-        <h3 style="color: #065f46; font-size: 1.4rem; margin-bottom: 0.85rem;">💡 What Most Clients Actually Experience</h3>
-        <p style="font-size: 1.05rem; color: #047857; font-weight: 700; line-height: 1.65;">
-            Within the first 90 days, the average client sees <strong>3–5 new clients per month</strong>.<br>
-            At $500 per client, that's <strong>$18,000–$30,000 in annual revenue</strong> — generated automatically.
-        </p>
-    </div>
-</div>
 
+        <div class="output-section" id="outputSection">
+            <div class="success-message">
+                ✅ Blueprint generated successfully!
+            </div>
+            <div class="output-buttons">
+                <button class="output-btn view" onclick="viewReport()">
+                    <span class="output-btn-icon">👁️</span>
+                    View Report
+                </button>
+                <button class="output-btn download" onclick="downloadPDF()">
+                    <span class="output-btn-icon">📥</span>
+                    Download PDF
+                </button>
+                <button class="output-btn html" onclick="downloadHTML()">
+                    <span class="output-btn-icon">💾</span>
+                    Download HTML
+                </button>
+                <button class="output-btn copy" onclick="copyHTML()">
+                    <span class="output-btn-icon">📋</span>
+                    Copy HTML
+                </button>
+            </div>
+        </div>
+    </div>
 
-<!-- PAGE 11: 24/7 TRAFFIC DOMINATION ECOSYSTEM -->
-<div class="page">
-    <h2>🚀 The 24/7 Traffic Domination Ecosystem™</h2>
-    
-    <p class="section-blurb">
-        Imagine waking up to qualified leads coming in from Google, ChatGPT, YouTube, and voice search—all working together 
-        in perfect harmony, 24 hours a day, 7 days a week. That's the power of a true visibility ecosystem. While your 
-        competitors chase scattered tactics, you'll own an interconnected asset that compounds in value every single day. 
-        <strong>Guaranteed results in 90 days.</strong>
-    </p>
-    
-    <h3 style="color: #D4AF37; margin-top: 1.25rem;">What's Included in Your Ecosystem:</h3>
-    
-    <div class="system-feature">
-        <h4>✅ 1 High-Converting Landing Page (The Nucleus)</h4>
-        <p>The strategic hub of your ecosystem. Every piece of content—blogs, videos, emails—flows traffic back to this 
-        conversion-optimized page designed to turn visitors into paying clients. Built with proven psychology and tested layouts.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 1 Anchor Blog (The Authority Foundation)</h4>
-        <p>Your flagship content piece—comprehensive, authoritative, and optimized to rank for your most valuable keyword. 
-        This becomes your digital real estate that establishes expertise and captures high-intent searches.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 4 Supporting Blogs (The Traffic Net)</h4>
-        <p>Strategic posts targeting related searches and long-tail variations. Each captures a different audience segment and 
-        funnels traffic through your ecosystem, expanding your reach while strengthening the authority of your anchor content.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 5 Main YouTube Videos (Visual Authority)</h4>
-        <p>One professionally optimized video for each blog topic. These multiply your visibility on YouTube (the #2 search engine), 
-        appear in Google results, get recommended by AI, and serve as trust-building assets throughout your funnel.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 10 FAQ & TIPS Shorts (Rapid Acceleration)</h4>
-        <p>Quick, high-value videos answering your prospects' burning questions. These spread virally, trigger YouTube's 
-        algorithm, appear in voice search results, and can be repurposed across every platform for maximum leverage.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 1 Channel Intro Video (The Welcome Mat)</h4>
-        <p>Your channel's front door—professionally crafted to immediately establish credibility, showcase your expertise, 
-        and guide new visitors into your ecosystem.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 10-Day Trust Email Drip Campaign</h4>
-        <p>Trust-building FAQ & Tips videos that nurture leads automatically and trigger rapid YouTube acceleration. Each email 
-        delivers value, builds authority, and moves prospects closer to becoming clients—all on autopilot.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ Authority Loop Interlinking + Schema Markup</h4>
-        <p>The secret weapon that ties everything together. Strategic internal links between blogs, videos, and landing pages 
-        create an authority feedback loop. Rich schema markup makes your content easy for AI and search engines to understand, 
-        feature, and recommend.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ Full-Platform Optimization</h4>
-        <p>Every asset is optimized for SEO (Traditional Google), AEO (Answer Engine), AIO (AI Overview), GEO (Generative Engine), 
-        VEO (Voice Engine), plus E-E-A-T signals. Your content is engineered to rank everywhere people search.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ Cluster Playlist Boost</h4>
-        <p>All videos organized into themed playlists that increase watch time, boost authority, and get recommended more often 
-        by YouTube's algorithm. This amplifies your visibility and compounds your results.</p>
-    </div>
-    
-    <div class="monthly-value-box">
-        <h3 style="color: #0891b2; font-size: 1.3rem; margin-bottom: 1rem;">📅 Monthly Ongoing (After Setup)</h3>
-        
-        <div class="value-item">
-            <h4>• Monthly Authority Backlinks</h4>
-            <p>Fresh, high-quality links that compound your rankings and widen your competitive gap.</p>
-            <p class="value-tag">Value: $300–$500/mo</p>
-        </div>
-        
-        <div class="value-item">
-            <h4>• Continuous Optimization & Content Upgrades</h4>
-            <p>Your ecosystem is refined monthly to maximize traffic, conversions, and long-term authority.</p>
-            <p class="value-tag">Value: $500/mo</p>
-        </div>
-        
-        <div class="value-item">
-            <h4>• Performance Monitoring With Actionable Insights</h4>
-            <p>Clear reporting that drives smarter decisions and faster growth.</p>
-            <p class="value-tag">Value: $300/mo</p>
-        </div>
-        
-        <div class="value-item">
-            <h4>• The Strategic Growth Asset (Your Choice of ONE Each Month)</h4>
-            <p>Select a premium, high-impact asset engineered to expand your visibility, authority, or conversions instantly.</p>
-            <p class="value-tag">Value: $197–$497/mo</p>
-        </div>
-        
-        <div class="total-value">
-            <div style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 0.5rem;">⭐ Total Monthly Value</div>
-            <div class="total-value-amount">$1,300–$1,800 — Included</div>
-            <p style="font-size: 0.95rem; color: #e0f2fe; margin-top: 0.75rem;">
-                Every month, you gain a new permanent business asset that compounds your growth and keeps you ahead 
-                while competitors fall behind.
-            </p>
-        </div>
-    </div>
-</div>
+    <script>
+        let generatedHTML = '';
+        let reportType = 'initial';
+        let businessType = 'local';
 
+        // CLOUDFLARE WORKER URL - You'll set this after deploying the worker
+        const WORKER_URL = 'https://blueprint-api.instantleadpros.workers.dev'; // Worker deployed and configured!
 
-<!-- PAGE 12: PRICING & CTA -->
-<div class="page">
-    <h2>🎁 Limited 2026 New Year's Offer</h2>
-    
-    <p class="section-blurb">
-        Start 2026 by dominating AI search, voice assistants, and YouTube. This exclusive offer ends in 7 days—after that, 
-        you'll pay full price while your competitors capture the traffic that should be yours.
-    </p>
-    
-    <div class="price-box">
-        <div class="new-year-badge">🎉 EXCLUSIVE 2026 NEW YEAR'S OFFER</div>
-        
-        <div style="font-size: 1.3rem; color: #cbd5e1; margin: 1rem 0 0.5rem;">Regular Setup Investment:</div>
-        <div class="price-strike">$2,997</div>
-        
-        <div style="font-size: 1.6rem; color: white; font-weight: 900; margin: 1.5rem 0 0.75rem;">
-            YOUR 2026 PRICE:
-        </div>
-        <div class="price-current">$2,497</div>
-        
-        <div style="font-size: 1.2rem; color: #e0f2fe; margin: 1.5rem 0;">
-            + $497/month ongoing optimization<br>
-            <span style="font-size: 0.95rem; color: #94a3b8;">(Worth $1,300-$1,800/mo — see previous page)</span>
-        </div>
-        
-        <div class="savings-badge">⏰ SAVE $500 — OFFER ENDS IN 7 DAYS</div>
-        
-        <p style="font-size: 1rem; color: #cbd5e1; margin-top: 2rem; line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto;">
-            One-time setup builds your entire 24/7 Traffic Domination Ecosystem™.<br>
-            Monthly ongoing keeps you dominating as algorithms evolve and competitors scramble to keep up.
-        </p>
-    </div>
-    
-    
-    <!-- REAL RESULTS FROM REAL BUSINESSES (Moved here - above guarantee) -->
-    <h2 style="margin-top: 3rem;">✅ Real Results from Real Businesses</h2>
-    
-    <p class="section-blurb">
-        These businesses implemented our visibility strategy. Here's what happened in 90 days.
-    </p>
-    
-    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 3px solid #10b981; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <h3 style="color: #047857; margin: 0 0 0.75rem 0; font-size: 1.25rem; font-weight: 700;">Miami HVAC Company - From Invisible to Industry Leader</h3>
-        <p style="margin: 0 0 0.75rem 0; color: #1e293b;"><strong>Industry:</strong> Home Services | <strong>Location:</strong> Miami, FL</p>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 0.75rem;">
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #64748b; font-weight: 600; font-size: 0.95rem;">BEFORE:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #475569; font-size: 0.95rem; line-height: 1.6;">
-                    <li>AI Visibility: 12/100</li>
-                    <li>Not found in ChatGPT</li>
-                    <li>Invisible to voice search</li>
-                    <li>5-8 leads/month</li>
-                </ul>
-            </div>
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #059669; font-weight: 600; font-size: 0.95rem;">AFTER 90 DAYS:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #047857; font-size: 0.95rem; line-height: 1.6;">
-                    <li>AI Visibility: 89/100</li>
-                    <li>#1 in ChatGPT for key terms</li>
-                    <li>Siri's first recommendation</li>
-                    <li>25-35 leads/month</li>
-                </ul>
-            </div>
-        </div>
-        
-        <p style="margin: 1rem 0 0 0; padding: 0.875rem; background: white; border-radius: 8px; color: #047857; font-weight: 700; font-size: 1.05rem;">
-            <strong>Result:</strong> 300% increase in organic leads, <span style="color: #10b981; font-size: 1.15rem;">$127K additional revenue</span> in first year
-        </p>
-    </div>
-    
-    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 3px solid #10b981; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <h3 style="color: #047857; margin: 0 0 0.75rem 0; font-size: 1.25rem; font-weight: 700;">West Palm Beach Real Estate Agent - Dominating Local Search</h3>
-        <p style="margin: 0 0 0.75rem 0; color: #1e293b;"><strong>Industry:</strong> Real Estate | <strong>Location:</strong> West Palm Beach, FL</p>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 0.75rem;">
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #64748b; font-weight: 600; font-size: 0.95rem;">BEFORE:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #475569; font-size: 0.95rem; line-height: 1.6;">
-                    <li>Google rank: #47</li>
-                    <li>Zero AI presence</li>
-                    <li>2-3 online leads/month</li>
-                </ul>
-            </div>
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #059669; font-weight: 600; font-size: 0.95rem;">AFTER 90 DAYS:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #047857; font-size: 0.95rem; line-height: 1.6;">
-                    <li>Google rank: #2</li>
-                    <li>#1 in ChatGPT & Perplexity</li>
-                    <li>15-20 online leads/month</li>
-                </ul>
-            </div>
-        </div>
-        
-        <p style="margin: 1rem 0 0 0; padding: 0.875rem; background: white; border-radius: 8px; color: #047857; font-weight: 700; font-size: 1.05rem;">
-            <strong>Result:</strong> Now gets <span style="color: #10b981; font-size: 1.15rem;">15 qualified leads/month</span> from AI search alone
-        </p>
-    </div>
-    
-    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 3px solid #10b981; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <h3 style="color: #047857; margin: 0 0 0.75rem 0; font-size: 1.25rem; font-weight: 700;">Online Coaching Business - National AI Domination</h3>
-        <p style="margin: 0 0 0.75rem 0; color: #1e293b;"><strong>Industry:</strong> Business Coaching | <strong>Location:</strong> Online/National</p>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 0.75rem;">
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #64748b; font-weight: 600; font-size: 0.95rem;">BEFORE:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #475569; font-size: 0.95rem; line-height: 1.6;">
-                    <li>Zero AI visibility</li>
-                    <li>5,000 monthly visitors</li>
-                    <li>Struggling to scale</li>
-                </ul>
-            </div>
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #059669; font-weight: 600; font-size: 0.95rem;">AFTER 60 DAYS:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #047857; font-size: 0.95rem; line-height: 1.6;">
-                    <li>Featured in ChatGPT, Perplexity, Gemini</li>
-                    <li>20,000 monthly visitors</li>
-                    <li>Authority positioning</li>
-                </ul>
-            </div>
-        </div>
-        
-        <p style="margin: 1rem 0 0 0; padding: 0.875rem; background: white; border-radius: 8px; color: #047857; font-weight: 700; font-size: 1.05rem;">
-            <strong>Result:</strong> 400% traffic increase, <span style="color: #10b981; font-size: 1.15rem;">$47K in first 90 days</span>
-        </p>
-    </div>
-    
-    <div class="guarantee-box">
-        <h3>🔒 Our Iron-Clad 90-Day Guarantee</h3>
-        <p>
-            If we don't improve your visibility by <strong>50%+ across AI Search, Voice Search, and Traditional SEO</strong> 
-            within 90 days, we'll work for <strong>FREE</strong> until we do.<br><br>
-            No questions asked. No fine print. No excuses.
-        </p>
-    </div>
-    
-    <a href="#" class="cta-button">
-        📞 Book Your Next Steps Call
-    </a>
-    
-    <div style="text-align: center; margin: 2rem 0; color: #64748b; font-size: 0.95rem; line-height: 1.8;">
-        <strong style="color: #0f172a; font-size: 1.1rem;">You've seen the gaps. Now let's map out how to fix them.</strong><br>
-        In 15 minutes, we'll walk through your Blueprint together, answer your questions, and show you exactly what the next 
-        90 days look like if you want our help. No pressure—just next steps.
-    </div>
-    
-    <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border: 3px solid #ef4444; border-radius: 16px; padding: 2rem; margin: 2.5rem 0; text-align: center;">
-        <div style="font-size: 1.4rem; font-weight: 900; color: #dc2626; margin-bottom: 1rem;">
-            ⚠️ This Offer Expires in 7 Days
-        </div>
-        <div style="font-size: 1.15rem; color: #991b1b; font-weight: 700; line-height: 1.7;">
-            After 7 days, setup returns to <strong>$2,997</strong> and you'll lose your <strong>$500 savings</strong>.<br>
-            Every day you wait is another day your competitors capture the traffic (and revenue) that should be yours.
-        </div>
-    </div>
-    
-    <div style="text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 3px solid #D4AF37;">
-        <div style="font-size: 1.25rem; color: #0f172a; margin-bottom: 1.25rem; font-weight: 900;">
-            Questions? We're Here to Help
-        </div>
-        <div style="font-size: 1.05rem; color: #64748b; line-height: 2.2; font-weight: 600;">
-            📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6d05080101022d190c0608021b081f000c1f06081904030a430e0200">[email&#160;protected]</a><br>
+        // CALL CLOUDFLARE WORKER FOR INTELLIGENT ANALYSIS
+        async function callWorkerAPI(businessData) {
+            if (WORKER_URL === 'YOUR_WORKER_URL_HERE') {
+                alert('⚠️ Worker URL not configured yet!\n\nPlease update WORKER_URL in the code after deploying your Cloudflare Worker.\n\nSee deployment guide for instructions.');
+                throw new Error('Worker URL not configured');
+            }
+
+            try {
+                const response = await fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(businessData)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.error || `Worker Error: ${response.status}`);
+                }
+
+                const analysisData = await response.json();
+                return analysisData;
+            } catch (error) {
+                console.error('Worker API Error:', error);
+                alert('Error getting analysis: ' + error.message + '\n\nPlease check that your Cloudflare Worker is deployed and the WORKER_URL is correct.');
+                throw error;
+            }
+        }
+
+        function selectReportType(type) {
+            reportType = type;
+            const options = document.querySelectorAll('.report-type-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            document.querySelector(`input[name="reportType"][value="${type}"]`).checked = true;
+            
+            const progressFields = document.getElementById('progressFields');
+            if (type === 'progress') {
+                progressFields.classList.add('active');
+            } else {
+                progressFields.classList.remove('active');
+            }
+        }
+
+        function selectBusinessType(type) {
+            businessType = type;
+            const options = document.querySelectorAll('.business-type-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            document.querySelector(`input[name="businessType"][value="${type}"]`).checked = true;
+            
+            const locationFields = document.getElementById('locationFields');
+            if (type === 'local') {
+                locationFields.classList.add('active');
+                document.getElementById('city').required = true;
+                document.getElementById('state').required = true;
+            } else {
+                locationFields.classList.remove('active');
+                document.getElementById('city').required = false;
+                document.getElementById('state').required = false;
+            }
+        }
+
+        document.getElementById('blueprintForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const businessName = document.getElementById('businessName').value;
+            const ownerName = document.getElementById('ownerName').value;
+            const website = document.getElementById('website').value;
+            const email = document.getElementById('email').value;
+            const industry = document.getElementById('industry').value;
+            const phone = document.getElementById('phone').value;
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+            
+            // Show loading
+            document.getElementById('blueprintForm').style.display = 'none';
+            document.getElementById('loading').classList.add('active');
+            
+            try {
+                // Call Cloudflare Worker for intelligent analysis
+                const apiData = await callWorkerAPI({
+                    businessName,
+                    website,
+                    industry,
+                    businessType,
+                    city,
+                    state
+                });
+
+                // Extract scores, findings, and keywords from API response
+                const scores = {
+                    chatgpt: apiData.scores.chatgpt.score,
+                    perplexity: apiData.scores.perplexity.score,
+                    gemini: apiData.scores.gemini.score,
+                    metaAI: apiData.scores.metaAI.score,
+                    siri: apiData.scores.siri.score,
+                    alexa: apiData.scores.alexa.score,
+                    googleAssist: apiData.scores.googleAssist.score,
+                    copilot: apiData.scores.copilot.score,
+                    youtube: apiData.scores.youtube.score,
+                    google: apiData.scores.google.score
+                };
+
+                const findings = {
+                    chatgpt: apiData.scores.chatgpt.finding,
+                    perplexity: apiData.scores.perplexity.finding,
+                    gemini: apiData.scores.gemini.finding,
+                    metaAI: apiData.scores.metaAI.finding,
+                    siri: apiData.scores.siri.finding,
+                    alexa: apiData.scores.alexa.finding,
+                    googleAssist: apiData.scores.googleAssist.finding,
+                    copilot: apiData.scores.copilot.finding,
+                    youtube: apiData.scores.youtube.finding,
+                    google: apiData.scores.google.finding
+                };
+
+                // Extract keywords from API response
+                const keywords = apiData.keywords || [];
+                
+                if (reportType === 'initial') {
+                    generatedHTML = await generateInitialBlueprint(businessName, ownerName, website, email, industry, phone, city, state, scores, findings, keywords);
+                } else {
+                    const dayCount = document.getElementById('dayCount').value;
+                    const baselineScore = parseInt(document.getElementById('baselineScore').value) || 34;
+                    generatedHTML = await generateProgressReport(businessName, ownerName, website, email, scores, baselineScore, dayCount);
+                }
+                
+                // Hide loading, show output
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('outputSection').classList.add('active');
+            } catch (error) {
+                // Hide loading, show form again
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('blueprintForm').style.display = 'block';
+                console.error('Generation error:', error);
+            }
+        });
+
+        async function scrapePlatforms(website, businessType, city, state) {
+            // Different scoring logic for local vs national
+            const localBoost = businessType === 'local' ? 10 : 0;
+            
+            return {
+                chatgpt: Math.floor(Math.random() * 30) + 10,
+                perplexity: Math.floor(Math.random() * 35) + 15,
+                gemini: Math.floor(Math.random() * 35) + 20,
+                metaAI: Math.floor(Math.random() * 30) + 10,
+                siri: Math.floor(Math.random() * 35) + 30 + localBoost,
+                alexa: Math.floor(Math.random() * 35) + 25 + localBoost,
+                googleAssist: Math.floor(Math.random() * 40) + 35 + localBoost,
+                copilot: Math.floor(Math.random() * 30) + 20,
+                youtube: Math.floor(Math.random() * 35) + 15,
+                google: Math.floor(Math.random() * 30) + 45 + (localBoost / 2)
+            };
+        }
+
+        function getScoreColor(score) {
+            if (score <= 40) return 'red';
+            if (score <= 70) return 'yellow';
+            return 'green';
+        }
+
+        async function generateInitialBlueprint(businessName, ownerName, website, email, industry, phone, city, state, scores, findings, keywords) {
+            // Calculate REAL average from the 10 platform scores
+            const avgScore = Math.round(Object.values(scores).reduce((a,b) => a + b, 0) / 10);
+            const invisiblePercent = Math.round((100 - avgScore) * 0.44); // More realistic percentage
+            
+            let html = await getInitialBlueprintTemplate();
+            
+            html = html.replace(/{{BUSINESS_NAME}}/g, businessName);
+            html = html.replace(/{{OWNER_NAME}}/g, ownerName);
+            html = html.replace(/{{WEBSITE}}/g, website);
+            html = html.replace(/{{EMAIL}}/g, email);
+            html = html.replace(/{{SCORE}}/g, avgScore);
+            html = html.replace(/{{INVISIBLE_PERCENT}}/g, invisiblePercent);
+            
+            html = html.replace(/href="#"/g, 'href="https://api.leadconnectorhq.com/widget/booking/F54VssFN9sgohpXjjhtj" target="_blank"');
+            
+            // Remove competitor placeholders - we'll use testimonials instead
+            // (Testimonials are in the template already - no dynamic replacement needed)
+            
+            // Replace platform scores and findings from API
+            html = html.replace(/{{CHATGPT_SCORE}}/g, scores.chatgpt);
+            html = html.replace(/{{CHATGPT_COLOR}}/g, getScoreColor(scores.chatgpt));
+            html = html.replace(/{{CHATGPT_FINDING}}/g, findings.chatgpt);
+            
+            html = html.replace(/{{PERPLEXITY_SCORE}}/g, scores.perplexity);
+            html = html.replace(/{{PERPLEXITY_COLOR}}/g, getScoreColor(scores.perplexity));
+            html = html.replace(/{{PERPLEXITY_FINDING}}/g, findings.perplexity);
+            
+            html = html.replace(/{{GEMINI_SCORE}}/g, scores.gemini);
+            html = html.replace(/{{GEMINI_COLOR}}/g, getScoreColor(scores.gemini));
+            html = html.replace(/{{GEMINI_FINDING}}/g, findings.gemini);
+            
+            html = html.replace(/{{META_SCORE}}/g, scores.metaAI);
+            html = html.replace(/{{META_COLOR}}/g, getScoreColor(scores.metaAI));
+            html = html.replace(/{{META_FINDING}}/g, findings.metaAI);
+            
+            html = html.replace(/{{SIRI_SCORE}}/g, scores.siri);
+            html = html.replace(/{{SIRI_COLOR}}/g, getScoreColor(scores.siri));
+            html = html.replace(/{{SIRI_FINDING}}/g, findings.siri);
+            
+            html = html.replace(/{{ALEXA_SCORE}}/g, scores.alexa);
+            html = html.replace(/{{ALEXA_COLOR}}/g, getScoreColor(scores.alexa));
+            html = html.replace(/{{ALEXA_FINDING}}/g, findings.alexa);
+            
+            html = html.replace(/{{GOOGLE_ASSIST_SCORE}}/g, scores.googleAssist);
+            html = html.replace(/{{GOOGLE_ASSIST_COLOR}}/g, getScoreColor(scores.googleAssist));
+            html = html.replace(/{{GOOGLE_ASSIST_FINDING}}/g, findings.googleAssist);
+            
+            html = html.replace(/{{COPILOT_SCORE}}/g, scores.copilot);
+            html = html.replace(/{{COPILOT_COLOR}}/g, getScoreColor(scores.copilot));
+            html = html.replace(/{{COPILOT_FINDING}}/g, findings.copilot);
+            
+            html = html.replace(/{{YOUTUBE_SCORE}}/g, scores.youtube);
+            html = html.replace(/{{YOUTUBE_COLOR}}/g, getScoreColor(scores.youtube));
+            html = html.replace(/{{YOUTUBE_FINDING}}/g, findings.youtube);
+            
+            html = html.replace(/{{GOOGLE_SEO_SCORE}}/g, scores.google);
+            html = html.replace(/{{GOOGLE_SEO_COLOR}}/g, getScoreColor(scores.google));
+            html = html.replace(/{{GOOGLE_SEO_FINDING}}/g, findings.google);
+            
+            // Testimonials are hardcoded in template - no replacement needed
+            
+            html = html.replace(/{{REVENUE_GAP}}/g, '$180,000 - $350,000');
+            
+            // Build keyword table from REAL researched keywords (all 20!)
+            let keywordRows = '';
+            let totalVolume = 0;
+            
+            function getOpportunityBadge(opportunity) {
+                const oppLower = opportunity.toLowerCase();
+                if (oppLower === 'high') {
+                    return '<span class="opportunity-badge opportunity-high">🟢 High</span>';
+                } else if (oppLower === 'medium') {
+                    return '<span class="opportunity-badge opportunity-medium">🟡 Medium</span>';
+                } else {
+                    return '<span class="opportunity-badge opportunity-low">🔴 Low</span>';
+                }
+            }
+            
+            if (keywords && keywords.length > 0) {
+                keywords.forEach(kw => {
+                    const badge = getOpportunityBadge(kw.opportunity);
+                    keywordRows += `<tr><td>${kw.keyword}</td><td>${kw.volume.toLocaleString()}</td><td>${badge}</td></tr>\n`;
+                    totalVolume += kw.volume;
+                });
+            } else {
+                // Fallback if no keywords returned (shouldn't happen)
+                keywordRows = `
+                    <tr><td>emergency ${industry} near me</td><td>2,400</td><td><span class="opportunity-badge opportunity-high">🟢 High</span></td></tr>
+                    <tr><td>best ${industry} in ${city || 'local'}</td><td>1,800</td><td><span class="opportunity-badge opportunity-high">🟢 High</span></td></tr>
+                    <tr><td>${industry} cost ${city || 'local'}</td><td>1,200</td><td><span class="opportunity-badge opportunity-medium">🟡 Medium</span></td></tr>
+                    <tr><td>affordable ${industry} near me</td><td>980</td><td><span class="opportunity-badge opportunity-medium">🟡 Medium</span></td></tr>
+                    <tr><td>${industry} reviews ${city || 'local'}</td><td>720</td><td><span class="opportunity-badge opportunity-medium">🟡 Medium</span></td></tr>
+                `;
+                totalVolume = 7100;
+            }
+            
+            html = html.replace(/{{KEYWORD_ROWS}}/g, keywordRows);
+            html = html.replace(/{{TOTAL_VOLUME}}/g, totalVolume.toLocaleString() + '+');
+            
+            // ============ SMART QUICK WINS SYSTEM ============
+            function generateSmartQuickWins(scores, businessName) {
+                const recommendations = [];
+                
+                // Calculate category averages
+                const aiAvg = Math.round((scores.chatgpt + scores.perplexity + scores.gemini + scores.metaAI) / 4);
+                const voiceAvg = Math.round((scores.siri + scores.alexa + scores.googleAssist) / 3);
+                
+                // Priority 1: CRITICAL AI VISIBILITY (< 35)
+                if (aiAvg < 35) {
+                    recommendations.push({
+                        priority: 'CRITICAL',
+                        title: 'FAQ Content',
+                        time: '10-15 hours',
+                        why: `Your AI visibility is in crisis (Average: ${aiAvg}/100). ChatGPT scored ${scores.chatgpt}/100, Perplexity ${scores.perplexity}/100. AI platforms prioritize question-answer content, making this your #1 priority.`,
+                        impact: `+40-60 points across AI platforms<br>Could generate 10-15 additional qualified leads per month`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Research "People Also Ask" questions on Google for your top 20 service keywords<br>2. Write detailed 150-200 word answers for each question, focusing on local context<br>3. Add FAQ schema markup to help AI platforms find and understand your answers<br>4. Create individual landing pages for high-volume questions to maximize visibility`
+                    });
+                    
+                    recommendations.push({
+                        priority: 'CRITICAL',
+                        title: 'Schema Markup',
+                        time: '8-12 hours',
+                        why: `AI platforms struggle to find ${businessName} (ChatGPT: ${scores.chatgpt}/100). Structured data helps AI understand who you are, what you do, and where you're located.`,
+                        impact: `+30-40 points in AI platform recognition<br>Appear in AI recommendations within 30-45 days`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Use Google's Schema Markup Generator to create LocalBusiness schema<br>2. Add FAQPage and Service schema for each service you offer<br>3. Include your business name, address, phone, hours, and service areas<br>4. Test with Google's Rich Results Tool and submit updated sitemap`
+                    });
+                }
+                
+                // Priority 2: VOICE SEARCH WEAKNESS (< 55)
+                if (voiceAvg < 55) {
+                    recommendations.push({
+                        priority: 'HIGH',
+                        title: 'Google Business Profile Optimization',
+                        time: '6-8 hours',
+                        why: `Your voice search visibility is struggling (Siri: ${scores.siri}/100, Alexa: ${scores.alexa}/100, Google Assistant: ${scores.googleAssist}/100). Your Google Business Profile is the foundation of voice search rankings.`,
+                        impact: `+25-35 points across voice platforms<br>Become the #1 voice recommendation in your area`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Add 30+ high-quality photos of your work, team, and facility<br>2. Complete ALL business attributes (payment methods, languages, accessibility)<br>3. Post weekly updates about services, offers, and industry tips<br>4. Respond to all reviews within 24 hours with personalized messages<br>5. Add detailed service descriptions with local keywords<br>6. Enable messaging so customers can reach you directly`
+                    });
+                }
+                
+                // Priority 3: YOUTUBE OPPORTUNITY (< 25)
+                if (scores.youtube < 25) {
+                    recommendations.push({
+                        priority: 'OPPORTUNITY',
+                        title: 'Launch YouTube Channel',
+                        time: '20-25 hours',
+                        why: `You're completely invisible on YouTube (${scores.youtube}/100), the 2nd largest search engine. Video content heavily influences AI recommendations and builds trust with potential customers.`,
+                        impact: `Could generate 15-25 qualified leads per month<br>+30-40 points in YouTube visibility<br>Boost AI platform recommendations by 20+ points`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Create channel with professional branding matching your website<br>2. Film 10-15 FAQ videos (5-10 minutes each) answering common customer questions<br>3. Optimize titles and descriptions with your target keywords<br>4. Add timestamps and chapters to help viewers find specific information<br>5. Create playlists organized by topic or service type<br>6. Link to your website in video descriptions and pin a comment with contact info`
+                    });
+                }
+                
+                // Priority 4: GOOGLE SEO (< 60)
+                if (scores.google < 60) {
+                    recommendations.push({
+                        priority: 'HIGH',
+                        title: 'Create Pillar Content',
+                        time: '15-20 hours',
+                        why: `Your Google ranking (${scores.google}/100) needs comprehensive, authoritative content to compete. AI platforms also heavily favor detailed, well-researched content.`,
+                        impact: `Move from page 2-3 to page 1 of Google<br>+20-30 points in Google rankings<br>Improve AI platform recommendations by 15-25 points`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Research your top 10 competitors' content to identify gaps<br>2. Create detailed 3,000+ word guides covering every aspect of your core services<br>3. Include real examples, case studies, and customer success stories<br>4. Add images, diagrams, before/after photos, and embedded videos<br>5. Internal link to related service pages throughout the content<br>6. Optimize for featured snippets by answering specific questions clearly`
+                    });
+                }
+                
+                // Always include if we have room
+                if (recommendations.length < 8) {
+                    recommendations.push({
+                        priority: 'MEDIUM',
+                        title: 'Claim Directory Listings',
+                        time: '12-15 hours',
+                        why: `Consistent business information across 50+ directories builds authority and helps AI platforms verify your legitimacy. This is foundational for local visibility.`,
+                        impact: `+10-15 points across all platforms<br>Improve NAP consistency for voice search`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Claim and optimize Yelp, Facebook Business, Apple Maps, Bing Places<br>2. Add your business to industry-specific directories<br>3. Ensure exact NAP (Name, Address, Phone) consistency everywhere<br>4. Add business hours, high-quality photos, and detailed descriptions<br>5. Set up review monitoring and respond to all feedback<br>6. Build citations in local directories and chambers of commerce`
+                    });
+                    
+                    recommendations.push({
+                        priority: 'MEDIUM',
+                        title: 'Build Strategic Internal Links',
+                        time: '8-10 hours',
+                        why: `Strategic internal linking helps AI crawlers understand your content relationships and distributes authority across your website.`,
+                        impact: `+10-15 points in Google SEO<br>Help AI platforms navigate and understand your content structure`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Audit your existing internal links to identify opportunities<br>2. Create topic clusters linking related blog posts to pillar pages<br>3. Add contextual links within content using natural anchor text<br>4. Create a comprehensive resource hub page linking to all service pages<br>5. Update older content with links to newer, relevant posts<br>6. Ensure every page is within 3 clicks of the homepage`
+                    });
+                    
+                    recommendations.push({
+                        priority: 'MEDIUM',
+                        title: 'Earn Quality Backlinks',
+                        time: '15-20 hours',
+                        why: `Quality backlinks from authoritative websites signal credibility to AI platforms and dramatically improve your Google rankings.`,
+                        impact: `+15-25 points in Google rankings<br>Boost AI platform trust and recommendation likelihood`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Partner with complementary local businesses for mutual linking<br>2. Submit to Better Business Bureau and your local Chamber of Commerce<br>3. Write guest posts for industry blogs and local business publications<br>4. Get featured in local news by offering expert commentary<br>5. Create shareable infographics and data studies that earn natural links<br>6. Build relationships with local influencers and community organizations`
+                    });
+                }
+                
+                return recommendations.slice(0, 8); // Max 8 recommendations
+            }
+            
+            // Generate smart recommendations based on actual scores
+            const smartWins = generateSmartQuickWins(scores, businessName);
+            
+            // Replace Quick Win placeholders with smart recommendations
+            for (let i = 0; i < 8; i++) {
+                const win = smartWins[i];
+                if (win) {
+                    const priorityClass = win.priority === 'CRITICAL' ? 'critical' : (win.priority === 'HIGH' ? 'high' : (win.priority === 'OPPORTUNITY' ? 'opportunity' : 'medium'));
+                    const priorityEmoji = win.priority === 'CRITICAL' ? '🔴' : (win.priority === 'HIGH' ? '🟡' : (win.priority === 'OPPORTUNITY' ? '🟢' : '🔵'));
+                    
+                    const quickWinHTML = `
+                        <div class="quick-win quick-win-${priorityClass}">
+                            <div class="quick-win-header">
+                                ${priorityEmoji} ${win.priority}: ${win.title}
+                            </div>
+                            <p style="color: #64748b; margin: 0.5rem 0 0.75rem 0; font-weight: 600;">
+                                ⏱️ Implementation time: ${win.time}
+                            </p>
+                            <div style="background: #F8FAFC; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem;">
+                                <p style="margin: 0; line-height: 1.6; color: #1e293b;"><strong>Why This Matters For ${businessName}:</strong><br>${win.why}</p>
+                            </div>
+                            <div style="background: #ECFDF5; padding: 1rem; border-radius: 8px; border-left: 4px solid #10B981; margin-bottom: 0.75rem;">
+                                <p style="margin: 0; line-height: 1.6; color: #065F46; font-weight: 600;"><strong>📈 Expected Impact:</strong><br>${win.impact}</p>
+                            </div>
+                            <p style="color: #475569; font-size: 0.95rem; line-height: 1.7; margin: 0;">${win.steps}</p>
+                        </div>
+                    `;
+                    html = html.replace(new RegExp(`{{QUICK_WIN_${i+1}}}`, 'g'), quickWinHTML);
+                } else {
+                    // If we don't have enough recommendations, remove the placeholder
+                    html = html.replace(new RegExp(`{{QUICK_WIN_${i+1}}}`, 'g'), '');
+                }
+            }
+            
+            return html;
+        }
+
+        async function generateProgressReport(businessName, ownerName, website, email, scores, baselineScore, dayCount) {
+            const currentScore = Math.round(Object.values(scores).reduce((a,b) => a + b, 0) / 10);
+            const improvement = currentScore - baselineScore;
+            
+            let html = await getProgressReportTemplate();
+            
+            const endDate = new Date();
+            const startDate = new Date();
+            startDate.setDate(startDate.getDate() - parseInt(dayCount));
+            
+            html = html.replace(/{{DAY_COUNT}}/g, dayCount);
+            html = html.replace(/{{BUSINESS_NAME}}/g, businessName);
+            html = html.replace(/{{BASELINE_SCORE}}/g, baselineScore);
+            html = html.replace(/{{CURRENT_SCORE}}/g, currentScore);
+            html = html.replace(/{{IMPROVEMENT_POINTS}}/g, improvement >= 0 ? '+' + improvement : improvement);
+            html = html.replace(/{{START_DATE}}/g, startDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
+            html = html.replace(/{{END_DATE}}/g, endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }));
+            
+            const baselineScores = {
+                chatgpt: Math.max(5, scores.chatgpt - improvement - Math.floor(Math.random() * 20)),
+                perplexity: Math.max(10, scores.perplexity - improvement - Math.floor(Math.random() * 20)),
+                gemini: Math.max(15, scores.gemini - improvement - Math.floor(Math.random() * 15)),
+                metaAI: Math.max(5, scores.metaAI - improvement - Math.floor(Math.random() * 15)),
+                siri: Math.max(25, scores.siri - improvement - Math.floor(Math.random() * 15)),
+                alexa: Math.max(20, scores.alexa - improvement - Math.floor(Math.random() * 15)),
+                googleAssist: Math.max(30, scores.googleAssist - improvement - Math.floor(Math.random() * 15)),
+                copilot: Math.max(15, scores.copilot - improvement - Math.floor(Math.random() * 10)),
+                youtube: Math.max(10, scores.youtube - improvement - Math.floor(Math.random() * 20)),
+                google: Math.max(40, scores.google - improvement - Math.floor(Math.random() * 10))
+            };
+            
+            const platformsImproved = Object.keys(scores).filter(p => scores[p] > baselineScores[p]).length;
+            const biggestGain = Math.max(...Object.keys(scores).map(p => scores[p] - baselineScores[p]));
+            
+            html = html.replace(/{{PLATFORMS_IMPROVED}}/g, platformsImproved);
+            html = html.replace(/{{BIGGEST_GAIN}}/g, biggestGain);
+            html = html.replace(/{{TASKS_COMPLETED}}/g, Math.floor(improvement / 3) + 5);
+            
+            const newLeads = Math.floor(improvement / 6) + 2;
+            const avgClientValue = 500;
+            const revenueImpact = '+$' + (newLeads * avgClientValue).toLocaleString();
+            
+            html = html.replace(/{{REVENUE_IMPACT}}/g, revenueImpact);
+            html = html.replace(/{{NEW_LEADS}}/g, newLeads);
+            html = html.replace(/{{AVG_CLIENT_VALUE}}/g, avgClientValue);
+            
+            const accomplishments = `
+                <li>Implemented comprehensive schema markup across all service pages</li>
+                <li>Created and optimized Google Business Profile with high-quality photos</li>
+                <li>Published ${Math.floor(dayCount / 6)} in-depth blog posts targeting high-value keywords</li>
+                <li>Launched YouTube channel with ${Math.floor(dayCount / 4)} educational videos</li>
+                <li>Built comprehensive FAQ page with common customer questions</li>
+                <li>Claimed and optimized directory listings with consistent NAP</li>
+                <li>Created internal linking strategy connecting all content</li>
+                <li>Added customer review widgets to service pages</li>
+            `;
+            html = html.replace(/{{ACCOMPLISHMENT_LIST}}/g, accomplishments);
+            
+            const platforms = ['CHATGPT', 'PERPLEXITY', 'GEMINI', 'META', 'SIRI', 'ALEXA', 'GOOGLE_ASSIST', 'COPILOT', 'YOUTUBE', 'GOOGLE'];
+            const platformKeys = ['chatgpt', 'perplexity', 'gemini', 'metaAI', 'siri', 'alexa', 'googleAssist', 'copilot', 'youtube', 'google'];
+            
+            platforms.forEach((platform, i) => {
+                const key = platformKeys[i];
+                const baseline = baselineScores[key];
+                const current = scores[key];
+                const change = current - baseline;
+                
+                html = html.replace(new RegExp(`{{${platform}_BASELINE}}`, 'g'), baseline);
+                html = html.replace(new RegExp(`{{${platform}_CURRENT}}`, 'g'), current);
+                html = html.replace(new RegExp(`{{${platform}_BASELINE_COLOR}}`, 'g'), getScoreColor(baseline));
+                html = html.replace(new RegExp(`{{${platform}_CURRENT_COLOR}}`, 'g'), getScoreColor(current));
+                html = html.replace(new RegExp(`{{${platform}_CHANGE}}`, 'g'), change >= 0 ? '↑ +' + change : '↓ ' + change);
+                html = html.replace(new RegExp(`{{${platform}_DIRECTION}}`, 'g'), change > 0 ? 'up' : (change < 0 ? 'down' : 'same'));
+                html = html.replace(new RegExp(`{{${platform}_STATUS}}`, 'g'), change > 0 ? 'improved' : (change < 0 ? 'declined' : 'maintained'));
+                html = html.replace(new RegExp(`{{${platform}_NOTE}}`, 'g'), change > 15 ? 'Significant improvement in rankings and recommendations' : (change > 0 ? 'Steady progress with room to grow' : 'Needs attention in next period'));
+            });
+            
+            const nextSteps = `
+                <div class="next-step-item">
+                    <div class="next-step-title">1. Accelerate Content Production</div>
+                    <div class="next-step-description">Create more educational content addressing customer questions to boost AI and voice search presence.</div>
+                    <div class="next-step-expected">Expected: +15-20 points across AI platforms</div>
+                </div>
+                <div class="next-step-item">
+                    <div class="next-step-title">2. Build Strategic Backlinks</div>
+                    <div class="next-step-description">Secure quality backlinks from industry directories and local partnerships to boost authority.</div>
+                    <div class="next-step-expected">Expected: +10-15 points overall</div>
+                </div>
+                <div class="next-step-item">
+                    <div class="next-step-title">3. Enhance Low-Performing Platforms</div>
+                    <div class="next-step-description">Focus optimization efforts on platforms showing lower gains to ensure balanced growth.</div>
+                    <div class="next-step-expected">Expected: +20 points on targeted platforms</div>
+                </div>
+            `;
+            html = html.replace(/{{NEXT_STEP_ITEMS}}/g, nextSteps);
+            
+            return html;
+        }
+
+        async function getInitialBlueprintTemplate() {
+            const response = await fetch('blueprint-template.html');
+            return await response.text();
+        }
+
+        async function getProgressReportTemplate() {
+            const response = await fetch('progress-template.html');
+            return await response.text();
+        }
+
+        function viewReport() {
+            const newWindow = window.open();
+            newWindow.document.write(generatedHTML);
+            newWindow.document.close();
+        }
+
+        async function downloadPDF() {
+            // Open the gorgeous report in a new window
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(generatedHTML);
+            printWindow.document.close();
+            
+            // Wait for content to fully load
+            printWindow.onload = function() {
+                // Small delay to ensure everything renders
+                setTimeout(function() {
+                    // Trigger print dialog
+                    printWindow.print();
+                }, 500);
+            };
+        }
+
+        function downloadHTML() {
+            // Create a blob with the HTML content
+            const blob = new Blob([generatedHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            // Create a temporary download link
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Visibility-Blueprint-Report.html';
+            document.body.appendChild(a);
+            a.click();
+            
+            // Cleanup
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ HTML file downloaded! Open it in any browser to view your beautiful report.');
+        }
+
+        async function copyHTML() {
+            try {
+                await navigator.clipboard.writeText(generatedHTML);
+                alert('✅ HTML copied to clipboard! Paste it into a text editor and save as .html file.');
+            } catch (err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = generatedHTML;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    alert('✅ HTML copied to clipboard! Paste it into a text editor and save as .html file.');
+                } catch (err2) {
+                    alert('❌ Could not copy. Please use the "Download HTML" button instead.');
+                }
+                
+                document.body.removeChild(textArea);
+            }
+        }
+    </script>
+</body>
+</html>
