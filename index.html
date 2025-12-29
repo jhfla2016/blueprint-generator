@@ -512,7 +512,7 @@
         let businessType = 'local';
 
         // CLOUDFLARE WORKER URL - You'll set this after deploying the worker
-        const WORKER_URL = 'https://blueprint-api.instantleadpros.workers.dev'; // e.g., 'https://blueprint-api.your-username.workers.dev'
+        const WORKER_URL = 'https://blueprint-api.instantleadpros.workers.dev'; // Worker deployed and configured!
 
         // CALL CLOUDFLARE WORKER FOR INTELLIGENT ANALYSIS
         async function callWorkerAPI(businessData) {
@@ -607,35 +607,38 @@
                     state
                 });
 
-                // Extract scores and findings from API response
+                // Extract scores, findings, and keywords from API response
                 const scores = {
-                    chatgpt: apiData.chatgpt.score,
-                    perplexity: apiData.perplexity.score,
-                    gemini: apiData.gemini.score,
-                    metaAI: apiData.metaAI.score,
-                    siri: apiData.siri.score,
-                    alexa: apiData.alexa.score,
-                    googleAssist: apiData.googleAssist.score,
-                    copilot: apiData.copilot.score,
-                    youtube: apiData.youtube.score,
-                    google: apiData.google.score
+                    chatgpt: apiData.scores.chatgpt.score,
+                    perplexity: apiData.scores.perplexity.score,
+                    gemini: apiData.scores.gemini.score,
+                    metaAI: apiData.scores.metaAI.score,
+                    siri: apiData.scores.siri.score,
+                    alexa: apiData.scores.alexa.score,
+                    googleAssist: apiData.scores.googleAssist.score,
+                    copilot: apiData.scores.copilot.score,
+                    youtube: apiData.scores.youtube.score,
+                    google: apiData.scores.google.score
                 };
 
                 const findings = {
-                    chatgpt: apiData.chatgpt.finding,
-                    perplexity: apiData.perplexity.finding,
-                    gemini: apiData.gemini.finding,
-                    metaAI: apiData.metaAI.finding,
-                    siri: apiData.siri.finding,
-                    alexa: apiData.alexa.finding,
-                    googleAssist: apiData.googleAssist.finding,
-                    copilot: apiData.copilot.finding,
-                    youtube: apiData.youtube.finding,
-                    google: apiData.google.finding
+                    chatgpt: apiData.scores.chatgpt.finding,
+                    perplexity: apiData.scores.perplexity.finding,
+                    gemini: apiData.scores.gemini.finding,
+                    metaAI: apiData.scores.metaAI.finding,
+                    siri: apiData.scores.siri.finding,
+                    alexa: apiData.scores.alexa.finding,
+                    googleAssist: apiData.scores.googleAssist.finding,
+                    copilot: apiData.scores.copilot.finding,
+                    youtube: apiData.scores.youtube.finding,
+                    google: apiData.scores.google.finding
                 };
+
+                // Extract keywords from API response
+                const keywords = apiData.keywords || [];
                 
                 if (reportType === 'initial') {
-                    generatedHTML = await generateInitialBlueprint(businessName, ownerName, website, email, industry, phone, city, state, scores, findings);
+                    generatedHTML = await generateInitialBlueprint(businessName, ownerName, website, email, industry, phone, city, state, scores, findings, keywords);
                 } else {
                     const dayCount = document.getElementById('dayCount').value;
                     const baselineScore = parseInt(document.getElementById('baselineScore').value) || 34;
@@ -677,7 +680,7 @@
             return 'green';
         }
 
-        async function generateInitialBlueprint(businessName, ownerName, website, email, industry, phone, city, state, scores, findings) {
+        async function generateInitialBlueprint(businessName, ownerName, website, email, industry, phone, city, state, scores, findings, keywords) {
             const avgScore = Math.round(Object.values(scores).reduce((a,b) => a + b, 0) / 10);
             const invisiblePercent = Math.round((100 - avgScore) * 0.66);
             
@@ -754,15 +757,29 @@
             
             html = html.replace(/{{REVENUE_GAP}}/g, '$180,000 - $350,000');
             
-            const keywordRows = `
-                <tr><td>emergency ${industry} near me</td><td>2,400</td><td>High</td></tr>
-                <tr><td>best ${industry} in ${city}</td><td>1,800</td><td>High</td></tr>
-                <tr><td>${industry} cost ${city}</td><td>1,200</td><td>Medium</td></tr>
-                <tr><td>affordable ${industry} near me</td><td>980</td><td>Medium</td></tr>
-                <tr><td>${industry} reviews ${city}</td><td>720</td><td>Medium</td></tr>
-            `;
+            // Build keyword table from REAL researched keywords (all 20!)
+            let keywordRows = '';
+            let totalVolume = 0;
+            
+            if (keywords && keywords.length > 0) {
+                keywords.forEach(kw => {
+                    keywordRows += `<tr><td>${kw.keyword}</td><td>${kw.volume.toLocaleString()}</td><td>${kw.opportunity}</td></tr>\n`;
+                    totalVolume += kw.volume;
+                });
+            } else {
+                // Fallback if no keywords returned (shouldn't happen)
+                keywordRows = `
+                    <tr><td>emergency ${industry} near me</td><td>2,400</td><td>High</td></tr>
+                    <tr><td>best ${industry} in ${city || 'local'}</td><td>1,800</td><td>High</td></tr>
+                    <tr><td>${industry} cost ${city || 'local'}</td><td>1,200</td><td>Medium</td></tr>
+                    <tr><td>affordable ${industry} near me</td><td>980</td><td>Medium</td></tr>
+                    <tr><td>${industry} reviews ${city || 'local'}</td><td>720</td><td>Medium</td></tr>
+                `;
+                totalVolume = 7100;
+            }
+            
             html = html.replace(/{{KEYWORD_ROWS}}/g, keywordRows);
-            html = html.replace(/{{TOTAL_VOLUME}}/g, '15,000+');
+            html = html.replace(/{{TOTAL_VOLUME}}/g, totalVolume.toLocaleString() + '+');
             
             // Quick Win placeholders
             html = html.replace(/{{QUICK_WIN_1}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #1: Schema Markup</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 8-12 hours</p></div>');
@@ -893,17 +910,55 @@
         }
 
         async function downloadPDF() {
-            // Create a new window with the report
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(generatedHTML);
-            printWindow.document.close();
+            // Get business name for filename
+            const businessName = document.getElementById('businessName').value || 'Visibility_Blueprint';
+            const filename = `Visibility_Blueprint_-_${businessName.replace(/[^a-z0-9]/gi, '_')}.pdf`;
             
-            // Wait for content to load
-            await new Promise(resolve => setTimeout(resolve, 500));
+            // Create a temporary container
+            const tempContainer = document.createElement('div');
+            tempContainer.innerHTML = generatedHTML;
+            tempContainer.style.position = 'absolute';
+            tempContainer.style.left = '-9999px';
+            document.body.appendChild(tempContainer);
             
-            // Trigger print dialog (user can save as PDF)
-            printWindow.print();
+            // PDF options for beautiful output
+            const options = {
+                margin: [0.5, 0.5, 0.5, 0.5], // Top, Right, Bottom, Left (in inches)
+                filename: filename,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2, // Higher quality
+                    useCORS: true,
+                    letterRendering: true,
+                    scrollY: 0,
+                    scrollX: 0
+                },
+                jsPDF: { 
+                    unit: 'in', 
+                    format: 'letter', 
+                    orientation: 'portrait',
+                    compress: true
+                },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+            
+            try {
+                // Generate and download PDF
+                await html2pdf().set(options).from(tempContainer).save();
+                
+                // Clean up
+                document.body.removeChild(tempContainer);
+                
+                console.log('✅ PDF generated successfully!');
+            } catch (error) {
+                console.error('PDF generation error:', error);
+                document.body.removeChild(tempContainer);
+                alert('Error generating PDF. Please try "View Report" and use Ctrl+P to print instead.');
+            }
         }
     </script>
+
+    <!-- html2pdf.js library for beautiful PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
 </html>
