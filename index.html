@@ -748,19 +748,31 @@
             let keywordRows = '';
             let totalVolume = 0;
             
+            function getOpportunityBadge(opportunity) {
+                const oppLower = opportunity.toLowerCase();
+                if (oppLower === 'high') {
+                    return '<span class="opportunity-badge opportunity-high">🟢 High</span>';
+                } else if (oppLower === 'medium') {
+                    return '<span class="opportunity-badge opportunity-medium">🟡 Medium</span>';
+                } else {
+                    return '<span class="opportunity-badge opportunity-low">🔴 Low</span>';
+                }
+            }
+            
             if (keywords && keywords.length > 0) {
                 keywords.forEach(kw => {
-                    keywordRows += `<tr><td>${kw.keyword}</td><td>${kw.volume.toLocaleString()}</td><td>${kw.opportunity}</td></tr>\n`;
+                    const badge = getOpportunityBadge(kw.opportunity);
+                    keywordRows += `<tr><td>${kw.keyword}</td><td>${kw.volume.toLocaleString()}</td><td>${badge}</td></tr>\n`;
                     totalVolume += kw.volume;
                 });
             } else {
                 // Fallback if no keywords returned (shouldn't happen)
                 keywordRows = `
-                    <tr><td>emergency ${industry} near me</td><td>2,400</td><td>High</td></tr>
-                    <tr><td>best ${industry} in ${city || 'local'}</td><td>1,800</td><td>High</td></tr>
-                    <tr><td>${industry} cost ${city || 'local'}</td><td>1,200</td><td>Medium</td></tr>
-                    <tr><td>affordable ${industry} near me</td><td>980</td><td>Medium</td></tr>
-                    <tr><td>${industry} reviews ${city || 'local'}</td><td>720</td><td>Medium</td></tr>
+                    <tr><td>emergency ${industry} near me</td><td>2,400</td><td><span class="opportunity-badge opportunity-high">🟢 High</span></td></tr>
+                    <tr><td>best ${industry} in ${city || 'local'}</td><td>1,800</td><td><span class="opportunity-badge opportunity-high">🟢 High</span></td></tr>
+                    <tr><td>${industry} cost ${city || 'local'}</td><td>1,200</td><td><span class="opportunity-badge opportunity-medium">🟡 Medium</span></td></tr>
+                    <tr><td>affordable ${industry} near me</td><td>980</td><td><span class="opportunity-badge opportunity-medium">🟡 Medium</span></td></tr>
+                    <tr><td>${industry} reviews ${city || 'local'}</td><td>720</td><td><span class="opportunity-badge opportunity-medium">🟡 Medium</span></td></tr>
                 `;
                 totalVolume = 7100;
             }
@@ -768,15 +780,137 @@
             html = html.replace(/{{KEYWORD_ROWS}}/g, keywordRows);
             html = html.replace(/{{TOTAL_VOLUME}}/g, totalVolume.toLocaleString() + '+');
             
-            // Quick Win placeholders
-            html = html.replace(/{{QUICK_WIN_1}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #1: Schema Markup</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 8-12 hours</p></div>');
-            html = html.replace(/{{QUICK_WIN_2}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #2: FAQ Content</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 10-15 hours</p></div>');
-            html = html.replace(/{{QUICK_WIN_3}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #3: Google Business Profile</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 6-8 hours</p></div>');
-            html = html.replace(/{{QUICK_WIN_4}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #4: Pillar Content</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 15-20 hours</p></div>');
-            html = html.replace(/{{QUICK_WIN_5}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #5: YouTube Channel</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 20-25 hours</p></div>');
-            html = html.replace(/{{QUICK_WIN_6}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #6: Directory Listings</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 12-15 hours</p></div>');
-            html = html.replace(/{{QUICK_WIN_7}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #7: Internal Linking</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 8-10 hours</p></div>');
-            html = html.replace(/{{QUICK_WIN_8}}/g, '<div class="quick-win"><div class="quick-win-header">Quick Win #8: Strategic Backlinks</div><p style="color: #64748b; margin-top: 0.5rem;">Implementation time: 15-20 hours</p></div>');
+            // ============ SMART QUICK WINS SYSTEM ============
+            function generateSmartQuickWins(scores, businessName) {
+                const recommendations = [];
+                
+                // Calculate category averages
+                const aiAvg = Math.round((scores.chatgpt + scores.perplexity + scores.gemini + scores.metaAI) / 4);
+                const voiceAvg = Math.round((scores.siri + scores.alexa + scores.googleAssist) / 3);
+                
+                // Priority 1: CRITICAL AI VISIBILITY (< 35)
+                if (aiAvg < 35) {
+                    recommendations.push({
+                        priority: 'CRITICAL',
+                        title: 'FAQ Content',
+                        time: '10-15 hours',
+                        why: `Your AI visibility is in crisis (Average: ${aiAvg}/100). ChatGPT scored ${scores.chatgpt}/100, Perplexity ${scores.perplexity}/100. AI platforms prioritize question-answer content, making this your #1 priority.`,
+                        impact: `+40-60 points across AI platforms<br>Could generate 10-15 additional qualified leads per month`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Research "People Also Ask" questions on Google for your top 20 service keywords<br>2. Write detailed 150-200 word answers for each question, focusing on local context<br>3. Add FAQ schema markup to help AI platforms find and understand your answers<br>4. Create individual landing pages for high-volume questions to maximize visibility`
+                    });
+                    
+                    recommendations.push({
+                        priority: 'CRITICAL',
+                        title: 'Schema Markup',
+                        time: '8-12 hours',
+                        why: `AI platforms struggle to find ${businessName} (ChatGPT: ${scores.chatgpt}/100). Structured data helps AI understand who you are, what you do, and where you're located.`,
+                        impact: `+30-40 points in AI platform recognition<br>Appear in AI recommendations within 30-45 days`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Use Google's Schema Markup Generator to create LocalBusiness schema<br>2. Add FAQPage and Service schema for each service you offer<br>3. Include your business name, address, phone, hours, and service areas<br>4. Test with Google's Rich Results Tool and submit updated sitemap`
+                    });
+                }
+                
+                // Priority 2: VOICE SEARCH WEAKNESS (< 55)
+                if (voiceAvg < 55) {
+                    recommendations.push({
+                        priority: 'HIGH',
+                        title: 'Google Business Profile Optimization',
+                        time: '6-8 hours',
+                        why: `Your voice search visibility is struggling (Siri: ${scores.siri}/100, Alexa: ${scores.alexa}/100, Google Assistant: ${scores.googleAssist}/100). Your Google Business Profile is the foundation of voice search rankings.`,
+                        impact: `+25-35 points across voice platforms<br>Become the #1 voice recommendation in your area`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Add 30+ high-quality photos of your work, team, and facility<br>2. Complete ALL business attributes (payment methods, languages, accessibility)<br>3. Post weekly updates about services, offers, and industry tips<br>4. Respond to all reviews within 24 hours with personalized messages<br>5. Add detailed service descriptions with local keywords<br>6. Enable messaging so customers can reach you directly`
+                    });
+                }
+                
+                // Priority 3: YOUTUBE OPPORTUNITY (< 25)
+                if (scores.youtube < 25) {
+                    recommendations.push({
+                        priority: 'OPPORTUNITY',
+                        title: 'Launch YouTube Channel',
+                        time: '20-25 hours',
+                        why: `You're completely invisible on YouTube (${scores.youtube}/100), the 2nd largest search engine. Video content heavily influences AI recommendations and builds trust with potential customers.`,
+                        impact: `Could generate 15-25 qualified leads per month<br>+30-40 points in YouTube visibility<br>Boost AI platform recommendations by 20+ points`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Create channel with professional branding matching your website<br>2. Film 10-15 FAQ videos (5-10 minutes each) answering common customer questions<br>3. Optimize titles and descriptions with your target keywords<br>4. Add timestamps and chapters to help viewers find specific information<br>5. Create playlists organized by topic or service type<br>6. Link to your website in video descriptions and pin a comment with contact info`
+                    });
+                }
+                
+                // Priority 4: GOOGLE SEO (< 60)
+                if (scores.google < 60) {
+                    recommendations.push({
+                        priority: 'HIGH',
+                        title: 'Create Pillar Content',
+                        time: '15-20 hours',
+                        why: `Your Google ranking (${scores.google}/100) needs comprehensive, authoritative content to compete. AI platforms also heavily favor detailed, well-researched content.`,
+                        impact: `Move from page 2-3 to page 1 of Google<br>+20-30 points in Google rankings<br>Improve AI platform recommendations by 15-25 points`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Research your top 10 competitors' content to identify gaps<br>2. Create detailed 3,000+ word guides covering every aspect of your core services<br>3. Include real examples, case studies, and customer success stories<br>4. Add images, diagrams, before/after photos, and embedded videos<br>5. Internal link to related service pages throughout the content<br>6. Optimize for featured snippets by answering specific questions clearly`
+                    });
+                }
+                
+                // Always include if we have room
+                if (recommendations.length < 8) {
+                    recommendations.push({
+                        priority: 'MEDIUM',
+                        title: 'Claim Directory Listings',
+                        time: '12-15 hours',
+                        why: `Consistent business information across 50+ directories builds authority and helps AI platforms verify your legitimacy. This is foundational for local visibility.`,
+                        impact: `+10-15 points across all platforms<br>Improve NAP consistency for voice search`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Claim and optimize Yelp, Facebook Business, Apple Maps, Bing Places<br>2. Add your business to industry-specific directories<br>3. Ensure exact NAP (Name, Address, Phone) consistency everywhere<br>4. Add business hours, high-quality photos, and detailed descriptions<br>5. Set up review monitoring and respond to all feedback<br>6. Build citations in local directories and chambers of commerce`
+                    });
+                    
+                    recommendations.push({
+                        priority: 'MEDIUM',
+                        title: 'Build Strategic Internal Links',
+                        time: '8-10 hours',
+                        why: `Strategic internal linking helps AI crawlers understand your content relationships and distributes authority across your website.`,
+                        impact: `+10-15 points in Google SEO<br>Help AI platforms navigate and understand your content structure`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Audit your existing internal links to identify opportunities<br>2. Create topic clusters linking related blog posts to pillar pages<br>3. Add contextual links within content using natural anchor text<br>4. Create a comprehensive resource hub page linking to all service pages<br>5. Update older content with links to newer, relevant posts<br>6. Ensure every page is within 3 clicks of the homepage`
+                    });
+                    
+                    recommendations.push({
+                        priority: 'MEDIUM',
+                        title: 'Earn Quality Backlinks',
+                        time: '15-20 hours',
+                        why: `Quality backlinks from authoritative websites signal credibility to AI platforms and dramatically improve your Google rankings.`,
+                        impact: `+15-25 points in Google rankings<br>Boost AI platform trust and recommendation likelihood`,
+                        steps: `<strong>Implementation Steps:</strong><br>1. Partner with complementary local businesses for mutual linking<br>2. Submit to Better Business Bureau and your local Chamber of Commerce<br>3. Write guest posts for industry blogs and local business publications<br>4. Get featured in local news by offering expert commentary<br>5. Create shareable infographics and data studies that earn natural links<br>6. Build relationships with local influencers and community organizations`
+                    });
+                }
+                
+                return recommendations.slice(0, 8); // Max 8 recommendations
+            }
+            
+            // Generate smart recommendations based on actual scores
+            const smartWins = generateSmartQuickWins(scores, businessName);
+            
+            // Replace Quick Win placeholders with smart recommendations
+            for (let i = 0; i < 8; i++) {
+                const win = smartWins[i];
+                if (win) {
+                    const priorityClass = win.priority === 'CRITICAL' ? 'critical' : (win.priority === 'HIGH' ? 'high' : (win.priority === 'OPPORTUNITY' ? 'opportunity' : 'medium'));
+                    const priorityEmoji = win.priority === 'CRITICAL' ? '🔴' : (win.priority === 'HIGH' ? '🟡' : (win.priority === 'OPPORTUNITY' ? '🟢' : '🔵'));
+                    
+                    const quickWinHTML = `
+                        <div class="quick-win quick-win-${priorityClass}">
+                            <div class="quick-win-header">
+                                ${priorityEmoji} ${win.priority}: ${win.title}
+                            </div>
+                            <p style="color: #64748b; margin: 0.5rem 0 0.75rem 0; font-weight: 600;">
+                                ⏱️ Implementation time: ${win.time}
+                            </p>
+                            <div style="background: #F8FAFC; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem;">
+                                <p style="margin: 0; line-height: 1.6; color: #1e293b;"><strong>Why This Matters For ${businessName}:</strong><br>${win.why}</p>
+                            </div>
+                            <div style="background: #ECFDF5; padding: 1rem; border-radius: 8px; border-left: 4px solid #10B981; margin-bottom: 0.75rem;">
+                                <p style="margin: 0; line-height: 1.6; color: #065F46; font-weight: 600;"><strong>📈 Expected Impact:</strong><br>${win.impact}</p>
+                            </div>
+                            <p style="color: #475569; font-size: 0.95rem; line-height: 1.7; margin: 0;">${win.steps}</p>
+                        </div>
+                    `;
+                    html = html.replace(new RegExp(`{{QUICK_WIN_${i+1}}}`, 'g'), quickWinHTML);
+                } else {
+                    // If we don't have enough recommendations, remove the placeholder
+                    html = html.replace(new RegExp(`{{QUICK_WIN_${i+1}}}`, 'g'), '');
+                }
+            }
             
             return html;
         }
