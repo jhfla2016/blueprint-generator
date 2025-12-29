@@ -268,39 +268,31 @@
         .platform-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin: 1.5rem 0;
-            max-width: 100%;
+            gap: 1.1rem;
+            margin: 1.65rem 0;
         }
         
         .platform-card {
             border: 2px solid #E2E8F0;
-            border-radius: 12px;
-            padding: 0.9rem;
+            border-radius: 14px;
+            padding: 1.15rem;
             background: white;
             box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-            min-width: 0;
         }
         
         .platform-card.red {
-            border: 3px solid #DC2626;
-            border-left: 8px solid #DC2626;
-            background: #FCA5A5 !important;
-            background: linear-gradient(135deg, #FCA5A5, #F87171) !important;
+            border-left: 7px solid #EF4444;
+            background: linear-gradient(135deg, #FEF2F2 0%, #FFFFFF 100%);
         }
         
         .platform-card.yellow {
-            border: 3px solid #D97706;
-            border-left: 8px solid #D97706;
-            background: #FBBF24 !important;
-            background: linear-gradient(135deg, #FCD34D, #FBBF24) !important;
+            border-left: 7px solid #F59E0B;
+            background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%);
         }
         
         .platform-card.green {
-            border: 3px solid #059669;
-            border-left: 8px solid #059669;
-            background: #6EE7B7 !important;
-            background: linear-gradient(135deg, #6EE7B7, #34D399) !important;
+            border-left: 7px solid #10B981;
+            background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
         }
         
         .platform-header {
@@ -473,6 +465,68 @@
             border-bottom: none;
         }
         
+        .opportunity-badge {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .opportunity-high {
+            background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+            color: #065F46;
+            border: 2px solid #10B981;
+        }
+        
+        .opportunity-medium {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            color: #78350F;
+            border: 2px solid #F59E0B;
+        }
+        
+        .opportunity-low {
+            background: linear-gradient(135deg, #FEE2E2, #FECACA);
+            color: #991B1B;
+            border: 2px solid #EF4444;
+        }
+        
+        .keyword-legend {
+            background: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .legend-dot.high { background: #10B981; }
+        .legend-dot.medium { background: #F59E0B; }
+        .legend-dot.low { background: #EF4444; }
+        
+        .legend-text {
+            font-size: 0.85rem;
+            color: #475569;
+            line-height: 1.4;
+        }
+        
         /* ==================== QUICK WIN CARDS ==================== */
         .quick-win {
             background: white;
@@ -482,6 +536,26 @@
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+        
+        .quick-win-critical {
+            border-left: 6px solid #DC2626;
+            background: linear-gradient(135deg, #FEF2F2 0%, #FFFFFF 100%);
+        }
+        
+        .quick-win-high {
+            border-left: 6px solid #F59E0B;
+            background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%);
+        }
+        
+        .quick-win-opportunity {
+            border-left: 6px solid #10B981;
+            background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
+        }
+        
+        .quick-win-medium {
+            border-left: 6px solid #3B82F6;
+            background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%);
         }
         
         .quick-win-header {
@@ -936,6 +1010,21 @@
         Your competitors are ranking for these — you're not. Here's your opportunity.
     </p>
     
+    <div class="keyword-legend">
+        <div class="legend-item">
+            <span class="legend-dot high"></span>
+            <div class="legend-text"><strong>High Opportunity:</strong> Low competition, easier to rank, great ROI</div>
+        </div>
+        <div class="legend-item">
+            <span class="legend-dot medium"></span>
+            <div class="legend-text"><strong>Medium Opportunity:</strong> Moderate competition, achievable with effort</div>
+        </div>
+        <div class="legend-item">
+            <span class="legend-dot low"></span>
+            <div class="legend-text"><strong>Low Opportunity:</strong> High competition, requires authority & backlinks</div>
+        </div>
+    </div>
+    
     <table class="keyword-table">
         <thead>
             <tr>
@@ -968,26 +1057,71 @@
         <strong>Warning:</strong> This is 60-100+ hours of technical work. Most businesses hire us instead.
     </p>
     
-    {{QUICK_WIN_1}}
-    {{QUICK_WIN_2}}
+    <div class="quick-win">
+        <div class="quick-win-header">Quick Win #1: Add Schema Markup</div>
+        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 8-12 hours</strong></p>
+        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Schema markup helps AI platforms understand your business. Add LocalBusiness, FAQPage, and Service schema to your website.</p>
+        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Use Google's Schema Markup Generator → Add JSON-LD code to your site's &lt;head&gt; → Test with Rich Results Tool → Submit updated sitemap to Google Search Console</p>
+    </div>
+    
+    <div class="quick-win">
+        <div class="quick-win-header">Quick Win #2: Create FAQ Content</div>
+        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 10-15 hours</strong></p>
+        <p style="margin-bottom: 0.75rem; line-height: 1.6;">AI search engines prioritize content that directly answers questions. Create a comprehensive FAQ page targeting your top 20 keywords.</p>
+        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Research "People Also Ask" questions on Google → Write detailed 150-200 word answers → Add FAQ schema markup → Create individual FAQ pages for high-volume questions</p>
+    </div>
 </div>
 
 
 <div class="page">
     <h2>🛠️ DIY Quick Wins (Continued)</h2>
     
-    {{QUICK_WIN_3}}
-    {{QUICK_WIN_4}}
-    {{QUICK_WIN_5}}
+    <div class="quick-win">
+        <div class="quick-win-header">Quick Win #3: Optimize Google Business Profile</div>
+        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 6-8 hours</strong></p>
+        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Your Google Business Profile is the foundation for local voice search. Complete optimization dramatically improves Siri, Alexa, and Google Assistant rankings.</p>
+        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Add 30+ high-quality photos → Complete all business attributes → Post weekly updates → Respond to all reviews within 24 hours → Add service-specific descriptions → Enable messaging</p>
+    </div>
+    
+    <div class="quick-win">
+        <div class="quick-win-header">Quick Win #4: Create Pillar Content</div>
+        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 15-20 hours</strong></p>
+        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Write comprehensive 3,000+ word guides on your core services. AI platforms heavily favor detailed, authoritative content.</p>
+        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Research top 10 competing articles → Create detailed outline covering all aspects → Write comprehensive guide with examples → Add images, diagrams, and videos → Internal link to related service pages → Optimize for featured snippets</p>
+    </div>
+    
+    <div class="quick-win">
+        <div class="quick-win-header">Quick Win #5: Launch YouTube Channel</div>
+        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 20-25 hours</strong></p>
+        <p style="margin-bottom: 0.75rem; line-height: 1.6;">YouTube is the second-largest search engine and heavily influences AI recommendations. Create 10-15 educational videos answering customer questions.</p>
+        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Create channel with professional branding → Film 10-15 FAQ videos (5-10 min each) → Optimize titles, descriptions with target keywords → Add timestamps and chapters → Create playlists by topic → Link to your website in descriptions</p>
+    </div>
 </div>
 
 
 <div class="page">
     <h2>🛠️ DIY Quick Wins (Continued)</h2>
     
-    {{QUICK_WIN_6}}
-    {{QUICK_WIN_7}}
-    {{QUICK_WIN_8}}
+    <div class="quick-win">
+        <div class="quick-win-header">Quick Win #6: Claim Directory Listings</div>
+        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 12-15 hours</strong></p>
+        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Consistent NAP (Name, Address, Phone) across 50+ directories builds authority and helps AI platforms verify your business legitimacy.</p>
+        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Claim Yelp, Facebook, Apple Maps, Bing Places → Add to industry-specific directories → Ensure exact NAP consistency → Add business hours, photos, descriptions → Set up review monitoring → Respond to all reviews</p>
+    </div>
+    
+    <div class="quick-win">
+        <div class="quick-win-header">Quick Win #7: Build Internal Linking</div>
+        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 8-10 hours</strong></p>
+        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Strategic internal links help AI crawlers understand your content relationships and distribute authority across your site.</p>
+        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Audit existing internal links → Create topic clusters → Link related blog posts to pillar pages → Add contextual links in content → Create resource hub page → Update old content with new internal links</p>
+    </div>
+    
+    <div class="quick-win">
+        <div class="quick-win-header">Quick Win #8: Earn Strategic Backlinks</div>
+        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 15-20 hours</strong></p>
+        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Quality backlinks from authoritative sites signal credibility to AI platforms. Focus on local partnerships, industry directories, and guest posts.</p>
+        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Partner with local businesses for mutual links → Submit to Better Business Bureau, Chamber of Commerce → Write guest posts for industry blogs → Get featured in local news → Create shareable infographics → Build relationships with local influencers</p>
+    </div>
     
     <div class="alert-box">
         <h3 style="color: #DC2626; font-size: 1.4rem; margin-bottom: 0.85rem;">⏰ Reality Check</h3>
