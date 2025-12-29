@@ -429,7 +429,6 @@
         <div class="main-title">Visibility Blueprint &<br>Revenue Growth Roadmap</div>
         <div class="business-name">{{BUSINESS_NAME}}</div>
         <div class="client-info">{{WEBSITE}}</div>
-        <div class="client-info">{{CONTACT_INFO}}</div>
     </div>
     
     <div class="score-section">
@@ -675,43 +674,29 @@
     <h2 class="section-title">🎯 The Money Keywords You're Missing</h2>
     
     <p style="margin-bottom: 25px; font-size: 14px; color: #475569;">
-        These are high-value keywords where customers are actively searching for your services. 
-        Each represents potential customers you could be capturing.
+        These are the exact search terms your customers use on AI platforms, voice assistants, and Google. Your competitors are ranking for these — you're not. Here's your opportunity.
     </p>
     
-    <div class="keyword-grid">
-        <div class="keyword-item">
-            <div class="keyword-text">{{KEYWORD_1}}</div>
-            <div class="keyword-volume">{{KEYWORD_1_VOL}} monthly searches</div>
-        </div>
-        
-        <div class="keyword-item">
-            <div class="keyword-text">{{KEYWORD_2}}</div>
-            <div class="keyword-volume">{{KEYWORD_2_VOL}} monthly searches</div>
-        </div>
-        
-        <div class="keyword-item">
-            <div class="keyword-text">{{KEYWORD_3}}</div>
-            <div class="keyword-volume">{{KEYWORD_3_VOL}} monthly searches</div>
-        </div>
-        
-        <div class="keyword-item">
-            <div class="keyword-text">{{KEYWORD_4}}</div>
-            <div class="keyword-volume">{{KEYWORD_4_VOL}} monthly searches</div>
-        </div>
-        
-        <!-- Continue for all 20 keywords... -->
-    </div>
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+        <thead>
+            <tr style="background: #1e293b; color: white;">
+                <th style="padding: 12px; text-align: left; font-weight: 600;">Keyword</th>
+                <th style="padding: 12px; text-align: center; font-weight: 600;">Monthly Volume</th>
+                <th style="padding: 12px; text-align: center; font-weight: 600;">Opportunity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{KEYWORD_ROWS}}
+        </tbody>
+    </table>
     
-    <div class="revenue-box">
-        <div class="revenue-title">💰 Combined Opportunity Value</div>
-        <p style="font-size: 16px; margin-top: 10px; color: #047857;">
-            These 20 keywords represent <strong>{{TOTAL_SEARCHES}} monthly searches</strong> 
-            from potential customers actively looking for {{INDUSTRY}} services.
+    <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+        <div style="font-size: 18px; font-weight: 700; color: #92400e; margin-bottom: 10px;">📊 The Keyword Opportunity</div>
+        <p style="font-size: 16px; margin: 0; color: #78350f;">
+            Combined monthly search volume: <strong style="color: #92400e;">{{TOTAL_VOLUME}}</strong>
         </p>
-        <p style="margin-top: 12px; color: #065f46; font-size: 14px;">
-            At just a 2% conversion rate with $500 average customer value, that's 
-            <strong>${{REVENUE_OPP}}/month</strong> in new revenue opportunity.
+        <p style="margin: 10px 0 0 0; color: #78350f; font-size: 14px;">
+            You're missing 100% of these searches. Your competitors aren't.
         </p>
     </div>
     
