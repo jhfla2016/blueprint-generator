@@ -681,8 +681,9 @@
         }
 
         async function generateInitialBlueprint(businessName, ownerName, website, email, industry, phone, city, state, scores, findings, keywords) {
+            // Calculate REAL average from the 10 platform scores
             const avgScore = Math.round(Object.values(scores).reduce((a,b) => a + b, 0) / 10);
-            const invisiblePercent = Math.round((100 - avgScore) * 0.66);
+            const invisiblePercent = Math.round((100 - avgScore) * 0.44); // More realistic percentage
             
             let html = await getInitialBlueprintTemplate();
             
@@ -694,6 +695,9 @@
             html = html.replace(/{{INVISIBLE_PERCENT}}/g, invisiblePercent);
             
             html = html.replace(/href="#"/g, 'href="https://api.leadconnectorhq.com/widget/booking/F54VssFN9sgohpXjjhtj" target="_blank"');
+            
+            // Remove competitor placeholders - we'll use testimonials instead
+            // (Testimonials are in the template already - no dynamic replacement needed)
             
             // Replace platform scores and findings from API
             html = html.replace(/{{CHATGPT_SCORE}}/g, scores.chatgpt);
@@ -736,24 +740,7 @@
             html = html.replace(/{{GOOGLE_COLOR}}/g, getScoreColor(scores.google));
             html = html.replace(/{{GOOGLE_FINDING}}/g, findings.google);
             
-            // Sample competitor data
-            html = html.replace(/{{COMPETITOR_1_NAME}}/g, 'Top Competitor A');
-            html = html.replace(/{{COMPETITOR_1_URL}}/g, 'competitor-a.com');
-            html = html.replace(/{{COMPETITOR_1_SCORE}}/g, '85');
-            html = html.replace(/{{COMPETITOR_1_STRENGTH}}/g, 'Strong video presence, comprehensive blog content, excellent schema markup');
-            html = html.replace(/{{COMPETITOR_1_STRATEGY}}/g, 'Build competing content ecosystem with better optimization and more comprehensive answers');
-            
-            html = html.replace(/{{COMPETITOR_2_NAME}}/g, 'Top Competitor B');
-            html = html.replace(/{{COMPETITOR_2_URL}}/g, 'competitor-b.com');
-            html = html.replace(/{{COMPETITOR_2_SCORE}}/g, '78');
-            html = html.replace(/{{COMPETITOR_2_STRENGTH}}/g, 'High review volume, strong local citations, active social media');
-            html = html.replace(/{{COMPETITOR_2_STRATEGY}}/g, 'Focus on review generation, complete directory listings, and social engagement');
-            
-            html = html.replace(/{{COMPETITOR_3_NAME}}/g, 'Top Competitor C');
-            html = html.replace(/{{COMPETITOR_3_URL}}/g, 'competitor-c.com');
-            html = html.replace(/{{COMPETITOR_3_SCORE}}/g, '72');
-            html = html.replace(/{{COMPETITOR_3_STRENGTH}}/g, 'Consistent content publication, good backlink profile');
-            html = html.replace(/{{COMPETITOR_3_STRATEGY}}/g, 'Create higher-quality content and build strategic partnership backlinks');
+            // Testimonials are hardcoded in template - no replacement needed
             
             html = html.replace(/{{REVENUE_GAP}}/g, '$180,000 - $350,000');
             
