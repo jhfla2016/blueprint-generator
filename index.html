@@ -289,7 +289,7 @@
 
         .output-buttons {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
             margin-top: 30px;
         }
@@ -328,6 +328,30 @@
         .output-btn.download:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(245, 158, 11, 0.4);
+        }
+
+        .output-btn.html {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .output-btn.html:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .output-btn.copy {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+        }
+
+        .output-btn.copy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
         }
 
         .output-btn-icon {
@@ -501,6 +525,14 @@
                 <button class="output-btn download" onclick="downloadPDF()">
                     <span class="output-btn-icon">📥</span>
                     Download PDF
+                </button>
+                <button class="output-btn html" onclick="downloadHTML()">
+                    <span class="output-btn-icon">💾</span>
+                    Download HTML
+                </button>
+                <button class="output-btn copy" onclick="copyHTML()">
+                    <span class="output-btn-icon">📋</span>
+                    Copy HTML
                 </button>
             </div>
         </div>
@@ -1044,6 +1076,49 @@
                     printWindow.print();
                 }, 500);
             };
+        }
+
+        function downloadHTML() {
+            // Create a blob with the HTML content
+            const blob = new Blob([generatedHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            // Create a temporary download link
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Visibility-Blueprint-Report.html';
+            document.body.appendChild(a);
+            a.click();
+            
+            // Cleanup
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ HTML file downloaded! Open it in any browser to view your beautiful report.');
+        }
+
+        async function copyHTML() {
+            try {
+                await navigator.clipboard.writeText(generatedHTML);
+                alert('✅ HTML copied to clipboard! Paste it into a text editor and save as .html file.');
+            } catch (err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = generatedHTML;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    alert('✅ HTML copied to clipboard! Paste it into a text editor and save as .html file.');
+                } catch (err2) {
+                    alert('❌ Could not copy. Please use the "Download HTML" button instead.');
+                }
+                
+                document.body.removeChild(textArea);
+            }
         }
     </script>
 </body>
