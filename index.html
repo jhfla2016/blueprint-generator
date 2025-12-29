@@ -736,9 +736,9 @@
             html = html.replace(/{{YOUTUBE_COLOR}}/g, getScoreColor(scores.youtube));
             html = html.replace(/{{YOUTUBE_FINDING}}/g, findings.youtube);
             
-            html = html.replace(/{{GOOGLE_SCORE}}/g, scores.google);
-            html = html.replace(/{{GOOGLE_COLOR}}/g, getScoreColor(scores.google));
-            html = html.replace(/{{GOOGLE_FINDING}}/g, findings.google);
+            html = html.replace(/{{GOOGLE_SEO_SCORE}}/g, scores.google);
+            html = html.replace(/{{GOOGLE_SEO_COLOR}}/g, getScoreColor(scores.google));
+            html = html.replace(/{{GOOGLE_SEO_FINDING}}/g, findings.google);
             
             // Testimonials are hardcoded in template - no replacement needed
             
@@ -897,55 +897,20 @@
         }
 
         async function downloadPDF() {
-            // Get business name for filename
-            const businessName = document.getElementById('businessName').value || 'Visibility_Blueprint';
-            const filename = `Visibility_Blueprint_-_${businessName.replace(/[^a-z0-9]/gi, '_')}.pdf`;
+            // Open the gorgeous report in a new window
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(generatedHTML);
+            printWindow.document.close();
             
-            // Create a temporary container
-            const tempContainer = document.createElement('div');
-            tempContainer.innerHTML = generatedHTML;
-            tempContainer.style.position = 'absolute';
-            tempContainer.style.left = '-9999px';
-            document.body.appendChild(tempContainer);
-            
-            // PDF options for beautiful output
-            const options = {
-                margin: [0.5, 0.5, 0.5, 0.5], // Top, Right, Bottom, Left (in inches)
-                filename: filename,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { 
-                    scale: 2, // Higher quality
-                    useCORS: true,
-                    letterRendering: true,
-                    scrollY: 0,
-                    scrollX: 0
-                },
-                jsPDF: { 
-                    unit: 'in', 
-                    format: 'letter', 
-                    orientation: 'portrait',
-                    compress: true
-                },
-                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            // Wait for content to fully load
+            printWindow.onload = function() {
+                // Small delay to ensure everything renders
+                setTimeout(function() {
+                    // Trigger print dialog
+                    printWindow.print();
+                }, 500);
             };
-            
-            try {
-                // Generate and download PDF
-                await html2pdf().set(options).from(tempContainer).save();
-                
-                // Clean up
-                document.body.removeChild(tempContainer);
-                
-                console.log('✅ PDF generated successfully!');
-            } catch (error) {
-                console.error('PDF generation error:', error);
-                document.body.removeChild(tempContainer);
-                alert('Error generating PDF. Please try "View Report" and use Ctrl+P to print instead.');
-            }
         }
     </script>
-
-    <!-- html2pdf.js library for beautiful PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
 </html>
