@@ -354,6 +354,30 @@
             box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4);
         }
 
+        .output-btn.gpt-json {
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
+        }
+
+        .output-btn.gpt-json:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(236, 72, 153, 0.4);
+        }
+
+        .output-btn.gpt-copy {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+        }
+
+        .output-btn.gpt-copy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(6, 182, 212, 0.4);
+        }
+
         .output-btn-icon {
             font-size: 32px;
             display: block;
@@ -534,12 +558,21 @@
                     <span class="output-btn-icon">📋</span>
                     Copy HTML
                 </button>
+                <button class="output-btn gpt-json" onclick="downloadGpt1JSON()">
+                    <span class="output-btn-icon">🤖</span>
+                    Download GPT-1 Pack (JSON)
+                </button>
+                <button class="output-btn gpt-copy" onclick="copyGpt1Pack()">
+                    <span class="output-btn-icon">📄</span>
+                    Copy GPT-1 Pack
+                </button>
             </div>
         </div>
     </div>
 
     <script>
         let generatedHTML = '';
+        let gpt1InputPack = null; // Stores the GPT-1 INPUT PACK data
         let reportType = 'initial';
         let businessType = 'local';
 
@@ -573,6 +606,366 @@
                 console.error('Worker API Error:', error);
                 alert('Error getting analysis: ' + error.message + '\n\nPlease check that your Cloudflare Worker is deployed and the WORKER_URL is correct.');
                 throw error;
+            }
+        }
+
+        // ============ GPT-1 INPUT PACK BUILDER ============
+        function buildGpt1InputPack(blueprintData, apiData, businessData) {
+            const { businessName, website, industry, businessType, city, state, ownerName, email, phone } = businessData;
+            const scores = blueprintData.scores;
+            const keywords = apiData.keywords || [];
+
+            // Calculate overall visibility score
+            const overallScore = Math.round(Object.values(scores).reduce((a, b) => a + b, 0) / 10);
+
+            // Build visibility scores object
+            const visibilityScores = {
+                overall: overallScore,
+                chatgpt: scores.chatgpt,
+                perplexity: scores.perplexity,
+                gemini: scores.gemini,
+                meta_ai: scores.metaAI,
+                siri: scores.siri,
+                alexa: scores.alexa,
+                google_assistant: scores.googleAssist,
+                bing_copilot: scores.copilot,
+                youtube: scores.youtube,
+                google_search: scores.google
+            };
+
+            // Extract top keywords with intent inference
+            const topKeywords = keywords.map(kw => ({
+                keyword: kw.keyword,
+                monthly_volume: kw.volume,
+                intent: inferKeywordIntent(kw.keyword, industry)
+            }));
+
+            // Extract quick wins from generated recommendations
+            const quickWins = extractQuickWins(scores, businessName);
+
+            // STRATEGIC CONTEXT INFERENCE
+            const primaryRevenueService = inferPrimaryRevenueService(keywords, industry);
+            const coreCustomerPains = inferCustomerPains(keywords, quickWins, industry);
+            const keyDifferentiators = extractDifferentiators(quickWins);
+            const conversionGoal = inferConversionGoal(businessType, industry);
+            const complianceFlag = inferComplianceFlag(industry);
+
+            // CONFIDENCE RATINGS
+            const confidence = {
+                primary_revenue_service: keywords.length >= 10 ? 'high' : (keywords.length >= 5 ? 'medium' : 'low'),
+                pains: quickWins.length >= 5 ? 'high' : (quickWins.length >= 3 ? 'medium' : 'low'),
+                differentiators: keyDifferentiators.length >= 2 ? 'medium' : 'low'
+            };
+
+            // Build the complete GPT-1 INPUT PACK
+            const gpt1Pack = {
+                version: '1.0',
+                generated_at: new Date().toISOString(),
+                client_identity: {
+                    website_url: website,
+                    business_name: businessName,
+                    industry: industry,
+                    reach_mode: businessType, // local or national
+                    location: businessType === 'local' ? {
+                        city: city,
+                        state: state
+                    } : null,
+                    contact: {
+                        owner_name: ownerName,
+                        email: email,
+                        phone: phone
+                    }
+                },
+                blueprint_summary: {
+                    visibility_scores: visibilityScores,
+                    top_keywords: topKeywords.slice(0, 20), // Top 20 keywords
+                    quick_wins: quickWins
+                },
+                strategic_context: {
+                    primary_revenue_service: primaryRevenueService,
+                    core_customer_pains: coreCustomerPains,
+                    key_differentiators: keyDifferentiators,
+                    conversion_goal: conversionGoal,
+                    compliance_flag: complianceFlag
+                },
+                confidence: confidence
+            };
+
+            return gpt1Pack;
+        }
+
+        // Helper: Infer keyword intent
+        function inferKeywordIntent(keyword, industry) {
+            const keywordLower = keyword.toLowerCase();
+            if (keywordLower.includes('buy') || keywordLower.includes('price') || keywordLower.includes('cost') || keywordLower.includes('near me')) {
+                return 'commercial';
+            } else if (keywordLower.includes('how to') || keywordLower.includes('what is') || keywordLower.includes('guide')) {
+                return 'informational';
+            } else if (keywordLower.includes('best') || keywordLower.includes('top') || keywordLower.includes('review')) {
+                return 'commercial';
+            } else {
+                return 'navigational';
+            }
+        }
+
+        // Helper: Infer primary revenue service from keywords
+        function inferPrimaryRevenueService(keywords, industry) {
+            // Find the highest-volume commercial intent keyword cluster
+            const commercialKeywords = keywords
+                .filter(kw => {
+                    const kwLower = kw.keyword.toLowerCase();
+                    return kwLower.includes('service') || kwLower.includes('repair') || 
+                           kwLower.includes('install') || kwLower.includes('near me') ||
+                           kwLower.includes('emergency');
+                })
+                .sort((a, b) => b.volume - a.volume);
+
+            if (commercialKeywords.length > 0) {
+                // Extract service name from keyword
+                const topKeyword = commercialKeywords[0].keyword;
+                return topKeyword.replace(/near me|best|top|in .*/gi, '').trim();
+            }
+
+            // Fallback to industry-based inference
+            const industryMap = {
+                'local': 'Local services',
+                'legal': 'Legal services',
+                'medical': 'Healthcare services',
+                'realestate': 'Real estate services',
+                'restaurant': 'Food & dining services',
+                'retail': 'Retail products',
+                'professional': 'Professional services',
+                'home': 'Home improvement services',
+                'other': 'Core services'
+            };
+            return industryMap[industry] || 'Core services';
+        }
+
+        // Helper: Infer customer pains from keywords and quick wins
+        function inferCustomerPains(keywords, quickWins, industry) {
+            const pains = [];
+
+            // Extract pain points from keywords
+            keywords.forEach(kw => {
+                const kwLower = kw.keyword.toLowerCase();
+                if (kwLower.includes('emergency') || kwLower.includes('urgent')) {
+                    pains.push('Need immediate/emergency service response');
+                } else if (kwLower.includes('affordable') || kwLower.includes('cheap') || kwLower.includes('cost')) {
+                    pains.push('Looking for transparent, affordable pricing');
+                } else if (kwLower.includes('best') || kwLower.includes('top') || kwLower.includes('review')) {
+                    pains.push('Difficulty finding trustworthy, highly-rated providers');
+                } else if (kwLower.includes('near me') || kwLower.includes('local')) {
+                    pains.push('Want convenient local service provider');
+                }
+            });
+
+            // Add industry-specific pain points
+            if (industry === 'medical' || industry === 'legal') {
+                pains.push('Need expert guidance for complex situation');
+            }
+            
+            // Deduplicate and return top 3-5
+            return [...new Set(pains)].slice(0, 5);
+        }
+
+        // Helper: Extract differentiators from quick wins
+        function extractDifferentiators(quickWins) {
+            // Look for strengths mentioned in quick wins
+            const differentiators = [];
+            
+            // This is a simplified extraction - in reality, this would parse the quick wins
+            // For now, return empty array as per spec (can be left empty)
+            return differentiators;
+        }
+
+        // Helper: Infer conversion goal
+        function inferConversionGoal(businessType, industry) {
+            if (businessType === 'local') {
+                return 'phone_calls_and_contact_forms';
+            } else if (industry === 'retail') {
+                return 'ecommerce_checkout';
+            } else if (industry === 'professional' || industry === 'legal' || industry === 'medical') {
+                return 'consultation_booking';
+            } else {
+                return 'contact_form_submissions';
+            }
+        }
+
+        // Helper: Infer compliance flag
+        function inferComplianceFlag(industry) {
+            if (industry === 'medical' || industry === 'legal' || industry === 'realestate') {
+                return 'YMYL';
+            }
+            return 'none';
+        }
+
+        // Helper: Extract quick wins (reuse from existing smart quick wins logic)
+        function extractQuickWins(scores, businessName) {
+            const quickWins = [];
+            
+            // Calculate category averages
+            const aiAvg = Math.round((scores.chatgpt + scores.perplexity + scores.gemini + scores.metaAI) / 4);
+            const voiceAvg = Math.round((scores.siri + scores.alexa + scores.googleAssist) / 3);
+            
+            // Critical AI visibility
+            if (aiAvg < 35) {
+                quickWins.push('Create comprehensive FAQ content to boost AI platform visibility');
+                quickWins.push('Implement schema markup for LocalBusiness and FAQPage');
+            }
+            
+            // Voice search weakness
+            if (voiceAvg < 55) {
+                quickWins.push('Optimize Google Business Profile with photos, posts, and complete attributes');
+            }
+            
+            // YouTube opportunity
+            if (scores.youtube < 25) {
+                quickWins.push('Launch YouTube channel with FAQ videos');
+            }
+            
+            // Google SEO
+            if (scores.google < 60) {
+                quickWins.push('Create detailed pillar content (3,000+ words) for core services');
+            }
+            
+            // Always include
+            quickWins.push('Claim and optimize directory listings for NAP consistency');
+            quickWins.push('Build strategic internal links between related content');
+            quickWins.push('Earn quality backlinks from local partners and industry publications');
+            
+            return quickWins.slice(0, 8);
+        }
+
+        // ============ GPT-1 PACK PASTE BLOCK FORMAT ============
+        function buildGpt1PasteBlock(gpt1Pack) {
+            const { client_identity, blueprint_summary, strategic_context, confidence } = gpt1Pack;
+            
+            let pasteBlock = `=== GPT-1 INPUT PACK ===
+Generated: ${new Date(gpt1Pack.generated_at).toLocaleString()}
+
+--- BUSINESS IDENTITY ---
+Business Name: ${client_identity.business_name}
+Website: ${client_identity.website_url}
+Industry: ${client_identity.industry}
+Reach: ${client_identity.reach_mode}`;
+
+            if (client_identity.location) {
+                pasteBlock += `
+Location: ${client_identity.location.city}, ${client_identity.location.state}`;
+            }
+
+            pasteBlock += `
+Contact: ${client_identity.contact.owner_name} | ${client_identity.contact.email} | ${client_identity.contact.phone}
+
+--- VISIBILITY SCORES ---
+Overall Score: ${blueprint_summary.visibility_scores.overall}/100
+ChatGPT: ${blueprint_summary.visibility_scores.chatgpt}/100
+Perplexity: ${blueprint_summary.visibility_scores.perplexity}/100
+Gemini: ${blueprint_summary.visibility_scores.gemini}/100
+Meta AI: ${blueprint_summary.visibility_scores.meta_ai}/100
+Siri: ${blueprint_summary.visibility_scores.siri}/100
+Alexa: ${blueprint_summary.visibility_scores.alexa}/100
+Google Assistant: ${blueprint_summary.visibility_scores.google_assistant}/100
+Bing Copilot: ${blueprint_summary.visibility_scores.bing_copilot}/100
+YouTube: ${blueprint_summary.visibility_scores.youtube}/100
+Google Search: ${blueprint_summary.visibility_scores.google_search}/100
+
+--- STRATEGIC CONTEXT ---
+Primary Revenue Service: ${strategic_context.primary_revenue_service}
+
+Customer Pain Points:`;
+            
+            strategic_context.core_customer_pains.forEach((pain, i) => {
+                pasteBlock += `\n${i + 1}. ${pain}`;
+            });
+
+            pasteBlock += `\n\nKey Differentiators:`;
+            if (strategic_context.key_differentiators.length > 0) {
+                strategic_context.key_differentiators.forEach((diff, i) => {
+                    pasteBlock += `\n${i + 1}. ${diff}`;
+                });
+            } else {
+                pasteBlock += '\n(To be determined from client interview)';
+            }
+
+            pasteBlock += `\n\nConversion Goal: ${strategic_context.conversion_goal}
+Compliance Level: ${strategic_context.compliance_flag}
+
+--- TOP KEYWORDS (${blueprint_summary.top_keywords.length}) ---`;
+            
+            blueprint_summary.top_keywords.forEach(kw => {
+                pasteBlock += `\n• ${kw.keyword} [${kw.monthly_volume.toLocaleString()}/mo, ${kw.intent}]`;
+            });
+
+            pasteBlock += `\n\n--- QUICK WINS (${blueprint_summary.quick_wins.length}) ---`;
+            blueprint_summary.quick_wins.forEach((win, i) => {
+                pasteBlock += `\n${i + 1}. ${win}`;
+            });
+
+            pasteBlock += `\n\n--- CONFIDENCE RATINGS ---
+Primary Revenue Service: ${confidence.primary_revenue_service}
+Pain Points: ${confidence.pains}
+Differentiators: ${confidence.differentiators}
+
+=== END GPT-1 INPUT PACK ===`;
+
+            return pasteBlock;
+        }
+
+        // ============ GPT-1 PACK DOWNLOAD & COPY FUNCTIONS ============
+        function downloadGpt1JSON() {
+            if (!gpt1InputPack) {
+                alert('⚠️ No GPT-1 Input Pack generated yet. Please generate a blueprint first.');
+                return;
+            }
+
+            // Create JSON blob
+            const jsonString = JSON.stringify(gpt1InputPack, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            // Create download link
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `GPT1-Input-Pack-${gpt1InputPack.client_identity.business_name.replace(/\s+/g, '-')}.json`;
+            document.body.appendChild(a);
+            a.click();
+            
+            // Cleanup
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('✅ GPT-1 Input Pack JSON downloaded!');
+        }
+
+        async function copyGpt1Pack() {
+            if (!gpt1InputPack) {
+                alert('⚠️ No GPT-1 Input Pack generated yet. Please generate a blueprint first.');
+                return;
+            }
+
+            const pasteBlock = buildGpt1PasteBlock(gpt1InputPack);
+
+            try {
+                await navigator.clipboard.writeText(pasteBlock);
+                alert('✅ GPT-1 Input Pack copied to clipboard!');
+            } catch (err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = pasteBlock;
+                textArea.style.position = 'fixed';
+                textArea.style.left = '-999999px';
+                document.body.appendChild(textArea);
+                textArea.select();
+                
+                try {
+                    document.execCommand('copy');
+                    alert('✅ GPT-1 Input Pack copied to clipboard!');
+                } catch (err2) {
+                    alert('❌ Could not copy. Please use the "Download GPT-1 Pack (JSON)" button instead.');
+                }
+                
+                document.body.removeChild(textArea);
             }
         }
 
@@ -668,6 +1061,22 @@
 
                 // Extract keywords from API response
                 const keywords = apiData.keywords || [];
+
+                // Store business data for GPT-1 pack
+                const businessData = {
+                    businessName,
+                    website,
+                    industry,
+                    businessType,
+                    city,
+                    state,
+                    ownerName,
+                    email,
+                    phone
+                };
+
+                // Build GPT-1 INPUT PACK (always, regardless of report type)
+                gpt1InputPack = buildGpt1InputPack({ scores }, apiData, businessData);
                 
                 if (reportType === 'initial') {
                     generatedHTML = await generateInitialBlueprint(businessName, ownerName, website, email, industry, phone, city, state, scores, findings, keywords);
