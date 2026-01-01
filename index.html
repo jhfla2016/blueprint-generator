@@ -507,6 +507,26 @@
                 </div>
             </div>
 
+            <!-- Business Model -->
+            <div class="form-group">
+                <label>Business Model <span class="required">*</span></label>
+                <p class="helper-text">How do customers primarily do business with you?</p>
+                <select id="businessModel" required onchange="toggleCountyField()">
+                    <option value="">Select your business model</option>
+                    <option value="brick_and_mortar">Brick-and-Mortar (customers visit a physical location)</option>
+                    <option value="service_area">Service-Area Business (we go to the customer)</option>
+                    <option value="hybrid">Hybrid (customers visit us AND we serve/sell beyond local area)</option>
+                    <option value="online">Online / eCommerce (no in-person visits)</option>
+                </select>
+            </div>
+
+            <!-- County Field (shown only for Service Area or Hybrid) -->
+            <div class="form-group" id="countyField" style="display: none;">
+                <label>County <span style="color: #64748b; font-weight: 500;">(Optional)</span></label>
+                <p class="helper-text">If you serve a specific county, enter it here (e.g., "Palm Beach County")</p>
+                <input type="text" id="county" placeholder="Enter county name">
+            </div>
+
             <!-- Owner's Name -->
             <div class="form-group">
                 <label>Owner's Name <span class="required">*</span></label>
@@ -579,6 +599,39 @@
         // CLOUDFLARE WORKER URL - You'll set this after deploying the worker
         const WORKER_URL = 'https://blueprint-api.instantleadpros.workers.dev'; // Worker deployed and configured!
 
+        // Toggle County field visibility based on Business Model
+        function toggleCountyField() {
+            const businessModel = document.getElementById('businessModel').value;
+            const countyField = document.getElementById('countyField');
+            
+            if (businessModel === 'service_area' || businessModel === 'hybrid') {
+                countyField.style.display = 'block';
+            } else {
+                countyField.style.display = 'none';
+                document.getElementById('county').value = ''; // Clear county if hidden
+            }
+        }
+
+        // Helper: Convert state abbreviation to full name
+        function getFullStateName(stateInput) {
+            const stateMap = {
+                'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California',
+                'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia',
+                'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa',
+                'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland',
+                'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi', 'MO': 'Missouri',
+                'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey',
+                'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio',
+                'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina',
+                'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont',
+                'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming',
+                'DC': 'District of Columbia', 'PR': 'Puerto Rico'
+            };
+            
+            const upperState = stateInput.trim().toUpperCase();
+            return stateMap[upperState] || stateInput; // Return full name if abbreviation, otherwise return as-is
+        }
+
         // CALL CLOUDFLARE WORKER FOR INTELLIGENT ANALYSIS
         async function callWorkerAPI(businessData) {
             if (WORKER_URL === 'YOUR_WORKER_URL_HERE') {
@@ -611,7 +664,7 @@
 
         // ============ GPT-1 INPUT PACK BUILDER ============
         function buildGpt1InputPack(blueprintData, apiData, businessData) {
-            const { businessName, website, industry, businessType, city, state, ownerName, email, phone } = businessData;
+            const { businessName, website, industry, businessType, businessModel, city, state, county, ownerName, email, phone } = businessData;
             const scores = blueprintData.scores;
             const keywords = apiData.keywords || [];
 
@@ -653,6 +706,12 @@
             // Select anchor keyword (highest commercial-intent keyword)
             const anchorKeyword = selectAnchorKeyword(keywords);
 
+            // Convert state to full name
+            const stateFullName = getFullStateName(state);
+
+            // Build geography object based on business model
+            const geography = buildGeographyObject(businessModel, city, stateFullName, county);
+
             // CONFIDENCE RATINGS
             const confidence = {
                 primary_revenue_service: keywords.length >= 10 ? 'high' : (keywords.length >= 5 ? 'medium' : 'low'),
@@ -669,10 +728,8 @@
                     business_name: businessName,
                     industry: industry,
                     reach_mode: businessType, // local or national
-                    location: businessType === 'local' ? {
-                        city: city,
-                        state: state
-                    } : null,
+                    business_model: businessModel, // brick_and_mortar, service_area, hybrid, online
+                    geography: geography,
                     contact: {
                         owner_name: ownerName,
                         email: email,
@@ -696,6 +753,24 @@
             };
 
             return gpt1Pack;
+        }
+
+        // Helper: Build geography object based on business model
+        function buildGeographyObject(businessModel, city, stateFullName, county) {
+            const serviceAreaNotes = {
+                'brick_and_mortar': 'Customers visit our physical location',
+                'service_area': 'We serve customers across the service area',
+                'hybrid': 'Physical location + broader service/sales area',
+                'online': 'Online / nationwide business'
+            };
+
+            return {
+                type: businessModel,
+                city: city,
+                state: stateFullName,
+                county: (businessModel === 'service_area' || businessModel === 'hybrid') && county ? county : null,
+                service_area_note: serviceAreaNotes[businessModel] || serviceAreaNotes['brick_and_mortar']
+            };
         }
 
         // Helper: Select anchor keyword (highest commercial-intent keyword)
@@ -977,6 +1052,7 @@
         // ============ GPT-1 PACK PASTE BLOCK FORMAT ============
         function buildGpt1PasteBlock(gpt1Pack) {
             const { client_identity, blueprint_summary, strategic_context, confidence } = gpt1Pack;
+            const geography = client_identity.geography;
             
             let pasteBlock = `=== GPT-1 INPUT PACK ===
 Generated: ${new Date(gpt1Pack.generated_at).toLocaleString()}
@@ -985,15 +1061,44 @@ Generated: ${new Date(gpt1Pack.generated_at).toLocaleString()}
 Business Name: ${client_identity.business_name}
 Website: ${client_identity.website_url}
 Industry: ${client_identity.industry}
-Reach: ${client_identity.reach_mode}`;
+Reach: ${client_identity.reach_mode}
+Business Model: ${getBusinessModelLabel(client_identity.business_model)}
 
-            if (client_identity.location) {
-                pasteBlock += `
-Location: ${client_identity.location.city}, ${client_identity.location.state}`;
+`;
+
+            // Format location based on business model
+            if (geography.type === 'brick_and_mortar') {
+                pasteBlock += `Location: ${geography.city}, ${geography.state}
+`;
+            } else if (geography.type === 'service_area') {
+                pasteBlock += `Primary City: ${geography.city}, ${geography.state}
+`;
+                if (geography.county) {
+                    pasteBlock += `Service Area: ${geography.county}, ${geography.state}
+`;
+                } else {
+                    pasteBlock += `Service Area: (not provided)
+`;
+                }
+            } else if (geography.type === 'hybrid') {
+                pasteBlock += `Physical Location: ${geography.city}, ${geography.state}
+`;
+                if (geography.county) {
+                    pasteBlock += `Service Area: ${geography.county}, ${geography.state}
+`;
+                } else {
+                    pasteBlock += `Service Area: (not provided)
+`;
+                }
+                pasteBlock += `Reach: local + national sales/service
+`;
+            } else if (geography.type === 'online') {
+                pasteBlock += `Reach: national (online)
+Business HQ: ${geography.city}, ${geography.state}
+`;
             }
 
-            pasteBlock += `
-Contact: ${client_identity.contact.owner_name} | ${client_identity.contact.email} | ${client_identity.contact.phone}
+            pasteBlock += `Contact: ${client_identity.contact.owner_name} | ${client_identity.contact.email} | ${client_identity.contact.phone}
 
 --- VISIBILITY SCORES ---
 Overall Score: ${blueprint_summary.visibility_scores.overall}/100
@@ -1045,6 +1150,17 @@ Differentiators: ${confidence.differentiators}
 === END GPT-1 INPUT PACK ===`;
 
             return pasteBlock;
+        }
+
+        // Helper: Get business model label for display
+        function getBusinessModelLabel(businessModel) {
+            const labels = {
+                'brick_and_mortar': 'Brick-and-Mortar',
+                'service_area': 'Service-Area Business',
+                'hybrid': 'Hybrid',
+                'online': 'Online / eCommerce'
+            };
+            return labels[businessModel] || businessModel;
         }
 
         // ============ GPT-1 PACK DOWNLOAD & COPY FUNCTIONS ============
@@ -1151,6 +1267,8 @@ Differentiators: ${confidence.differentiators}
             const phone = document.getElementById('phone').value;
             const city = document.getElementById('city').value;
             const state = document.getElementById('state').value;
+            const businessModel = document.getElementById('businessModel').value;
+            const county = document.getElementById('county').value.trim();
             
             // Show loading
             document.getElementById('blueprintForm').style.display = 'none';
@@ -1203,8 +1321,10 @@ Differentiators: ${confidence.differentiators}
                     website,
                     industry,
                     businessType,
+                    businessModel,
                     city,
                     state,
+                    county,
                     ownerName,
                     email,
                     phone
