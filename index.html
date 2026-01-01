@@ -645,16 +645,19 @@
 
             // STRATEGIC CONTEXT INFERENCE
             const primaryRevenueService = inferPrimaryRevenueService(keywords, industry);
-            const coreCustomerPains = inferCustomerPains(keywords, quickWins, industry);
-            const keyDifferentiators = extractDifferentiators(quickWins);
+            const coreCustomerPains = inferCustomerPains(keywords, quickWins, industry, businessType, city, state);
+            const keyDifferentiators = extractDifferentiators(quickWins, businessType, city, state, industry);
             const conversionGoal = inferConversionGoal(businessType, industry);
             const complianceFlag = inferComplianceFlag(industry);
+            
+            // Select anchor keyword (highest commercial-intent keyword)
+            const anchorKeyword = selectAnchorKeyword(keywords);
 
             // CONFIDENCE RATINGS
             const confidence = {
                 primary_revenue_service: keywords.length >= 10 ? 'high' : (keywords.length >= 5 ? 'medium' : 'low'),
-                pains: quickWins.length >= 5 ? 'high' : (quickWins.length >= 3 ? 'medium' : 'low'),
-                differentiators: keyDifferentiators.length >= 2 ? 'medium' : 'low'
+                pains: 'high', // Always high now that we auto-fill with industry defaults
+                differentiators: 'low' // Always low since we auto-generate conservative defaults
             };
 
             // Build the complete GPT-1 INPUT PACK
@@ -683,6 +686,7 @@
                 },
                 strategic_context: {
                     primary_revenue_service: primaryRevenueService,
+                    anchor_keyword_candidate: anchorKeyword,
                     core_customer_pains: coreCustomerPains,
                     key_differentiators: keyDifferentiators,
                     conversion_goal: conversionGoal,
@@ -694,18 +698,68 @@
             return gpt1Pack;
         }
 
+        // Helper: Select anchor keyword (highest commercial-intent keyword)
+        function selectAnchorKeyword(keywords) {
+            // Prioritize commercial/transactional keywords with "installation" or "company"
+            const preferred = keywords.find(kw => {
+                const kwLower = kw.keyword.toLowerCase();
+                return (kwLower.includes('installation') || kwLower.includes('install') || 
+                        kwLower.includes('company') || kwLower.includes('companies'));
+            });
+            
+            if (preferred) return preferred.keyword;
+            
+            // Fallback to highest volume keyword
+            if (keywords.length > 0) {
+                const sorted = [...keywords].sort((a, b) => b.volume - a.volume);
+                return sorted[0].keyword;
+            }
+            
+            return null;
+        }
+
         // Helper: Infer keyword intent
         function inferKeywordIntent(keyword, industry) {
             const keywordLower = keyword.toLowerCase();
-            if (keywordLower.includes('buy') || keywordLower.includes('price') || keywordLower.includes('cost') || keywordLower.includes('near me')) {
-                return 'commercial';
-            } else if (keywordLower.includes('how to') || keywordLower.includes('what is') || keywordLower.includes('guide')) {
-                return 'informational';
-            } else if (keywordLower.includes('best') || keywordLower.includes('top') || keywordLower.includes('review')) {
-                return 'commercial';
-            } else {
-                return 'navigational';
+            
+            // TRANSACTIONAL: Ready to buy/hire
+            if (keywordLower.includes('repair') || 
+                keywordLower.includes('emergency') || 
+                keywordLower.includes('cost') || 
+                keywordLower.includes('price') || 
+                keywordLower.includes('buy') ||
+                keywordLower.includes('quote') ||
+                keywordLower.includes('hire')) {
+                return 'transactional';
             }
+            
+            // COMMERCIAL: Researching options
+            if (keywordLower.includes('installation') || 
+                keywordLower.includes('install') ||
+                keywordLower.includes('company') || 
+                keywordLower.includes('companies') ||
+                keywordLower.includes('service') || 
+                keywordLower.includes('services') ||
+                keywordLower.includes('near me') ||
+                keywordLower.includes('best') || 
+                keywordLower.includes('top') || 
+                keywordLower.includes('review')) {
+                return 'commercial';
+            }
+            
+            // INFORMATIONAL: Learning about topic
+            if (keywordLower.includes('how to') || 
+                keywordLower.includes('what is') || 
+                keywordLower.includes('guide') ||
+                keywordLower.includes('solutions') ||
+                keywordLower.includes('benefits') ||
+                keywordLower.includes('problems') ||
+                keywordLower.includes('why')) {
+                return 'informational';
+            }
+            
+            // Default to commercial for service-based searches
+            return 'commercial';
         }
 
         // Helper: Infer primary revenue service from keywords
@@ -742,39 +796,123 @@
         }
 
         // Helper: Infer customer pains from keywords and quick wins
-        function inferCustomerPains(keywords, quickWins, industry) {
+        function inferCustomerPains(keywords, quickWins, industry, businessType, city, state) {
             const pains = [];
 
             // Extract pain points from keywords
+            let hasEmergency = false;
+            let hasPricing = false;
+            let hasTrust = false;
+            let hasLocal = false;
+
             keywords.forEach(kw => {
                 const kwLower = kw.keyword.toLowerCase();
                 if (kwLower.includes('emergency') || kwLower.includes('urgent')) {
-                    pains.push('Need immediate/emergency service response');
-                } else if (kwLower.includes('affordable') || kwLower.includes('cheap') || kwLower.includes('cost')) {
-                    pains.push('Looking for transparent, affordable pricing');
+                    hasEmergency = true;
+                } else if (kwLower.includes('affordable') || kwLower.includes('cheap') || kwLower.includes('cost') || kwLower.includes('price')) {
+                    hasPricing = true;
                 } else if (kwLower.includes('best') || kwLower.includes('top') || kwLower.includes('review')) {
-                    pains.push('Difficulty finding trustworthy, highly-rated providers');
+                    hasTrust = true;
                 } else if (kwLower.includes('near me') || kwLower.includes('local')) {
-                    pains.push('Want convenient local service provider');
+                    hasLocal = true;
                 }
             });
 
-            // Add industry-specific pain points
-            if (industry === 'medical' || industry === 'legal') {
-                pains.push('Need expert guidance for complex situation');
-            }
-            
-            // Deduplicate and return top 3-5
-            return [...new Set(pains)].slice(0, 5);
+            // Add keyword-based pains
+            if (hasEmergency) pains.push('Need immediate or emergency service response');
+            if (hasPricing) pains.push('Looking for transparent, affordable pricing');
+            if (hasTrust) pains.push('Difficulty finding trustworthy, highly-rated providers');
+            if (hasLocal && businessType === 'local') pains.push('Want convenient local service provider');
+
+            // Industry-specific pain points (auto-inferred, safe language)
+            const industryPains = {
+                'local': [
+                    'Equipment or system not functioning properly',
+                    'Ongoing maintenance issues causing disruption',
+                    'Uncertainty about repair vs. replacement decisions'
+                ],
+                'legal': [
+                    'Complex situation requiring expert guidance',
+                    'Uncertainty about legal rights and options',
+                    'Concern about cost and timeline of legal process'
+                ],
+                'medical': [
+                    'Seeking specialized healthcare provider',
+                    'Coordinating care across multiple providers',
+                    'Understanding treatment options and next steps'
+                ],
+                'realestate': [
+                    'Navigating competitive market conditions',
+                    'Uncertainty about property value and pricing',
+                    'Coordinating timing of buying and selling'
+                ],
+                'restaurant': [
+                    'Finding convenient dining options for occasion',
+                    'Dietary restrictions or preferences to accommodate',
+                    'Balancing quality, atmosphere, and value'
+                ],
+                'retail': [
+                    'Finding specific products or brands locally',
+                    'Comparing options and prices efficiently',
+                    'Need for expert product recommendations'
+                ],
+                'professional': [
+                    'Complex project requiring specialized expertise',
+                    'Coordinating multiple stakeholders and timelines',
+                    'Ensuring quality and compliance standards'
+                ],
+                'home': [
+                    'Property damage or deterioration requiring attention',
+                    'Coordinating multiple contractors or trades',
+                    'Balancing quality work with budget constraints'
+                ],
+                'other': [
+                    'Finding qualified service provider in local area',
+                    'Uncertainty about service scope and pricing',
+                    'Coordinating scheduling and availability'
+                ]
+            };
+
+            // Add industry defaults if we don't have enough pains yet
+            const defaultPains = industryPains[industry] || industryPains['other'];
+            defaultPains.forEach(pain => {
+                if (pains.length < 5 && !pains.includes(pain)) {
+                    pains.push(pain);
+                }
+            });
+
+            // Ensure we always have 3-5 pain points
+            return pains.slice(0, 5);
         }
 
-        // Helper: Extract differentiators from quick wins
-        function extractDifferentiators(quickWins) {
-            // Look for strengths mentioned in quick wins
+        // Helper: Extract differentiators from quick wins or generate defaults
+        function extractDifferentiators(quickWins, businessType, city, state, industry) {
             const differentiators = [];
             
-            // This is a simplified extraction - in reality, this would parse the quick wins
-            // For now, return empty array as per spec (can be left empty)
+            // Conservative, defensible default differentiators
+            if (businessType === 'local' && city && state) {
+                differentiators.push(`Local specialist serving ${city}, ${state} area`);
+            } else if (businessType === 'national') {
+                differentiators.push('Nationwide service provider');
+            }
+            
+            // Add service scope differentiator
+            const scopeMap = {
+                'local': 'Full-service provider (installation, repair, maintenance)',
+                'legal': 'Comprehensive legal services across practice areas',
+                'medical': 'Comprehensive healthcare services',
+                'realestate': 'Full-service real estate assistance',
+                'restaurant': 'Full-service dining experience',
+                'retail': 'Wide selection of products and brands',
+                'professional': 'Full-service professional solutions',
+                'home': 'Complete home improvement services',
+                'other': 'Full-service provider'
+            };
+            differentiators.push(scopeMap[industry] || scopeMap['other']);
+            
+            // Add quality/standards differentiator
+            differentiators.push('Uses industry-standard certified systems and practices');
+            
             return differentiators;
         }
 
@@ -872,6 +1010,7 @@ Google Search: ${blueprint_summary.visibility_scores.google_search}/100
 
 --- STRATEGIC CONTEXT ---
 Primary Revenue Service: ${strategic_context.primary_revenue_service}
+Anchor Keyword Candidate: ${strategic_context.anchor_keyword_candidate || 'N/A'}
 
 Customer Pain Points:`;
             
@@ -880,13 +1019,9 @@ Customer Pain Points:`;
             });
 
             pasteBlock += `\n\nKey Differentiators:`;
-            if (strategic_context.key_differentiators.length > 0) {
-                strategic_context.key_differentiators.forEach((diff, i) => {
-                    pasteBlock += `\n${i + 1}. ${diff}`;
-                });
-            } else {
-                pasteBlock += '\n(To be determined from client interview)';
-            }
+            strategic_context.key_differentiators.forEach((diff, i) => {
+                pasteBlock += `\n${i + 1}. ${diff}`;
+            });
 
             pasteBlock += `\n\nConversion Goal: ${strategic_context.conversion_goal}
 Compliance Level: ${strategic_context.compliance_flag}
