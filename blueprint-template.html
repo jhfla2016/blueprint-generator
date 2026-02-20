@@ -267,31 +267,33 @@
         /* ==================== PLATFORM CARDS ==================== */
         .platform-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.1rem;
-            margin: 1.65rem 0;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem;
+            margin: 1.25rem 0;
         }
         
         .platform-card {
             border: 2px solid #E2E8F0;
-            border-radius: 14px;
-            padding: 1.15rem;
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
             background: white;
             box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            min-width: 0;
+            overflow: hidden;
         }
         
         .platform-card.red {
-            border-left: 7px solid #EF4444;
+            border-left: 6px solid #EF4444;
             background: linear-gradient(135deg, #FEF2F2 0%, #FFFFFF 100%);
         }
         
         .platform-card.yellow {
-            border-left: 7px solid #F59E0B;
+            border-left: 6px solid #F59E0B;
             background: linear-gradient(135deg, #FFFBEB 0%, #FFFFFF 100%);
         }
         
         .platform-card.green {
-            border-left: 7px solid #10B981;
+            border-left: 6px solid #10B981;
             background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
         }
         
@@ -299,34 +301,40 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.55rem;
+            margin-bottom: 0.4rem;
+            gap: 0.5rem;
         }
         
         .platform-name {
             font-weight: 900;
-            font-size: 1.08rem;
+            font-size: 0.95rem;
             color: #0f172a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .platform-score {
-            font-size: 1.6rem;
+            font-size: 1.15rem;
             font-weight: 900;
             color: #0f172a;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.3rem;
+            flex-shrink: 0;
+            white-space: nowrap;
         }
         
         .score-dot {
-            width: 20px;
-            height: 20px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             display: inline-block;
-            margin-right: 8px;
+            flex-shrink: 0;
             background: linear-gradient(145deg, #FCD34D 0%, #F59E0B 100%);
             box-shadow: 
-                0 3px 6px rgba(245,158,11,0.5),
-                inset 0 2px 3px rgba(252,211,77,0.8);
+                0 2px 4px rgba(245,158,11,0.5),
+                inset 0 1px 2px rgba(252,211,77,0.8);
         }
         
         .score-dot.red {
@@ -944,10 +952,9 @@
         <h3>📊 What's Inside Your Free Visibility Blueprint:</h3>
         <ul>
             <li><strong>Complete 10-Platform AI Visibility Audit</strong> — See exactly where you rank on ChatGPT, Perplexity, Gemini, Meta AI, Google, YouTube, Siri, Alexa & more</li>
-            <li><strong>Real Results from Businesses Like Yours</strong> — Case studies showing what's possible when you implement a comprehensive visibility strategy</li>
             <li><strong>20 High-Value Keyword Opportunities</strong> — The exact AI & voice search terms your customers are using that you're completely missing</li>
             <li><strong>8 DIY Implementation Blueprints</strong> — Step-by-step guides to fix it yourself (spoiler: it's a LOT of work)</li>
-            <li><strong>Done-For-You Solution</strong> — Our proven 24/7 Traffic Domination Ecosystem™ that guarantees results in 90 days</li>
+            <li><strong>Done-For-You AI Visibility Sprint</strong> — A fully managed implementation that gets your business ranking on AI platforms, voice search, and Google — guaranteed results in 90 days</li>
         </ul>
     </div>
 </div>
@@ -1086,7 +1093,7 @@
     </div>
     
     <div class="alert-box" style="text-align: left;">
-        <h3 style="color: #DC2626; font-size: 1.35rem; margin-bottom: 0.7rem;">⚠️ The 2025 Reality:</h3>
+        <h3 style="color: #DC2626; font-size: 1.35rem; margin-bottom: 0.7rem;">⚠️ The Harsh Reality:</h3>
         <ul style="margin-left: 1.35rem; line-height: 1.8; font-size: 0.92rem; color: #7F1D1B;">
             <li><strong>60%+ of searches</strong> now happen on AI platforms (ChatGPT, Perplexity, Gemini, Meta AI)</li>
             <li><strong>40% of local searches</strong> are voice-activated (Siri, Alexa, Google Assistant)</li>
@@ -1144,378 +1151,387 @@
 </div>
 
 
-<!-- PAGES 7-9: 8 DIY QUICK WINS -->
+<!-- PAGES 7-8: CUSTOMIZED QUICK WIN ACTION PLAN -->
 <div class="page">
-    <h2>🛠️ DIY Quick Win Implementation Steps</h2>
-    
-    <p class="section-blurb">
-        A simple, step‑by‑step breakdown you can follow if you'd like to handle these improvements yourself. Each task is doable — just expect some hands‑on technical work along the way.
-    </p>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #1: Add Schema Markup</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 8-12 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Schema markup helps AI platforms understand your business. Add LocalBusiness, FAQPage, and Service schema to your website.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Use Google's Schema Markup Generator → Add JSON-LD code to your site's &lt;head&gt; → Test with Rich Results Tool → Submit updated sitemap to Google Search Console</p>
+    <h2>🛠️ Your Customized Quick Win Action Plan for {{BUSINESS_NAME}}</h2>
+
+    <!-- Explainer box -->
+    <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 3px solid #D4AF37; border-radius: 14px; padding: 1.5rem 1.75rem; margin-bottom: 1.75rem;">
+        <div style="font-size: 1.1rem; font-weight: 900; color: #D4AF37; margin-bottom: 0.6rem;">📋 Built Specifically for {{BUSINESS_NAME}}</div>
+        <p style="font-size: 0.92rem; color: #e2e8f0; line-height: 1.75; margin: 0 0 0.75rem 0;">
+            These aren't generic tips — every quick win below was identified from <strong style="color: #D4AF37;">your specific audit results.</strong> Each one shows exactly how to tackle that gap on your own, how long it realistically takes, and which AI platforms it directly impacts for your business.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 0.85rem;">
+            <div style="background: rgba(255,255,255,0.07); border-radius: 10px; padding: 0.75rem; text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">🤖</div>
+                <div style="font-size: 0.8rem; color: #D4AF37; font-weight: 700;">AI Search</div>
+                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.2rem;">ChatGPT, Perplexity, Gemini</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.07); border-radius: 10px; padding: 0.75rem; text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">🎙️</div>
+                <div style="font-size: 0.8rem; color: #D4AF37; font-weight: 700;">Voice Search</div>
+                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.2rem;">Siri, Alexa, Google Assistant</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.07); border-radius: 10px; padding: 0.75rem; text-align: center;">
+                <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">🔍</div>
+                <div style="font-size: 0.8rem; color: #D4AF37; font-weight: 700;">Traditional SEO</div>
+                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.2rem;">Google, YouTube, Bing</div>
+            </div>
+        </div>
     </div>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #2: Create FAQ Content</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 10-15 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">AI search engines prioritize content that directly answers questions. Create a comprehensive FAQ page targeting your top 20 keywords.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Research "People Also Ask" questions on Google → Write detailed 150-200 word answers → Add FAQ schema markup → Create individual FAQ pages for high-volume questions</p>
-    </div>
-</div>
+    {{QUICK_WIN_1}}
+
+    {{QUICK_WIN_2}}
+
+    {{QUICK_WIN_3}}
+
+    {{QUICK_WIN_4}}
+
+    {{QUICK_WIN_5}}
+
+    {{QUICK_WIN_6}}
+
+    {{QUICK_WIN_7}}
+
+    {{QUICK_WIN_8}}
 
 
-<div class="page">
-    <h2>🛠️ DIY Implementation Steps (Continued)</h2>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #3: Optimize Google Business Profile</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 6-8 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Your Google Business Profile is the foundation for local voice search. Complete optimization dramatically improves Siri, Alexa, and Google Assistant rankings.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Add 30+ high-quality photos → Complete all business attributes → Post weekly updates → Respond to all reviews within 24 hours → Add service-specific descriptions → Enable messaging</p>
-    </div>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #4: Create Pillar Content</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 15-20 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Write comprehensive 3,000+ word guides on your core services. AI platforms heavily favor detailed, authoritative content.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Research top 10 competing articles → Create detailed outline covering all aspects → Write comprehensive guide with examples → Add images, diagrams, and videos → Internal link to related service pages → Optimize for featured snippets</p>
-    </div>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #5: Launch YouTube Channel</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 20-25 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">YouTube is the second-largest search engine and heavily influences AI recommendations. Create 10-15 educational videos answering customer questions.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Create channel with professional branding → Film 10-15 FAQ videos (5-10 min each) → Optimize titles, descriptions with target keywords → Add timestamps and chapters → Create playlists by topic → Link to your website in descriptions</p>
-    </div>
-</div>
-
-
-<div class="page">
-    <h2>🛠️ DIY Implementation Steps (Continued)</h2>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #6: Claim Directory Listings</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 12-15 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Consistent NAP (Name, Address, Phone) across 50+ directories builds authority and helps AI platforms verify your business legitimacy.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Claim Yelp, Facebook, Apple Maps, Bing Places → Add to industry-specific directories → Ensure exact NAP consistency → Add business hours, photos, descriptions → Set up review monitoring → Respond to all reviews</p>
-    </div>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #7: Build Internal Linking</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 8-10 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Strategic internal links help AI crawlers understand your content relationships and distribute authority across your site.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Audit existing internal links → Create topic clusters → Link related blog posts to pillar pages → Add contextual links in content → Create resource hub page → Update old content with new internal links</p>
-    </div>
-    
-    <div class="quick-win">
-        <div class="quick-win-header">Quick Win #8: Earn Strategic Backlinks</div>
-        <p style="color: #64748b; margin-top: 0.5rem; margin-bottom: 0.75rem;"><strong>Implementation time: 15-20 hours</strong></p>
-        <p style="margin-bottom: 0.75rem; line-height: 1.6;">Quality backlinks from authoritative sites signal credibility to AI platforms. Focus on local partnerships, industry directories, and guest posts.</p>
-        <p style="color: #475569; font-size: 0.95rem; line-height: 1.6;"><strong>Steps:</strong> Partner with local businesses for mutual links → Submit to Better Business Bureau, Chamber of Commerce → Write guest posts for industry blogs → Get featured in local news → Create shareable infographics → Build relationships with local influencers</p>
-    </div>
-    
     <div class="alert-box">
-        <h3 style="color: #DC2626; font-size: 1.4rem; margin-bottom: 0.85rem;">⏰ Reality Check</h3>
-        <p style="font-size: 1.1rem; color: #991B1B; font-weight: 700; line-height: 1.6;">
-            Implementing all 8 Quick Wins: <strong style="font-size: 1.5rem;">80-120 hours</strong><br>
-            That's <strong>2-3 weeks of full-time work</strong> — if you know what you're doing.<br><br>
-            <span style="font-size: 1.3rem;">OR... we can do it ALL in 30 days. Guaranteed.</span>
+        <h3 style="color: #DC2626; font-size: 1.1rem; margin-bottom: 0.65rem;">⏰ Reality Check: The True Cost of DIY</h3>
+        <p style="font-size: 0.9rem; color: #991B1B; font-weight: 600; line-height: 1.7;">
+            Implementing all 8 Quick Wins correctly: <strong style="font-size: 1.05rem;">80–120 hours of work</strong><br>
+            That's 2–3 weeks of full-time effort — <em>if you already know SEO, AEO, AIO, GEO, and schema markup.</em><br><br>
+            AI optimization isn't a one-time fix. The platforms change, competitors improve, and your authority needs to be actively maintained. Most business owners who try DIY either stall halfway through or implement it incorrectly — which can actually reduce your visibility instead of improving it.<br><br>
+            <span style="font-size: 0.95rem; color: #dc2626; font-weight: 700;">Or — our team does all of it for you, done right.</span>
         </p>
     </div>
 </div>
 
 
-<!-- PAGE 10: ROI CALCULATOR -->
+<!-- PAGE 10: WHY AI SEARCH CHANGES EVERYTHING -->
 <div class="page">
-    <h2>💰 Your ROI, Broken Down Simply</h2>
-    
+    <h2>🤖 Why AI Search Changes Everything for Your Business</h2>
+
     <p class="section-blurb">
-        Forget hype. Here's what happens when your business gets even a small, steady lift in new clients. 
-        The math is straightforward — and the upside is massive.
+        Search isn't what it was three years ago. The way your customers find businesses like yours has fundamentally shifted — 
+        and most local businesses are completely unprepared for what's already happening.
     </p>
-    
-    <div class="roi-grid">
-        <div class="roi-card">
-            <h4>🎯 Baseline Boost</h4>
-            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.75rem;">
-                <strong>1 new client per month</strong> @ $500 value
-            </p>
-            <span class="roi-profit">$6,000</span>
-            <p style="font-size: 0.85rem; color: #64748b; margin: 0.5rem 0 0 0;">in yearly revenue</p>
-            <p style="font-size: 0.88rem; color: #047857; font-weight: 700; margin-top: 0.75rem;">
-                141% ROI in Year 1<br>
-                Your setup pays for itself within 5 months
-            </p>
-        </div>
-        
-        <div class="roi-card">
-            <h4>📈 High‑Impact Growth</h4>
-            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.75rem;">
-                <strong>10 new clients per month</strong> @ $500 value
-            </p>
-            <span class="roi-profit">$60,000</span>
-            <p style="font-size: 0.85rem; color: #64748b; margin: 0.5rem 0 0 0;">in yearly revenue</p>
-            <p style="font-size: 0.88rem; color: #047857; font-weight: 700; margin-top: 0.75rem;">
-                2,302% ROI in Year 1<br>
-                Your investment pays itself back in under 14 days
-            </p>
+
+    <!-- Big Stat Banner -->
+    <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 3px solid #D4AF37; border-radius: 16px; padding: 2rem; margin: 1.5rem 0; text-align: center;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+            <div>
+                <div style="font-size: 2.8rem; font-weight: 900; color: #D4AF37; line-height: 1;">60%+</div>
+                <div style="font-size: 0.9rem; color: #e2e8f0; font-weight: 600; margin-top: 0.5rem; line-height: 1.5;">of searches now happen<br>on AI platforms</div>
+            </div>
+            <div style="border-left: 1px solid rgba(212,175,55,0.3); border-right: 1px solid rgba(212,175,55,0.3);">
+                <div style="font-size: 2.8rem; font-weight: 900; color: #10b981; line-height: 1;">40%</div>
+                <div style="font-size: 0.9rem; color: #e2e8f0; font-weight: 600; margin-top: 0.5rem; line-height: 1.5;">of local searches are<br>voice-activated</div>
+            </div>
+            <div>
+                <div style="font-size: 2.8rem; font-weight: 900; color: #ef4444; line-height: 1;">90%</div>
+                <div style="font-size: 0.9rem; color: #e2e8f0; font-weight: 600; margin-top: 0.5rem; line-height: 1.5;">of businesses have<br>zero AI optimization</div>
+            </div>
         </div>
     </div>
-    
-    <div class="alert-box" style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-color: #10b981;">
-        <h3 style="color: #065f46; font-size: 1.4rem; margin-bottom: 0.85rem;">💡 What Most Clients Actually Experience</h3>
-        <p style="font-size: 1.05rem; color: #047857; font-weight: 700; line-height: 1.65;">
-            Within the first 90 days, the average client sees <strong>3–5 new clients per month</strong>.<br>
-            At $500 per client, that's <strong>$18,000–$30,000 in annual revenue</strong> — generated automatically.
+
+    <!-- How Each AI Platform Works -->
+    <h3 style="margin-top: 1.75rem; margin-bottom: 1rem;">How AI Platforms Are Changing the Way Customers Find You</h3>
+
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; margin-bottom: 1.5rem;">
+
+        <div style="background: linear-gradient(135deg, #f0f9ff 0%, #fff 100%); border: 2px solid #0891b2; border-left: 6px solid #0891b2; border-radius: 12px; padding: 1.25rem;">
+            <div style="font-weight: 900; color: #0891b2; font-size: 1rem; margin-bottom: 0.5rem;">🤖 ChatGPT & Perplexity</div>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6; margin: 0;">When someone types "best HVAC company near me" into ChatGPT, it doesn't show a list of blue links. It recommends a specific business by name — the one it has been trained to trust. If your content isn't structured for AI extraction, that business won't be yours.</p>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #fdf6e8 0%, #fff 100%); border: 2px solid #D4AF37; border-left: 6px solid #D4AF37; border-radius: 12px; padding: 1.25rem;">
+            <div style="font-weight: 900; color: #B8941F; font-size: 1rem; margin-bottom: 0.5rem;">🔍 Google AI Overviews</div>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6; margin: 0;">Google's AI now generates a direct answer at the top of search results — before any website links appear. Only businesses with properly formatted, authoritative content get featured. Everyone else gets buried below the fold where almost no one clicks.</p>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #fff 100%); border: 2px solid #10b981; border-left: 6px solid #10b981; border-radius: 12px; padding: 1.25rem;">
+            <div style="font-weight: 900; color: #059669; font-size: 1rem; margin-bottom: 0.5rem;">🎙️ Siri, Alexa & Voice Search</div>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6; margin: 0;">Voice assistants give one answer — not a list of ten. When someone says "Hey Siri, who's the best plumber in [city]?" Siri picks a single business and reads it aloud. If your business isn't optimized for voice, you never even get considered.</p>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #fef2f2 0%, #fff 100%); border: 2px solid #ef4444; border-left: 6px solid #ef4444; border-radius: 12px; padding: 1.25rem;">
+            <div style="font-weight: 900; color: #dc2626; font-size: 1rem; margin-bottom: 0.5rem;">✨ Gemini & Meta AI</div>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.6; margin: 0;">Google's Gemini and Meta AI (built into Facebook and Instagram) are rapidly becoming go-to recommendation engines. These platforms pull from structured business data, reviews, and content authority — making consistent AI optimization across all platforms critical.</p>
+        </div>
+
+    </div>
+
+    <!-- The Shift Callout -->
+    <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border: 3px solid #ef4444; border-radius: 14px; padding: 1.75rem; margin: 1.5rem 0;">
+        <div style="font-size: 1.2rem; font-weight: 900; color: #dc2626; margin-bottom: 0.85rem;">⚠️ The Window of Opportunity is Closing Fast</div>
+        <p style="font-size: 0.95rem; color: #7f1d1d; line-height: 1.75; font-weight: 600; margin: 0;">
+            Right now, most businesses in your market have zero AI visibility optimization. That means there's still room at the top 
+            of AI recommendations — but that window closes as more businesses wake up to this shift. The businesses that establish 
+            AI authority now will own those spots for years. The ones that wait will find themselves permanently locked out, paying 
+            for ads to compete with businesses getting AI-driven leads for free.
         </p>
     </div>
 </div>
 
 
-<!-- PAGE 11: 24/7 TRAFFIC DOMINATION ECOSYSTEM -->
+<!-- PAGE 12: WHAT THIS MEANS FOR YOUR BUSINESS -->
 <div class="page">
-    <h2>🚀 The 24/7 Traffic Domination Ecosystem™</h2>
-    
+    <h2>🔍 What This Means For Your Business</h2>
+
     <p class="section-blurb">
-        Imagine waking up to qualified leads coming in from Google, ChatGPT, YouTube, and voice search—all working together 
-        in perfect harmony, 24 hours a day, 7 days a week. That's the power of a true visibility ecosystem. While your 
-        competitors chase scattered tactics, you'll own an interconnected asset that compounds in value every single day. 
-        <strong>Guaranteed results in 90 days.</strong>
+        Your Visibility Blueprint reveals the specific gaps between where your business shows up today and where your 
+        best customers are actually searching. Here's exactly what needs to happen to close those gaps.
     </p>
-    
-    <h3 style="color: #D4AF37; margin-top: 1.25rem;">What's Included in Your Ecosystem:</h3>
-    
-    <div class="system-feature">
-        <h4>✅ 1 High-Converting Landing Page (The Nucleus)</h4>
-        <p>The strategic hub of your ecosystem. Every piece of content—blogs, videos, emails—flows traffic back to this 
-        conversion-optimized page designed to turn visitors into paying clients. Built with proven psychology and tested layouts.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 1 Anchor Blog (The Authority Foundation)</h4>
-        <p>Your flagship content piece—comprehensive, authoritative, and optimized to rank for your most valuable keyword. 
-        This becomes your digital real estate that establishes expertise and captures high-intent searches.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 4 Supporting Blogs (The Traffic Net)</h4>
-        <p>Strategic posts targeting related searches and long-tail variations. Each captures a different audience segment and 
-        funnels traffic through your ecosystem, expanding your reach while strengthening the authority of your anchor content.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 5 Main YouTube Videos (Visual Authority)</h4>
-        <p>One professionally optimized video for each blog topic. These multiply your visibility on YouTube (the #2 search engine), 
-        appear in Google results, get recommended by AI, and serve as trust-building assets throughout your funnel.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 10 FAQ & TIPS Shorts (Rapid Acceleration)</h4>
-        <p>Quick, high-value videos answering your prospects' burning questions. These spread virally, trigger YouTube's 
-        algorithm, appear in voice search results, and can be repurposed across every platform for maximum leverage.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 1 Channel Intro Video (The Welcome Mat)</h4>
-        <p>Your channel's front door—professionally crafted to immediately establish credibility, showcase your expertise, 
-        and guide new visitors into your ecosystem.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ 10-Day Trust Email Drip Campaign</h4>
-        <p>Trust-building FAQ & Tips videos that nurture leads automatically and trigger rapid YouTube acceleration. Each email 
-        delivers value, builds authority, and moves prospects closer to becoming clients—all on autopilot.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ Authority Loop Interlinking + Schema Markup</h4>
-        <p>The secret weapon that ties everything together. Strategic internal links between blogs, videos, and landing pages 
-        create an authority feedback loop. Rich schema markup makes your content easy for AI and search engines to understand, 
-        feature, and recommend.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ Full-Platform Optimization</h4>
-        <p>Every asset is optimized for SEO (Traditional Google), AEO (Answer Engine), AIO (AI Overview), GEO (Generative Engine), 
-        VEO (Voice Engine), plus E-E-A-T signals. Your content is engineered to rank everywhere people search.</p>
-    </div>
-    
-    <div class="system-feature">
-        <h4>✅ Cluster Playlist Boost</h4>
-        <p>All videos organized into themed playlists that increase watch time, boost authority, and get recommended more often 
-        by YouTube's algorithm. This amplifies your visibility and compounds your results.</p>
-    </div>
-    
-    <div class="monthly-value-box">
-        <h3 style="color: #0891b2; font-size: 1.3rem; margin-bottom: 1rem;">📅 Monthly Ongoing (After Setup)</h3>
-        
-        <div class="value-item">
-            <h4>• Monthly Authority Backlinks</h4>
-            <p>Fresh, high-quality links that compound your rankings and widen your competitive gap.</p>
-            <p class="value-tag">Value: $300–$500/mo</p>
-        </div>
-        
-        <div class="value-item">
-            <h4>• Continuous Optimization & Content Upgrades</h4>
-            <p>Your ecosystem is refined monthly to maximize traffic, conversions, and long-term authority.</p>
-            <p class="value-tag">Value: $500/mo</p>
-        </div>
-        
-        <div class="value-item">
-            <h4>• Performance Monitoring With Actionable Insights</h4>
-            <p>Clear reporting that drives smarter decisions and faster growth.</p>
-            <p class="value-tag">Value: $300/mo</p>
-        </div>
-        
-        <div class="value-item">
-            <h4>• The Strategic Growth Asset (Your Choice of ONE Each Month)</h4>
-            <p>Select a premium, high-impact asset engineered to expand your visibility, authority, or conversions instantly.</p>
-            <p class="value-tag">Value: $197–$497/mo</p>
-        </div>
-        
-        <div class="total-value">
-            <div style="font-size: 1.15rem; color: #cbd5e1; margin-bottom: 0.5rem;">⭐ Total Monthly Value</div>
-            <div class="total-value-amount">$1,300–$1,800 — Included</div>
-            <p style="font-size: 0.95rem; color: #e0f2fe; margin-top: 0.75rem;">
-                Every month, you gain a new permanent business asset that compounds your growth and keeps you ahead 
-                while competitors fall behind.
+
+    <!-- Three Education Cards -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin: 1.75rem 0;">
+
+        <div style="background: linear-gradient(135deg, #fef2f2 0%, #fff5f5 100%); border: 2px solid #ef4444; border-top: 5px solid #ef4444; border-radius: 14px; padding: 1.5rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">📄</div>
+            <h4 style="font-size: 1.05rem; font-weight: 900; color: #dc2626; margin-bottom: 0.75rem;">Your Pages Need Restructuring</h4>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.65; font-weight: 500;">
+                Your existing content isn't structured the way AI engines extract and surface answers. 
+                Your pages need to be rewritten with FAQ schemas, entity markup, and answer-forward formatting 
+                so that ChatGPT, Perplexity, and Google's AI Overviews pull from <em>your</em> content—not a competitor's.
             </p>
         </div>
+
+        <div style="background: linear-gradient(135deg, #fffbeb 0%, #fff8e8 100%); border: 2px solid #f59e0b; border-top: 5px solid #f59e0b; border-radius: 14px; padding: 1.5rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">⚙️</div>
+            <h4 style="font-size: 1.05rem; font-weight: 900; color: #d97706; margin-bottom: 0.75rem;">Your Site Needs Technical Work</h4>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.65; font-weight: 500;">
+                Behind the scenes, your website needs structured data, optimized page speed, 
+                and properly configured schema markup so search engines and AI platforms can 
+                correctly categorize your business and surface it to the right searchers at the right moment.
+            </p>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #f0fdf4 0%, #f5fffa 100%); border: 2px solid #10b981; border-top: 5px solid #10b981; border-radius: 14px; padding: 1.5rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">🔗</div>
+            <h4 style="font-size: 1.05rem; font-weight: 900; color: #059669; margin-bottom: 0.75rem;">Your Business Needs Off-Site Authority</h4>
+            <p style="font-size: 0.88rem; color: #475569; line-height: 1.65; font-weight: 500;">
+                AI platforms trust businesses that other credible sources talk about. 
+                Your business needs a steady stream of high-authority backlinks, citations, 
+                and mentions from reputable sources—so Google and AI engines recognize your business 
+                as the go-to expert in your market.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Reality Check Box -->
+    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 3px solid #D4AF37; border-radius: 16px; padding: 2rem; margin: 2.5rem 0; color: white;">
+        <div style="font-size: 1.35rem; font-weight: 900; color: #D4AF37; margin-bottom: 1rem;">⚡ The Reality of Fixing This Yourself</div>
+        <p style="font-size: 1rem; color: #e2e8f0; line-height: 1.8; font-weight: 500;">
+            Restructuring your content for AI engines, implementing technical schema markup, creating the right 
+            supporting videos, and building a sustainable off-site authority profile is a significant undertaking. 
+            Done right, it requires expertise in SEO, AEO, AIO, GEO, VEO, and E-E-A-T — plus the time to execute 
+            across every platform where your customers are searching. Most business owners who try it alone either 
+            stall out or implement it incorrectly — which can actually hurt rankings instead of helping them.
+        </p>
+        <p style="font-size: 1rem; color: #D4AF37; font-weight: 700; margin-top: 1rem; margin-bottom: 0;">
+            That's exactly why we built the AI Visibility Sprint — to do all of it for you, from day one.
+        </p>
     </div>
 </div>
 
 
-<!-- PAGE 12: PRICING & CTA -->
+<!-- PAGE 13: AI VISIBILITY SPRINT OFFER -->
 <div class="page">
-    <h2>🎁 Limited 2026 New Year's Offer</h2>
-    
+    <h2>🚀 The AI Visibility Sprint — 100% Done-For-You</h2>
+
     <p class="section-blurb">
-        Start 2026 by dominating AI search, voice assistants, and YouTube. This exclusive offer ends in 7 days—after that, 
-        you'll pay full price while your competitors capture the traffic that should be yours.
+        We handle everything across all six visibility platforms so your business starts showing up where 
+        your best customers are actually searching. Choose the tier that fits where you are right now.
     </p>
-    
-    <div class="price-box">
-        <div class="new-year-badge">🎉 EXCLUSIVE 2026 NEW YEAR'S OFFER</div>
-        
-        <div style="font-size: 1.3rem; color: #cbd5e1; margin: 1rem 0 0.5rem;">Regular Setup Investment:</div>
-        <div class="price-strike">$2,997</div>
-        
-        <div style="font-size: 1.6rem; color: white; font-weight: 900; margin: 1.5rem 0 0.75rem;">
-            YOUR 2026 PRICE:
+
+    <!-- Done-For-You Platform Banner -->
+    <div style="background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%); border-radius: 14px; padding: 1.25rem 2rem; margin: 1.5rem 0; text-align: center;">
+        <div style="font-size: 1.05rem; font-weight: 900; color: white; margin-bottom: 0.85rem; letter-spacing: 0.03em;">✅ WE OPTIMIZE YOUR BUSINESS ACROSS ALL 6 VISIBILITY PLATFORMS</div>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 0.65rem;">
+            <span style="background: rgba(255,255,255,0.2); color: white; padding: 0.45rem 0.9rem; border-radius: 50px; font-weight: 700; font-size: 0.88rem;">📊 SEO</span>
+            <span style="background: rgba(255,255,255,0.2); color: white; padding: 0.45rem 0.9rem; border-radius: 50px; font-weight: 700; font-size: 0.88rem;">🤖 AEO</span>
+            <span style="background: rgba(255,255,255,0.2); color: white; padding: 0.45rem 0.9rem; border-radius: 50px; font-weight: 700; font-size: 0.88rem;">🔍 AIO</span>
+            <span style="background: rgba(255,255,255,0.2); color: white; padding: 0.45rem 0.9rem; border-radius: 50px; font-weight: 700; font-size: 0.88rem;">🌐 GEO</span>
+            <span style="background: rgba(255,255,255,0.2); color: white; padding: 0.45rem 0.9rem; border-radius: 50px; font-weight: 700; font-size: 0.88rem;">🎙️ VEO</span>
+            <span style="background: rgba(255,255,255,0.2); color: white; padding: 0.45rem 0.9rem; border-radius: 50px; font-weight: 700; font-size: 0.88rem;">⭐ E-E-A-T</span>
         </div>
-        <div class="price-current">$2,497</div>
-        
-        <div style="font-size: 1.2rem; color: #e0f2fe; margin: 1.5rem 0;">
-            + $497/month ongoing optimization<br>
-            <span style="font-size: 0.95rem; color: #94a3b8;">(Worth $1,300-$1,800/mo — see previous page)</span>
-        </div>
-        
-        <div class="savings-badge">⏰ SAVE $500 — OFFER ENDS IN 7 DAYS</div>
-        
-        <p style="font-size: 1rem; color: #cbd5e1; margin-top: 2rem; line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto;">
-            One-time setup builds your entire 24/7 Traffic Domination Ecosystem™.<br>
-            Monthly ongoing keeps you dominating as algorithms evolve and competitors scramble to keep up.
-        </p>
     </div>
-    
-    
-    <!-- REAL RESULTS FROM REAL BUSINESSES (Moved here - above guarantee) -->
-    <h2 style="margin-top: 3rem;">✅ Real Results from Real Businesses</h2>
-    
-    <p class="section-blurb">
-        These businesses implemented our visibility strategy. Here's what happened in 90 days.
-    </p>
-    
-    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 3px solid #10b981; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <h3 style="color: #047857; margin: 0 0 0.75rem 0; font-size: 1.25rem; font-weight: 700;">Miami HVAC Company - From Invisible to Industry Leader</h3>
-        <p style="margin: 0 0 0.75rem 0; color: #1e293b;"><strong>Industry:</strong> Home Services | <strong>Location:</strong> Miami, FL</p>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 0.75rem;">
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #64748b; font-weight: 600; font-size: 0.95rem;">BEFORE:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #475569; font-size: 0.95rem; line-height: 1.6;">
-                    <li>AI Visibility: 12/100</li>
-                    <li>Not found in ChatGPT</li>
-                    <li>Invisible to voice search</li>
-                    <li>5-8 leads/month</li>
+
+    <!-- "What we actually do" clarity banner -->
+    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 2px solid #86efac; border-radius: 14px; padding: 1.1rem 1.5rem; margin: 0 0 1rem 0; text-align: center;">
+        <div style="font-size: 0.95rem; font-weight: 800; color: #15803d; margin-bottom: 0.3rem;">✍️ 100% Done-For-You Content — Written &amp; Optimized By Our Team</div>
+        <div style="font-size: 0.83rem; color: #166534; line-height: 1.6;">We rewrite and optimize <strong>your existing pages</strong> so AI platforms, Google, and voice assistants recommend your business. Every blog post is <strong>brand-new content written for you</strong> — or we can refresh and optimize posts you already have. You don't write a word.</div>
+    </div>
+
+    <!-- Three Tier Cards -->
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin: 0.75rem 0 1.75rem;">
+
+        <!-- Starter Tier — Deep Navy -->
+        <div style="background: linear-gradient(160deg, #f8faff 0%, #ffffff 100%); border: 2px solid #c7d4e8; border-top: 5px solid #1e3a5f; border-radius: 14px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(30,58,95,0.08); display: flex; flex-direction: column;">
+            <div style="font-size: 1.35rem; font-weight: 900; color: #1e3a5f; margin-bottom: 0.15rem;">Starter</div>
+            <div style="font-size: 0.8rem; color: #64748b; font-style: italic; margin-bottom: 1rem;">Get found for your core services</div>
+            <div style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 0.15rem;">ONE-TIME SETUP</div>
+            <div style="font-size: 2.3rem; font-weight: 900; color: #1e3a5f; line-height: 1; margin-bottom: 0.15rem;">$397</div>
+            <div style="font-size: 0.78rem; font-weight: 600; color: #475569; margin-bottom: 0.85rem; padding: 0.35rem 0.6rem; background: #f1f5f9; border-radius: 6px; display: inline-block;">We optimize your Homepage + 3 key pages</div>
+            <hr style="border: none; border-top: 1px solid #dde5f0; margin: 0 0 0.6rem 0;">
+            <div style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 0.15rem;">THEN MONTHLY</div>
+            <div style="font-size: 1.8rem; font-weight: 900; color: #1e3a5f; margin-bottom: 0.85rem;">$297<span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">/mo</span></div>
+            <ul style="list-style: none; padding: 0; margin: 0 0 0.85rem 0; flex-grow: 1;">
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>1 page rewritten &amp; optimized / month</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>1 new blog post written for you / month <span style="font-size: 0.72rem; color: #64748b;">(or we optimize an existing one)</span></li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>AI &amp; voice search optimization</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Schema markup implementation</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>E-E-A-T trust signals</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Monthly performance report</li>
+            </ul>
+            <div style="background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.85rem; box-shadow: 0 4px 14px rgba(0,0,0,0.2);">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.2rem;">
+                    <span style="font-size: 1.3rem; line-height: 1;">🤯</span>
+                    <div style="font-size: 0.8rem; font-weight: 900; color: #ef4444; letter-spacing: 0.01em; line-height: 1.2;">Visibility Boost Included</div>
+                    <div style="margin-left: auto; font-size: 0.72rem; font-weight: 900; color: #ef4444; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4); border-radius: 4px; padding: 0.1rem 0.45rem; white-space: nowrap;">FREE!</div>
+                </div>
+                <div style="font-size: 0.67rem; color: #64748b; font-style: italic; margin-bottom: 0.45rem; padding-left: 1.8rem;">A <span style="text-decoration: line-through;">$497–$997/mo</span> value</div>
+                <ul style="list-style: none; padding: 0; margin: 0 0 0.4rem; padding-left: 1.8rem;">
+                    <li style="font-size: 0.71rem; color: #a7f3d0; padding: 0.08rem 0; padding-left: 1rem; position: relative;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>High-Authority Backlinks</li>
+                    <li style="font-size: 0.71rem; color: #a7f3d0; padding: 0.08rem 0; padding-left: 1rem; position: relative;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Citation Building &amp; Sync</li>
+                    <li style="font-size: 0.71rem; color: #a7f3d0; padding: 0.08rem 0; padding-left: 1rem; position: relative;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Brand Mentions &amp; PR</li>
                 </ul>
+                <div style="font-size: 0.67rem; color: #6ee7b7; font-style: italic; padding-left: 1.8rem;">↓ Full details below</div>
             </div>
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #059669; font-weight: 600; font-size: 0.95rem;">AFTER 90 DAYS:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #047857; font-size: 0.95rem; line-height: 1.6;">
-                    <li>AI Visibility: 89/100</li>
-                    <li>#1 in ChatGPT for key terms</li>
-                    <li>Siri's first recommendation</li>
-                    <li>25-35 leads/month</li>
+            <a href="#" style="display: block; background: linear-gradient(135deg, #1e3a5f 0%, #0f2444 100%); color: white; text-align: center; padding: 0.85rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 800; text-decoration: none; box-shadow: 0 4px 14px rgba(30,58,95,0.35);">Get Started → $397</a>
+            <div style="text-align: center; font-size: 0.74rem; color: #94a3b8; margin-top: 0.55rem; font-style: italic;">3-month minimum</div>
+        </div>
+
+        <!-- Growth Tier — Emerald Green -->
+        <div style="background: linear-gradient(160deg, #f0fdf8 0%, #ffffff 100%); border: 3px solid #10b981; border-top: 5px solid #059669; border-radius: 14px; padding: 1.5rem; box-shadow: 0 6px 20px rgba(16,185,129,0.18); position: relative; display: flex; flex-direction: column;">
+            <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #10b981, #059669); color: white; font-size: 0.74rem; font-weight: 800; padding: 0.35rem 1.1rem; border-radius: 50px; white-space: nowrap; box-shadow: 0 3px 10px rgba(16,185,129,0.4);">⭐ MOST POPULAR</div>
+            <div style="font-size: 1.35rem; font-weight: 900; color: #065f46; margin-bottom: 0.15rem; margin-top: 0.6rem;">Growth</div>
+            <div style="font-size: 0.8rem; color: #64748b; font-style: italic; margin-bottom: 1rem;">Dominate your full service lineup</div>
+            <div style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 0.15rem;">ONE-TIME SETUP</div>
+            <div style="font-size: 2.3rem; font-weight: 900; color: #065f46; line-height: 1; margin-bottom: 0.15rem;">$797</div>
+            <div style="font-size: 0.78rem; font-weight: 600; color: #475569; margin-bottom: 0.85rem; padding: 0.35rem 0.6rem; background: #f0fdf4; border-radius: 6px; display: inline-block;">We optimize your Homepage + 8 key pages</div>
+            <hr style="border: none; border-top: 1px solid #a7f3d0; margin: 0 0 0.6rem 0;">
+            <div style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 0.15rem;">THEN MONTHLY</div>
+            <div style="font-size: 1.8rem; font-weight: 900; color: #065f46; margin-bottom: 0.85rem;">$497<span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">/mo</span></div>
+            <ul style="list-style: none; padding: 0; margin: 0 0 0.85rem 0; flex-grow: 1;">
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>2 pages rewritten &amp; optimized / month</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>2 new blog posts written for you / month <span style="font-size: 0.72rem; color: #64748b;">(or we optimize existing ones)</span></li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Everything in Starter</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Expanded internal linking architecture</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Additional keyword targeting</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Monthly performance report</li>
+            </ul>
+            <div style="background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.85rem; box-shadow: 0 4px 14px rgba(0,0,0,0.2);">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.2rem;">
+                    <span style="font-size: 1.3rem; line-height: 1;">🤯</span>
+                    <div style="font-size: 0.8rem; font-weight: 900; color: #ef4444; letter-spacing: 0.01em; line-height: 1.2;">Visibility Boost Included</div>
+                    <div style="margin-left: auto; font-size: 0.72rem; font-weight: 900; color: #ef4444; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4); border-radius: 4px; padding: 0.1rem 0.45rem; white-space: nowrap;">FREE!</div>
+                </div>
+                <div style="font-size: 0.67rem; color: #64748b; font-style: italic; margin-bottom: 0.45rem; padding-left: 1.8rem;">A <span style="text-decoration: line-through;">$497–$997/mo</span> value</div>
+                <ul style="list-style: none; padding: 0; margin: 0 0 0.4rem; padding-left: 1.8rem;">
+                    <li style="font-size: 0.71rem; color: #a7f3d0; padding: 0.08rem 0; padding-left: 1rem; position: relative;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>High-Authority Backlinks</li>
+                    <li style="font-size: 0.71rem; color: #a7f3d0; padding: 0.08rem 0; padding-left: 1rem; position: relative;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Citation Building &amp; Sync</li>
+                    <li style="font-size: 0.71rem; color: #a7f3d0; padding: 0.08rem 0; padding-left: 1rem; position: relative;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Brand Mentions &amp; PR</li>
                 </ul>
+                <div style="font-size: 0.67rem; color: #6ee7b7; font-style: italic; padding-left: 1.8rem;">↓ Full details below</div>
+            </div>
+            <a href="#" style="display: block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; text-align: center; padding: 0.85rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 800; text-decoration: none; box-shadow: 0 4px 14px rgba(16,185,129,0.4);">Get Started → $797</a>
+            <div style="text-align: center; font-size: 0.74rem; color: #94a3b8; margin-top: 0.55rem; font-style: italic;">3-month minimum</div>
+        </div>
+
+        <!-- Authority Tier — Gold -->
+        <div style="background: linear-gradient(160deg, #fdf8ee 0%, #ffffff 100%); border: 3px solid #D4AF37; border-top: 5px solid #B8941F; border-radius: 14px; padding: 1.5rem; box-shadow: 0 6px 20px rgba(212,175,55,0.2); display: flex; flex-direction: column;">
+            <div style="font-size: 1.35rem; font-weight: 900; color: #B8941F; margin-bottom: 0.15rem;">Authority</div>
+            <div style="font-size: 0.8rem; color: #92762a; font-style: italic; margin-bottom: 1rem;">Own your entire market presence</div>
+            <div style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 0.15rem;">ONE-TIME SETUP</div>
+            <div style="font-size: 2.3rem; font-weight: 900; color: #B8941F; line-height: 1; margin-bottom: 0.15rem;">$1,297</div>
+            <div style="font-size: 0.78rem; font-weight: 600; color: #475569; margin-bottom: 0.85rem; padding: 0.35rem 0.6rem; background: #fefce8; border-radius: 6px; display: inline-block;">We optimize your Homepage + 14 key pages</div>
+            <hr style="border: none; border-top: 1px solid #f3e4b0; margin: 0 0 0.6rem 0;">
+            <div style="font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; margin-bottom: 0.15rem;">THEN MONTHLY</div>
+            <div style="font-size: 1.8rem; font-weight: 900; color: #0f172a; margin-bottom: 0.85rem;">$797<span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">/mo</span></div>
+            <ul style="list-style: none; padding: 0; margin: 0 0 0.85rem 0; flex-grow: 1;">
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>3 pages rewritten &amp; optimized / month</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>4 new blog posts written for you / month <span style="font-size: 0.72rem; color: #64748b;">(or we optimize existing ones)</span></li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>Everything in Growth</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>Priority delivery</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>60-min strategy session</li>
+                <li style="font-size: 0.84rem; color: #334155; padding: 0.3rem 0; padding-left: 1.4rem; position: relative; line-height: 1.5;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>30-day check-in call</li>
+            </ul>
+            <div style="background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 0.85rem; box-shadow: 0 4px 14px rgba(0,0,0,0.2);">
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.2rem;">
+                    <span style="font-size: 1.3rem; line-height: 1;">🤯</span>
+                    <div style="font-size: 0.8rem; font-weight: 900; color: #ef4444; letter-spacing: 0.01em; line-height: 1.2;">Visibility Boost Included</div>
+                    <div style="margin-left: auto; font-size: 0.72rem; font-weight: 900; color: #ef4444; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4); border-radius: 4px; padding: 0.1rem 0.45rem; white-space: nowrap;">FREE!</div>
+                </div>
+                <div style="font-size: 0.67rem; color: #64748b; font-style: italic; margin-bottom: 0.45rem; padding-left: 1.8rem;">A <span style="text-decoration: line-through;">$497–$997/mo</span> value</div>
+                <ul style="list-style: none; padding: 0; margin: 0 0 0.4rem; padding-left: 1.8rem;">
+                    <li style="font-size: 0.71rem; color: #fde68a; padding: 0.08rem 0; padding-left: 1rem; position: relative;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>High-Authority Backlinks</li>
+                    <li style="font-size: 0.71rem; color: #fde68a; padding: 0.08rem 0; padding-left: 1rem; position: relative;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>Citation Building &amp; Sync</li>
+                    <li style="font-size: 0.71rem; color: #fde68a; padding: 0.08rem 0; padding-left: 1rem; position: relative;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>Brand Mentions &amp; PR</li>
+                </ul>
+                <div style="font-size: 0.67rem; color: #D4AF37; font-style: italic; padding-left: 1.8rem;">↓ Full details below</div>
+            </div>
+            <a href="#" style="display: block; background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%); color: white; text-align: center; padding: 0.85rem 1rem; border-radius: 50px; font-size: 0.9rem; font-weight: 800; text-decoration: none; box-shadow: 0 4px 14px rgba(212,175,55,0.45);">Get Started → $1,297</a>
+            <div style="text-align: center; font-size: 0.74rem; color: #94a3b8; margin-top: 0.55rem; font-style: italic;">3-month minimum</div>
+        </div>
+
+    </div>
+
+    <!-- Visibility Boost — CLASSY REFINED VERSION -->
+    <div style="background: linear-gradient(160deg, #f6fffe 0%, #f0fdf9 50%, #f8fffe 100%); border: 2px solid #a7f3d0; border-top: 5px solid #10b981; border-radius: 20px; padding: 2.25rem 2rem; margin: 0.5rem 0 1.75rem 0; box-shadow: 0 8px 30px rgba(16,185,129,0.1), 0 1px 3px rgba(16,185,129,0.08);">
+
+        <!-- Badge -->
+        <div style="text-align: center; margin-bottom: 1rem;">
+            <span style="display: inline-flex; align-items: center; gap: 0.4rem; background: white; border: 2px solid #ef4444; color: #dc2626; font-size: 0.73rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.45rem 1.4rem; border-radius: 50px; box-shadow: 0 3px 12px rgba(239,68,68,0.2);"><span style="font-size: 1rem;">🤯</span> Wait... This Is Included FREE?</span>
+        </div>
+
+        <!-- Headline -->
+        <div style="text-align: center; margin-bottom: 1.1rem;">
+            <div style="font-size: 1.8rem; font-weight: 900; color: #0f172a; line-height: 1.15; letter-spacing: -0.02em;">🔗 Visibility Boost</div>
+            <div style="font-size: 0.95rem; font-weight: 600; color: #059669; margin-top: 0.3rem; letter-spacing: 0.01em;">Off-Site Authority Building</div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #fffbeb, #fefce8); border: 2px solid #D4AF37; border-radius: 14px; padding: 1rem 1.75rem; margin: 0 auto 1.25rem; max-width: 520px; text-align: center; box-shadow: 0 3px 10px rgba(212,175,55,0.15);">
+            <div style="font-size: 0.82rem; color: #78716c; margin-bottom: 0.2rem;">Other agencies charge this separately:</div>
+            <div style="font-size: 1.3rem; font-weight: 900; color: #B8941F; text-decoration: line-through; opacity: 0.75; margin-bottom: 0.2rem;">$497–$997/mo</div>
+            <div style="font-size: 1rem; font-weight: 900; color: #059669;">✅ You get it automatically — at no extra charge. Yes, really.</div>
+        </div>
+
+        <!-- Body copy -->
+        <p style="font-size: 0.88rem; color: #475569; line-height: 1.8; margin-bottom: 1.35rem; text-align: center; max-width: 520px; margin-left: auto; margin-right: auto;">
+            On-page optimization alone isn't enough. AI platforms like ChatGPT and Perplexity decide who to recommend based on <strong style="color: #0f172a;">off-site signals</strong> — who links to you, who cites you, who mentions you. Without this, even perfect content stays invisible.
+        </p>
+
+        <!-- Four pillars -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div style="background: white; border: 1px solid #d1fae5; border-left: 5px solid #10b981; border-radius: 12px; padding: 1rem 1.1rem; box-shadow: 0 2px 8px rgba(16,185,129,0.07);">
+                <div style="font-size: 0.88rem; font-weight: 800; color: #0f172a; margin-bottom: 0.4rem;">🏛️ High-Authority Backlinks</div>
+                <div style="font-size: 0.8rem; color: #475569; line-height: 1.65;">Fresh links from credible sources monthly — the <strong style="color: #059669;">#1 AI trust signal</strong> that tells search engines your site is worth citing.</div>
+            </div>
+            <div style="background: white; border: 1px solid #d1fae5; border-left: 5px solid #10b981; border-radius: 12px; padding: 1rem 1.1rem; box-shadow: 0 2px 8px rgba(16,185,129,0.07);">
+                <div style="font-size: 0.88rem; font-weight: 800; color: #0f172a; margin-bottom: 0.4rem;">📍 Citation Building &amp; Sync</div>
+                <div style="font-size: 0.8rem; color: #475569; line-height: 1.65;">Your business info locked in across <strong style="color: #059669;">50+ directories</strong> so every AI platform can verify and trust what you do and where you are.</div>
+            </div>
+            <div style="background: white; border: 1px solid #fde68a; border-left: 5px solid #D4AF37; border-radius: 12px; padding: 1rem 1.1rem; box-shadow: 0 2px 8px rgba(212,175,55,0.07);">
+                <div style="font-size: 0.88rem; font-weight: 800; color: #0f172a; margin-bottom: 0.4rem;">📰 Brand Mentions &amp; PR</div>
+                <div style="font-size: 0.8rem; color: #475569; line-height: 1.65;">Authoritative mentions across the web — the signal that tells <strong style="color: #B8941F;">ChatGPT and Perplexity</strong> your business is worth recommending by name.</div>
+            </div>
+            <div style="background: white; border: 1px solid #fde68a; border-left: 5px solid #D4AF37; border-radius: 12px; padding: 1rem 1.1rem; box-shadow: 0 2px 8px rgba(212,175,55,0.07);">
+                <div style="font-size: 0.88rem; font-weight: 800; color: #0f172a; margin-bottom: 0.4rem;">📈 Compounding Authority</div>
+                <div style="font-size: 0.8rem; color: #475569; line-height: 1.65;">Every month your authority gap over competitors <strong style="color: #B8941F;">widens automatically</strong> — your lead grows while you focus on running your business.</div>
             </div>
         </div>
-        
-        <p style="margin: 1rem 0 0 0; padding: 0.875rem; background: white; border-radius: 8px; color: #047857; font-weight: 700; font-size: 1.05rem;">
-            <strong>Result:</strong> 300% increase in organic leads, <span style="color: #10b981; font-size: 1.15rem;">$127K additional revenue</span> in first year
-        </p>
-    </div>
-    
-    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 3px solid #10b981; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <h3 style="color: #047857; margin: 0 0 0.75rem 0; font-size: 1.25rem; font-weight: 700;">West Palm Beach Real Estate Agent - Dominating Local Search</h3>
-        <p style="margin: 0 0 0.75rem 0; color: #1e293b;"><strong>Industry:</strong> Real Estate | <strong>Location:</strong> West Palm Beach, FL</p>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 0.75rem;">
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #64748b; font-weight: 600; font-size: 0.95rem;">BEFORE:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #475569; font-size: 0.95rem; line-height: 1.6;">
-                    <li>Google rank: #47</li>
-                    <li>Zero AI presence</li>
-                    <li>2-3 online leads/month</li>
-                </ul>
-            </div>
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #059669; font-weight: 600; font-size: 0.95rem;">AFTER 90 DAYS:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #047857; font-size: 0.95rem; line-height: 1.6;">
-                    <li>Google rank: #2</li>
-                    <li>#1 in ChatGPT & Perplexity</li>
-                    <li>15-20 online leads/month</li>
-                </ul>
-            </div>
+
+        <!-- Closing line -->
+        <div style="text-align: center; margin-top: 1.25rem; padding-top: 1.1rem; border-top: 1px solid #d1fae5;">
+            <span style="font-size: 0.84rem; color: #64748b; font-style: italic;">This isn't a feature. It's the engine that makes everything else work. </span><span style="font-size: 0.84rem; color: #059669; font-weight: 700;">Running for you every single month — automatically.</span>
         </div>
-        
-        <p style="margin: 1rem 0 0 0; padding: 0.875rem; background: white; border-radius: 8px; color: #047857; font-weight: 700; font-size: 1.05rem;">
-            <strong>Result:</strong> Now gets <span style="color: #10b981; font-size: 1.15rem;">15 qualified leads/month</span> from AI search alone
-        </p>
+
     </div>
-    
-    <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border: 3px solid #10b981; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <h3 style="color: #047857; margin: 0 0 0.75rem 0; font-size: 1.25rem; font-weight: 700;">Online Coaching Business - National AI Domination</h3>
-        <p style="margin: 0 0 0.75rem 0; color: #1e293b;"><strong>Industry:</strong> Business Coaching | <strong>Location:</strong> Online/National</p>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 0.75rem;">
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #64748b; font-weight: 600; font-size: 0.95rem;">BEFORE:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #475569; font-size: 0.95rem; line-height: 1.6;">
-                    <li>Zero AI visibility</li>
-                    <li>5,000 monthly visitors</li>
-                    <li>Struggling to scale</li>
-                </ul>
-            </div>
-            <div>
-                <p style="margin: 0 0 0.5rem 0; color: #059669; font-weight: 600; font-size: 0.95rem;">AFTER 60 DAYS:</p>
-                <ul style="margin: 0; padding-left: 1.25rem; color: #047857; font-size: 0.95rem; line-height: 1.6;">
-                    <li>Featured in ChatGPT, Perplexity, Gemini</li>
-                    <li>20,000 monthly visitors</li>
-                    <li>Authority positioning</li>
-                </ul>
-            </div>
-        </div>
-        
-        <p style="margin: 1rem 0 0 0; padding: 0.875rem; background: white; border-radius: 8px; color: #047857; font-weight: 700; font-size: 1.05rem;">
-            <strong>Result:</strong> 400% traffic increase, <span style="color: #10b981; font-size: 1.15rem;">$47K in first 90 days</span>
-        </p>
-    </div>
-    
+
+    <!-- Guarantee + CTA -->
     <div class="guarantee-box">
         <h3>🔒 Our Iron-Clad 90-Day Guarantee</h3>
         <p>
@@ -1524,27 +1540,17 @@
             No questions asked. No fine print. No excuses.
         </p>
     </div>
-    
+
     <a href="#" class="cta-button">
         📞 Book Your Next Steps Call
     </a>
-    
+
     <div style="text-align: center; margin: 2rem 0; color: #64748b; font-size: 0.95rem; line-height: 1.8;">
         <strong style="color: #0f172a; font-size: 1.1rem;">You've seen the gaps. Now let's map out how to fix them.</strong><br>
         In 15 minutes, we'll walk through your Blueprint together, answer your questions, and show you exactly what the next 
-        90 days look like if you want our help. No pressure—just next steps.
+        90 days look like if you want our help. No pressure — just next steps.
     </div>
-    
-    <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border: 3px solid #ef4444; border-radius: 16px; padding: 2rem; margin: 2.5rem 0; text-align: center;">
-        <div style="font-size: 1.4rem; font-weight: 900; color: #dc2626; margin-bottom: 1rem;">
-            ⚠️ This Offer Expires in 7 Days
-        </div>
-        <div style="font-size: 1.15rem; color: #991b1b; font-weight: 700; line-height: 1.7;">
-            After 7 days, setup returns to <strong>$2,997</strong> and you'll lose your <strong>$500 savings</strong>.<br>
-            Every day you wait is another day your competitors capture the traffic (and revenue) that should be yours.
-        </div>
-    </div>
-    
+
     <!-- FUTURE-FOCUSED CLOSING -->
     <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 3px solid #D4AF37; border-radius: 16px; padding: 2.5rem; margin: 3rem 0 2rem 0; text-align: center; box-shadow: 0 8px 24px rgba(212,175,55,0.3);">
         <div style="font-size: 1.6rem; font-weight: 900; color: #ffffff; margin-bottom: 1.5rem;">
@@ -1561,6 +1567,8 @@
             Limited spots this month — <strong style="color: #ef4444; font-weight: 900;">Early movers dominate</strong>.
         </div>
     </div>
+
+</div>
 
 </body>
 </html>
