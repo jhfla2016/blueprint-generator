@@ -804,6 +804,553 @@
             margin: 0.5rem 0;
         }
         
+        /* ==================== SPRINT OFFER SECTION ==================== */
+        .sprint-section {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 4px solid #D4AF37;
+        }
+
+        .sprint-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .sprint-header h2 {
+            border-bottom: none;
+            padding-bottom: 0;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sprint-subtitle {
+            font-size: 1rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .sprint-intro {
+            font-size: 0.95rem;
+            color: #475569;
+            line-height: 1.7;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 500;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* HOW IT WORKS */
+        .sprint-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .sprint-step {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 14px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .sprint-step:hover {
+            border-color: #D4AF37;
+            box-shadow: 0 4px 12px rgba(212,175,55,0.12);
+        }
+
+        .sprint-step-num {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.05rem;
+            margin-bottom: 0.65rem;
+            box-shadow: 0 4px 10px rgba(212,175,55,0.35);
+        }
+
+        .sprint-step-title {
+            font-weight: 900;
+            font-size: 0.95rem;
+            color: #1e293b;
+            margin-bottom: 0.35rem;
+        }
+
+        .sprint-step-desc {
+            font-size: 0.82rem;
+            color: #64748b;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* TIER CARDS */
+        .sprint-tiers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .sprint-tier {
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 1.5rem 1.15rem;
+            text-align: center;
+            position: relative;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .sprint-tier:hover {
+            border-color: #10B981;
+            box-shadow: 0 8px 25px rgba(16,185,129,0.12);
+            transform: translateY(-3px);
+        }
+
+        .sprint-tier.popular {
+            border-color: #10B981;
+            box-shadow: 0 6px 24px rgba(16,185,129,0.15);
+        }
+
+        .sprint-tier.popular::before {
+            content: '⭐ MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            padding: 0.3rem 0.9rem;
+            border-radius: 50px;
+            white-space: nowrap;
+            box-shadow: 0 3px 8px rgba(16,185,129,0.35);
+        }
+
+        .sprint-tier.premium {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border-color: #D4AF37;
+            color: white;
+        }
+
+        .sprint-tier-name {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #1e293b;
+            margin-bottom: 0.2rem;
+        }
+        .sprint-tier.premium .sprint-tier-name { color: #D4AF37; }
+
+        .sprint-tier-tagline {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 1.1rem;
+        }
+        .sprint-tier.premium .sprint-tier-tagline { color: rgba(255,255,255,0.45); }
+
+        .sprint-tier-setup-label,
+        .sprint-tier-monthly-label {
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #94a3b8;
+        }
+        .sprint-tier.premium .sprint-tier-setup-label,
+        .sprint-tier.premium .sprint-tier-monthly-label { color: rgba(255,255,255,0.35); }
+
+        .sprint-tier-setup-price {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #1e293b;
+            line-height: 1.1;
+            margin-bottom: 0.3rem;
+        }
+        .sprint-tier-setup-price span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #94a3b8;
+        }
+        .sprint-tier.premium .sprint-tier-setup-price { color: #D4AF37; }
+        .sprint-tier.premium .sprint-tier-setup-price span { color: rgba(255,255,255,0.4); }
+
+        .sprint-tier-pages {
+            font-size: 0.78rem;
+            color: #10B981;
+            font-weight: 700;
+            margin-top: 0.15rem;
+            margin-bottom: 0.85rem;
+            line-height: 1.4;
+        }
+        .sprint-tier.premium .sprint-tier-pages { color: rgba(255,255,255,0.65); }
+
+        .sprint-tier-boost {
+            background: linear-gradient(135deg, #fef9e7 0%, #fdf2d1 100%);
+            border: 1px solid #D4AF37;
+            border-radius: 8px;
+            padding: 0.5rem 0.6rem;
+            margin-top: 0.5rem;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #92742a;
+            text-align: center;
+            line-height: 1.5;
+        }
+        .sprint-tier-boost span {
+            font-weight: 600;
+            font-size: 0.65rem;
+            color: #a08533;
+        }
+        .sprint-tier.premium .sprint-tier-boost {
+            background: linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(212,175,55,0.08) 100%);
+            border-color: rgba(212,175,55,0.4);
+            color: #D4AF37;
+        }
+        .sprint-tier.premium .sprint-tier-boost span { color: rgba(212,175,55,0.7); }
+
+        .sprint-tier-boost-link {
+            display: block;
+            text-align: center;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: #D4AF37;
+            margin-top: 0.3rem;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+        }
+        .sprint-tier-boost-link:hover { text-decoration: underline; }
+
+        .sprint-tier-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 0.85rem -0.5rem;
+        }
+        .sprint-tier.premium .sprint-tier-divider { background: rgba(255,255,255,0.1); }
+
+        .sprint-tier-monthly-price {
+            font-size: 1.75rem;
+            font-weight: 900;
+            color: #1e293b;
+            line-height: 1;
+            margin-bottom: 0.85rem;
+        }
+        .sprint-tier-monthly-price span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #94a3b8;
+        }
+        .sprint-tier.premium .sprint-tier-monthly-price { color: white; }
+        .sprint-tier.premium .sprint-tier-monthly-price span { color: rgba(255,255,255,0.4); }
+
+        .sprint-tier-list {
+            text-align: left;
+            margin: 0.85rem 0 1.25rem;
+            list-style: none;
+            padding: 0;
+        }
+
+        .sprint-tier-list li {
+            font-size: 0.78rem;
+            color: #475569;
+            padding: 0.35rem 0;
+            padding-left: 1.3rem;
+            position: relative;
+            line-height: 1.45;
+            font-weight: 500;
+        }
+        .sprint-tier.premium .sprint-tier-list li { color: rgba(255,255,255,0.7); }
+
+        .sprint-tier-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10B981;
+            font-weight: 900;
+            font-size: 0.85rem;
+        }
+        .sprint-tier.premium .sprint-tier-list li::before { color: #D4AF37; }
+
+        .sprint-tier-btn {
+            display: block;
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-weight: 800;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .sprint-tier-btn.green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16,185,129,0.3);
+        }
+        .sprint-tier-btn.green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(16,185,129,0.4);
+        }
+
+        .sprint-tier-btn.gold {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+        }
+        .sprint-tier-btn.gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(212,175,55,0.4);
+        }
+
+        .sprint-tier-commitment {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            margin-top: 0.6rem;
+            font-weight: 600;
+        }
+        .sprint-tier.premium .sprint-tier-commitment { color: rgba(255,255,255,0.3); }
+
+        /* DFY BANNER */
+        .sprint-dfy {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .sprint-dfy h4 {
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: #1e293b;
+            margin-bottom: 1.1rem;
+        }
+
+        .sprint-dfy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem 2rem;
+        }
+
+        .sprint-dfy-item {
+            font-size: 0.85rem;
+            color: #475569;
+            font-weight: 600;
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .sprint-dfy-item::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10B981;
+            font-weight: 900;
+            font-size: 0.95rem;
+        }
+
+        /* VISIBILITY BOOST BOX */
+        .sprint-boost {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            border: 3px solid #D4AF37;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sprint-boost::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #D4AF37, #10B981, #D4AF37);
+        }
+
+        .sprint-boost-tag {
+            display: inline-block;
+            background: rgba(212,175,55,0.15);
+            border: 1px solid rgba(212,175,55,0.35);
+            color: #D4AF37;
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            margin-bottom: 0.85rem;
+        }
+
+        .sprint-boost h4 {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: #D4AF37;
+            margin-bottom: 0.85rem;
+        }
+
+        .sprint-boost p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.7;
+            margin-bottom: 0.65rem;
+        }
+
+        .sprint-boost strong {
+            color: white;
+        }
+
+        .sprint-boost-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.85rem;
+            margin-top: 1.25rem;
+        }
+
+        .sprint-boost-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 1.1rem 0.75rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .sprint-boost-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(212,175,55,0.3);
+        }
+
+        .sprint-boost-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .sprint-boost-name {
+            font-size: 0.82rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.3;
+            margin-bottom: 0.2rem;
+        }
+
+        .sprint-boost-sub {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* BRIDGE / TRANSITION SECTION */
+        .sprint-bridge {
+            margin-bottom: 2.25rem;
+        }
+
+        .sprint-bridge-intro {
+            font-size: 0.95rem;
+            color: #475569;
+            line-height: 1.75;
+            margin-bottom: 1.75rem;
+            font-weight: 500;
+        }
+
+        .sprint-bridge-intro strong {
+            color: #1e293b;
+        }
+
+        .sprint-what-it-takes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .sprint-wit-card {
+            padding: 1.25rem;
+            border-radius: 14px;
+            border: 2px solid #e2e8f0;
+            background: white;
+        }
+
+        .sprint-wit-icon {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sprint-wit-title {
+            font-size: 0.88rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 0.35rem;
+        }
+
+        .sprint-wit-text {
+            font-size: 0.82rem;
+            color: #64748b;
+            line-height: 1.55;
+            font-weight: 500;
+        }
+
+        .sprint-reality {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .sprint-reality p {
+            font-size: 0.92rem;
+            color: #475569;
+            line-height: 1.7;
+            margin-bottom: 0.65rem;
+            font-weight: 500;
+        }
+
+        .sprint-reality p:last-child {
+            margin-bottom: 0;
+        }
+
+        .sprint-reality strong {
+            color: #1e293b;
+        }
+
+        .sprint-transition-line {
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin: 2rem 0 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* SPRINT MOBILE */
+        @media only screen and (max-width: 768px) {
+            .sprint-steps { grid-template-columns: 1fr; gap: 0.75rem; }
+            .sprint-tiers { grid-template-columns: 1fr; gap: 1.25rem; }
+            .sprint-dfy-grid { grid-template-columns: 1fr; }
+            .sprint-boost-highlights { grid-template-columns: 1fr; }
+            .sprint-tier { padding: 1.5rem; }
+            .sprint-what-it-takes { grid-template-columns: 1fr; }
+        }
+
+
         /* ==================== NO FOOTER ==================== */
         .footer {
             display: none;
@@ -1362,6 +1909,30 @@
         </div>
     </div>
 
+    <!-- HOW IT WORKS — 3 Steps -->
+    <div style="text-align: center; margin-bottom: 1.25rem;">
+        <div style="font-size: 1.4rem; font-weight: 900; color: #0f172a; margin-bottom: 0.25rem;">How It Works</div>
+        <div style="font-size: 0.88rem; color: #64748b;">Three simple steps. Zero guesswork.</div>
+    </div>
+    <div class="sprint-steps">
+        <div class="sprint-step">
+            <div class="sprint-step-num">1</div>
+            <div class="sprint-step-title">Choose Your Plan</div>
+            <div class="sprint-step-desc">Pick the tier that matches your business. Most start with Growth.</div>
+        </div>
+        <div class="sprint-step">
+            <div class="sprint-step-num">2</div>
+            <div class="sprint-step-title">We Optimize &amp; Implement</div>
+            <div class="sprint-step-desc">We rewrite and optimize your pages for AI, voice, and search — then implement directly on your site.</div>
+        </div>
+        <div class="sprint-step">
+            <div class="sprint-step-num">3</div>
+            <div class="sprint-step-title">Grow Every Month</div>
+            <div class="sprint-step-desc">We keep building — new optimized content every month while your authority compounds.</div>
+        </div>
+    </div>
+
+    <!-- PRICING-START -->
     <!-- PRICING CARDS -->
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 0 0 1.25rem;">
 
@@ -1369,19 +1940,16 @@
         <div style="background: linear-gradient(160deg, #f8faff 0%, #ffffff 100%); border: 2px solid #c7d4e8; border-top: 5px solid #1e3a5f; border-radius: 14px; padding: 1.1rem; box-shadow: 0 4px 20px rgba(30,58,95,0.09); display: flex; flex-direction: column;">
             <div style="font-size: 1.1rem; font-weight: 900; color: #1e3a5f; margin-bottom: 0.1rem;">Starter</div>
             <div style="font-size: 0.8rem; color: #64748b; font-style: italic; margin-bottom: 1rem;">Get found for your core services</div>
-            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; margin-bottom: 0.15rem;">One-Time Investment</div>
-            <div style="font-size: 1.9rem; font-weight: 900; color: #1e3a5f; line-height: 1; margin-bottom: 0.1rem;">$397</div>
-            <div style="font-size: 0.78rem; font-weight: 600; color: #475569; margin-bottom: 0.85rem; padding: 0.35rem 0.6rem; background: #f1f5f9; border-radius: 6px; display: inline-block;">Homepage + 3 key pages fully optimized</div>
-            <hr style="border: none; border-top: 1px solid #dde5f0; margin: 0 0 0.6rem 0;">
-            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; margin-bottom: 0.15rem;">Then Monthly</div>
-            <div style="font-size: 1.5rem; font-weight: 900; color: #1e3a5f; margin-bottom: 0.65rem;">$297<span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">/mo</span></div>
+            <div style="font-size: 1.9rem; font-weight: 900; color: #1e3a5f; line-height: 1; margin-bottom: 0.1rem;">$397<span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">/mo</span></div>
+            <div style="font-size: 0.78rem; font-weight: 600; color: #475569; margin-bottom: 0.85rem; padding: 0.35rem 0.6rem; background: #f1f5f9; border-radius: 6px; display: inline-block;">4 key pages/blogs rewritten &amp; optimized for<br>Traditional, AI &amp; Voice Search monthly</div>
             <ul style="list-style: none; padding: 0; margin: 0 0 0.85rem 0; flex-grow: 1;">
-                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>1 page rewritten &amp; optimized / month</li>
-                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>1 new blog post written for you / month</li>
-                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>AI &amp; voice search optimization</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>1 page or blog rewritten &amp; optimized / weekly</li>
                 <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Schema markup implementation</li>
                 <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>E-E-A-T trust signals</li>
-                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Monthly performance report</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>YMYL compliance optimization</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Strategic interlinking</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Local search &amp; map pack optimization</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Google Business Profile optimization</li>
             </ul>
             <!-- Elegant Visibility Boost badge — light, no dark boxes -->
             <div style="border: 1.5px solid #D4AF37; border-radius: 10px; padding: 0.65rem 0.9rem; margin-bottom: 0.85rem; background: linear-gradient(135deg, #fffbeb, #fef9e7); text-align: center;">
@@ -1397,19 +1965,16 @@
         <div style="background: linear-gradient(160deg, #f0fdf8 0%, #ffffff 100%); border: 3px solid #10b981; border-top: 5px solid #059669; border-radius: 14px; padding: 1.1rem; box-shadow: 0 8px 32px rgba(16,185,129,0.18); position: relative; display: flex; flex-direction: column; transform: translateY(-6px);">
             <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #10b981, #059669); color: white; font-size: 0.74rem; font-weight: 800; padding: 0.35rem 1.1rem; border-radius: 50px; white-space: nowrap; box-shadow: 0 3px 10px rgba(16,185,129,0.4);">⭐ MOST POPULAR</div>
             <div style="font-size: 1.1rem; font-weight: 900; color: #065f46; margin-bottom: 0.1rem; margin-top: 0.5rem;">Growth</div>
-            <div style="font-size: 0.8rem; color: #64748b; font-style: italic; margin-bottom: 1rem;">Dominate your full service lineup</div>
-            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; margin-bottom: 0.15rem;">One-Time Investment</div>
-            <div style="font-size: 1.9rem; font-weight: 900; color: #065f46; line-height: 1; margin-bottom: 0.1rem;">$797</div>
-            <div style="font-size: 0.78rem; font-weight: 600; color: #475569; margin-bottom: 0.85rem; padding: 0.35rem 0.6rem; background: #f0fdf4; border-radius: 6px; display: inline-block;">Homepage + 8 key pages fully optimized</div>
-            <hr style="border: none; border-top: 1px solid #a7f3d0; margin: 0 0 0.6rem 0;">
-            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; margin-bottom: 0.15rem;">Then Monthly</div>
-            <div style="font-size: 1.5rem; font-weight: 900; color: #065f46; margin-bottom: 0.65rem;">$497<span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">/mo</span></div>
+            <div style="font-size: 0.8rem; color: #64748b; font-style: italic; margin-bottom: 1rem;">Become the name AI recommends first</div>
+            <div style="font-size: 1.9rem; font-weight: 900; color: #065f46; line-height: 1; margin-bottom: 0.1rem;">$797<span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">/mo</span></div>
+            <div style="font-size: 0.78rem; font-weight: 600; color: #475569; margin-bottom: 0.85rem; padding: 0.35rem 0.6rem; background: #f0fdf4; border-radius: 6px; display: inline-block;">8 key pages/blogs rewritten &amp; optimized for<br>Traditional, AI &amp; Voice Search monthly</div>
             <ul style="list-style: none; padding: 0; margin: 0 0 0.85rem 0; flex-grow: 1;">
-                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>2 pages rewritten &amp; optimized / month</li>
-                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>2 new blog posts written for you / month</li>
-                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Everything in Starter</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>2 pages rewritten &amp; optimized / weekly</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span><strong>Everything in Starter</strong></li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Content gap analysis</li>
                 <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Expanded internal linking architecture</li>
-                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Additional keyword targeting</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Competitor keyword targeting</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Competitor visibility monitoring</li>
                 <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #10b981; font-weight: 700;">✓</span>Monthly performance report</li>
             </ul>
             <!-- Elegant Visibility Boost badge — green -->
@@ -1426,16 +1991,14 @@
         <div style="background: linear-gradient(160deg, #fdf8ee 0%, #ffffff 100%); border: 3px solid #D4AF37; border-top: 5px solid #B8941F; border-radius: 14px; padding: 1.1rem; box-shadow: 0 6px 24px rgba(212,175,55,0.18); display: flex; flex-direction: column;">
             <div style="font-size: 1.1rem; font-weight: 900; color: #B8941F; margin-bottom: 0.1rem;">Authority</div>
             <div style="font-size: 0.8rem; color: #92762a; font-style: italic; margin-bottom: 1rem;">Own your entire market presence</div>
-            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; margin-bottom: 0.15rem;">One-Time Investment</div>
-            <div style="font-size: 1.9rem; font-weight: 900; color: #B8941F; line-height: 1; margin-bottom: 0.1rem;">$1,297</div>
-            <div style="font-size: 0.78rem; font-weight: 600; color: #475569; margin-bottom: 0.85rem; padding: 0.35rem 0.6rem; background: #fefce8; border-radius: 6px; display: inline-block;">Homepage + 14 key pages fully optimized</div>
-            <hr style="border: none; border-top: 1px solid #f3e4b0; margin: 0 0 0.6rem 0;">
-            <div style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; margin-bottom: 0.15rem;">Then Monthly</div>
-            <div style="font-size: 1.5rem; font-weight: 900; color: #B8941F; margin-bottom: 0.65rem;">$797<span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">/mo</span></div>
+            <div style="font-size: 1.9rem; font-weight: 900; color: #B8941F; line-height: 1; margin-bottom: 0.1rem;">$1,297<span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">/mo</span></div>
+            <div style="font-size: 0.78rem; font-weight: 600; color: #475569; margin-bottom: 0.85rem; padding: 0.35rem 0.6rem; background: #fefce8; border-radius: 6px; display: inline-block;">16 key pages/blogs rewritten or new &amp; optimized for<br>Traditional, AI &amp; Voice Search monthly</div>
             <ul style="list-style: none; padding: 0; margin: 0 0 0.85rem 0; flex-grow: 1;">
-                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>3 pages rewritten &amp; optimized / month</li>
-                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>4 new blog posts written for you / month</li>
-                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>Everything in Growth</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>4 pages or blogs rewritten or new / weekly</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span><strong>Everything in Growth</strong></li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>Full site architecture audit</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>Topical authority mapping</li>
+                <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>Custom content calendar</li>
                 <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>Priority delivery</li>
                 <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>60-min strategy session</li>
                 <li style="font-size: 0.78rem; color: #334155; padding: 0.2rem 0; padding-left: 1.3rem; position: relative; line-height: 1.45;"><span style="position: absolute; left: 0; color: #D4AF37; font-weight: 700;">✓</span>30-day check-in call</li>
@@ -1450,6 +2013,11 @@
             <div style="text-align: center; font-size: 0.74rem; color: #94a3b8; margin-top: 0.55rem; font-style: italic;">3-month minimum</div>
         </div>
 
+    </div>
+
+    <!-- ORIGINAL PAGES FOOTNOTE -->
+    <div style="text-align: center; font-size: 0.78rem; color: #64748b; margin: 0.75rem 0 1.25rem; font-style: italic;">
+        * All plans cover one website only. Starter &amp; Growth rewrite existing pages on your current site. New page creation included with Authority, or available as an add-on for any plan.
     </div>
 
     <!-- PREMIUM VISIBILITY BOOST INTRO — classy bridge -->
@@ -1518,35 +2086,27 @@
         <a href="https://api.leadconnectorhq.com/widget/booking/ySlc5m7TXjSmJ1GEKSgg" style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 0.85rem 2.5rem; border-radius: 50px; font-size: 0.95rem; font-weight: 800; text-decoration: none; box-shadow: 0 4px 18px rgba(16,185,129,0.3); letter-spacing: 0.01em;">📞 Book a Free 15-Min Strategy Session →</a>
         <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.6rem; font-style: italic;">No pitch. No pressure. Just your next steps.</div>
     </div>
+    <!-- PRICING-END -->
 
-    <!-- Guarantee + CTA -->
-    <div class="guarantee-box">
-        <h3>🔒 Our Iron-Clad 90-Day Guarantee</h3>
-        <p>
-            If we don't improve your visibility by <strong>50%+ across AI Search, Voice Search, and Traditional SEO</strong> 
-            within 90 days, we'll work for <strong>FREE</strong> until we do.<br><br>
-            No questions asked. No fine print. No excuses.
-        </p>
-    </div>
-
-    <!-- FUTURE-FOCUSED CLOSING -->
-    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 3px solid #D4AF37; border-radius: 16px; padding: 2.5rem; margin: 3rem 0 2rem 0; text-align: center; box-shadow: 0 8px 24px rgba(212,175,55,0.3);">
-        <div style="font-size: 1.6rem; font-weight: 900; color: #ffffff; margin-bottom: 1.5rem;">
-            🏆 The Race for AI Visibility Just Started
+    <!-- DARK CLOSING BOX -->
+    <div style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 3px solid #D4AF37; border-radius: 16px; padding: 2.5rem; margin: 0 0 1rem 0; text-align: center; box-shadow: 0 8px 24px rgba(212,175,55,0.3);">
+        <div style="font-size: 1.5rem; font-weight: 900; color: #ffffff; margin-bottom: 1.25rem;">
+            🏆 The Race for AI Visibility Has Already Started
         </div>
-        <div style="font-size: 1.1rem; color: #e2e8f0; font-weight: 600; line-height: 1.9; margin-bottom: 2rem;">
+        <div style="font-size: 1.05rem; color: #e2e8f0; font-weight: 600; line-height: 1.8; margin-bottom: 1.75rem;">
             Right now, there's still room at the top of <strong style="color: #ef4444; font-weight: 900;">AI search and voice platforms</strong>.<br>
-            In 6 months? Your competitors will own those spots. Unless you move first.
+            In 6 months? Your competitors will own those spots — unless you move first.
         </div>
-        <a href="https://api.leadconnectorhq.com/widget/booking/ySlc5m7TXjSmJ1GEKSgg" style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 1.5rem 3rem; border-radius: 50px; font-size: 1.3rem; font-weight: 900; text-decoration: none; box-shadow: 0 12px 32px rgba(16,185,129,0.4); transition: all 0.3s ease; letter-spacing: 0.3px;">
-            Schedule Your Free Visibility Strategy Call →
+        <a href="#" style="display: inline-block; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 1.35rem 2.75rem; border-radius: 50px; font-size: 1.2rem; font-weight: 900; text-decoration: none; box-shadow: 0 12px 32px rgba(16,185,129,0.4); letter-spacing: 0.3px;">
+            SCHEDULE YOUR FREE STRATEGY CALL →
         </a>
-        <div style="font-size: 0.95rem; color: #94a3b8; margin-top: 1.5rem; font-weight: 600;">
+        <div style="font-size: 0.88rem; color: #94a3b8; margin-top: 1.25rem; font-weight: 600;">
             Limited spots this month — <strong style="color: #ef4444; font-weight: 900;">Early movers dominate</strong>.
         </div>
     </div>
 
-</div>
+
+</div><!-- end .page -->
 
 </body>
 </html>
